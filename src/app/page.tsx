@@ -23,7 +23,7 @@ export default function Home() {
         textAlign: 'center',
         letterSpacing: '0.5px',
       }}>
-        VEDA ADVISORS DEMO PREVIEW — Generated from 12 Python Modules — Scroll down to see all sections
+        VEDA ADVISORS — Stop Chasing Investors. Make Them Chase You.
       </div>
       
       {/* Loading state */}
@@ -43,7 +43,7 @@ export default function Home() {
       {/* Iframe displaying the full HTML */}
       <iframe
         ref={iframeRef}
-        src="/api/veda"
+        src="/demo.html"
         style={{
           width: '100%',
           height: 'calc(100vh - 32px)',

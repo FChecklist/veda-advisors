@@ -1,0 +1,3222 @@
+<!DOCTYPE html>
+<!--
+============================================================================
+VEDA ADVISORS — COMPLETE DEMO WEBSITE
+============================================================================
+FILE: index.html
+VERSION: 1.0 | June 2026
+CREATED BY: Python module-based generation system (12 modules)
+
+WHAT THIS IS:
+  A single self-contained HTML file that works on any laptop.
+  No internet required for layout. No server needed.
+  Just double-click and open in any browser.
+
+HOW IT WAS BUILT:
+  - 12 Python modules (modules/module_01_nav.py through module_12_cta_footer.py)
+  - Each module generates an HTML fragment saved to fragments/
+  - This merge script (merge_all.py) combines all fragments with CSS + JS
+  - Every section has extensive comments explaining WHY decisions were made
+
+DESIGN SYSTEM:
+  - Primary Background: #0D2B1F (very dark green)
+  - Secondary Background: #1B3A2D (dark green cards)
+  - Accent Gold: #C9A84C (CTAs, highlights, numbers)
+  - Text: #FFFFFF (primary), #B8C9BF (secondary), #7A9E8A (muted)
+  - Font: Inter (400, 600, 700, 800, 900)
+  - Mobile-first responsive at 768px breakpoint
+
+SECTIONS (in order):
+  Section 0:  Navigation Bar (fixed, glass-morphism)
+  Section 1:  Hero (100vh, Rajat Sir photo, master headline)
+  Section 2:  The Pain (4 reason cards, red borders)
+  Section 3:  The Numbers (400+, 600+, 28 years — gold stats)
+  Section 4:  Proof Stories (UElement ₹15Cr, ARC Electric ₹3Cr)
+  Section 5:  BSCVI 3.0 System (journey map, 6 stops)
+  Section 6:  Rajat Sir (personal section, confidentiality promise)
+  Section 7:  Who This Is For (founders + students)
+  Section 8:  The Filter (exclusive, checklist + anti-checklist)
+  Section 9:  Stage 0 Preview (form teaser, Q1 visible)
+  Section 10: Global Reach (India, UAE, SE Asia, UK)
+  Section 11: WhatsApp CTA (direct access section)
+  Section 12: Footer (3 columns + bottom bar)
+
+IMAGES EXPECTED (in images/ folder):
+  - MAIN - Full Logo Veda full logo with Slate Teak BG.png
+  - MAIN - Short Logo Veda logo Slate Teak BG.png
+  - RAJAT Sir Image College.jpeg
+  - IMG_6215 (1).JPG
+  - IMG_6287.JPG
+
+CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
+============================================================================
+-->
+<html lang="en">
+<head>
+    <!-- ====================================================================
+         META TAGS
+         ====================================================================
+         WHY: viewport for responsive, charset for special characters,
+         description for SEO (even in demo), title for browser tab.
+         ==================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veda Advisors — Stop Chasing Investors. Make Them Chase You. Startup Fundraising Advisory by Rajat Sir with a proven 5-stage system. 400+ startups funded.">
+    <title>Veda Advisors — Startup Fundraising Advisor | Rajat Sir</title>
+    
+    <!-- FAVICON (short logo) -->
+    <link rel="icon" type="image/png" href="images/MAIN - Short Logo Veda logo Slate Teak BG.png">
+
+    <!-- ====================================================================
+         GOOGLE FONTS: Inter
+         ====================================================================
+         WHY: Inter is the specified font from the design system.
+         Weights: 400 (body), 600 (captions), 700 (titles), 800 (headlines), 900 (hero).
+         Falls back to Arial if offline (per build prompt).
+         ==================================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ====================================================================
+         COMPLETE STYLESHEET
+         ====================================================================
+         All CSS is inline (in this <style> tag) so the file is self-contained.
+         Every CSS rule has a comment explaining its purpose.
+         ==================================================================== -->
+    <style>
+
+    /* ====================================================================
+       COMPLETE CSS — VEDA ADVISORS DEMO WEBSITE
+       ====================================================================
+       DESIGN SYSTEM (from Build Prompt):
+       - Primary BG: #0D2B1F (very dark green)
+       - Secondary BG: #1B3A2D (dark green for cards)
+       - Accent Gold: #C9A84C (CTAs, highlights, numbers)
+       - Gold Light: #E8C96A (hover states)
+       - Text Primary: #FFFFFF
+       - Text Secondary: #B8C9BF (muted green-white)
+       - Text Muted: #7A9E8A (labels, captions)
+       - Border: #2D4F3C (subtle dark green)
+       - Danger: #E05252 (wrong indicators)
+       
+       TYPOGRAPHY:
+       - Font: Inter, fallback to Arial
+       - H1: 72px/40px mobile, weight 900
+       - H2: 48px/32px mobile, weight 800
+       - Body: 18px/16px mobile, weight 400, line-height 1.7
+       
+       SPACING:
+       - Section padding: 120px/60px mobile
+       - Container max-width: 1200px
+       - Card padding: 40px/24px mobile
+       - Grid gap: 32px/16px mobile
+       ==================================================================== */
+
+    /* ====================================================================
+       RESET & BASE STYLES
+       ====================================================================
+       WHY: CSS reset ensures consistent rendering across browsers.
+       Box-sizing border-box makes padding behave predictably.
+       Smooth scroll enables anchor link navigation.
+       ==================================================================== */
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth; /* WHY: All anchor links smooth-scroll */
+        font-size: 16px;
+    }
+
+    body {
+        /* WHY: #0D2B1F is the primary background — very dark green,
+             almost black-green. No white backgrounds anywhere. */
+        background-color: #0D2B1F;
+        color: #FFFFFF;
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 400;
+        line-height: 1.7;
+        overflow-x: hidden; /* Prevents horizontal scroll from animations */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hide elements on mobile */
+    .hide-mobile {
+        display: block;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+
+    /* ====================================================================
+       UTILITY CLASSES
+       ==================================================================== */
+    .gold-text {
+        color: #C9A84C; /* WHY: Gold is used ONLY for headlines, CTAs,
+                           numbers, borders — not for body text */
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px; /* WHY: 24px side padding on mobile */
+    }
+
+    .section-headline {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-align: center;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .section-subheadline {
+        font-size: 18px;
+        color: #B8C9BF;
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    /* ====================================================================
+       CTA BUTTON STYLES (from Build Prompt)
+       ====================================================================
+       WHY: The CTA button is the #1 conversion element. It must be:
+       - Gold (#C9A84C) background
+       - Dark text (#0D2B1F)
+       - Large padding (18px 40px)
+       - Bold (700 weight)
+       - Subtle pulse animation
+       - Hover: lighter gold (#E8C96A)
+       ==================================================================== */
+    .cta-primary {
+        display: inline-block;
+        background: #C9A84C;
+        color: #0D2B1F;
+        padding: 18px 40px;
+        font-size: 18px;
+        font-weight: 700;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        /* Pulse animation — draws eye to the button */
+        animation: cta-pulse 2.5s infinite;
+    }
+
+    .cta-primary:hover {
+        background: #E8C96A;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+    }
+
+    /* CTA Pulse Animation — subtle gold glow */
+    @keyframes cta-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(201, 168, 76, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0); }
+    }
+
+    /* ====================================================================
+       NAVIGATION BAR (Section 0)
+       ==================================================================== */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(13, 43, 31, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid #2D4F3C;
+        transition: all 0.3s ease;
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav-logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-logo-img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .nav-logo-desktop { display: block; }
+    .nav-logo-mobile { display: none; }
+
+    .nav-logo-fallback {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .nav-cta {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+
+    /* Hamburger — hidden on desktop */
+    .nav-hamburger-check { display: none; }
+    .nav-hamburger {
+        display: none; /* Shown on mobile */
+    }
+    .nav-mobile-menu { display: none; }
+
+    /* ====================================================================
+       HERO SECTION (Section 1)
+       ====================================================================
+       WHY: 100vh dominates the viewport. Two-column layout on desktop.
+       CSS-only diagonal pattern creates visual texture.
+       ==================================================================== */
+    .hero-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-top: 72px; /* Account for fixed navbar */
+        overflow: hidden;
+    }
+
+    /* CSS-ONLY DIAGONAL PATTERN OVERLAY */
+    .hero-pattern-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background:
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(45, 79, 60, 0.08) 40px,
+                rgba(45, 79, 60, 0.08) 41px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 40px,
+                rgba(45, 79, 60, 0.08) 40px,
+                rgba(45, 79, 60, 0.08) 41px
+            );
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: 1fr 0.85fr;
+        gap: 48px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-content {
+        padding: 40px 0;
+    }
+
+    .hero-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #C9A84C;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+    }
+
+    .hero-label-line {
+        width: 60px;
+        height: 3px;
+        background: #C9A84C;
+        margin-bottom: 32px;
+        border-radius: 2px;
+    }
+
+    .hero-headline {
+        font-size: 72px;
+        font-weight: 900;
+        line-height: 1.0;
+        letter-spacing: -1px;
+        margin-bottom: 24px;
+    }
+
+    .hero-headline-accent {
+        color: #C9A84C;
+    }
+
+    .hero-subline {
+        font-size: 18px;
+        color: #B8C9BF;
+        line-height: 1.7;
+        margin-bottom: 24px;
+    }
+
+    .hero-claim {
+        font-size: 17px;
+        color: #C9A84C;
+        font-style: italic;
+        margin-bottom: 32px;
+        border-left: 3px solid #C9A84C;
+        padding-left: 20px;
+    }
+
+    .hero-cta {
+        margin-bottom: 12px;
+    }
+
+    .hero-trust-text {
+        font-size: 14px;
+        color: #7A9E8A;
+        margin-bottom: 24px;
+    }
+
+    .hero-whatsapp a {
+        font-size: 15px;
+        color: #B8C9BF;
+        transition: color 0.3s;
+    }
+    .hero-whatsapp a:hover { color: #C9A84C; }
+
+    /* HERO IMAGE — Right side */
+    .hero-image-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-image-container {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: 440px;
+        height: 560px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .hero-image-glow {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 16px;
+        box-shadow: 0 0 40px rgba(201, 168, 76, 0.15), inset 0 0 40px rgba(201, 168, 76, 0.05);
+        border: 2px solid rgba(201, 168, 76, 0.3);
+        pointer-events: none;
+    }
+
+    .hero-credential-badge {
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(13, 43, 31, 0.95);
+        border: 1px solid #C9A84C;
+        border-radius: 12px;
+        padding: 16px 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .badge-item {
+        font-size: 14px;
+        font-weight: 600;
+        color: #FFFFFF;
+        padding: 4px 0;
+    }
+
+    /* SCROLL INDICATOR */
+    .hero-scroll-indicator {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    .scroll-text {
+        font-size: 12px;
+        color: #7A9E8A;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+
+    .scroll-arrow {
+        font-size: 24px;
+        color: #C9A84C;
+        animation: scroll-bounce 2s infinite;
+    }
+
+    @keyframes scroll-bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(8px); }
+        60% { transform: translateY(4px); }
+    }
+
+    /* ====================================================================
+       PAIN SECTION (Section 2)
+       ==================================================================== */
+    .pain-section {
+        padding: 120px 0;
+        background: #0D2B1F;
+    }
+
+    .pain-subheadline {
+        font-size: 20px;
+        color: #C9A84C;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    .pain-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        max-width: 900px;
+        margin: 0 auto 48px;
+    }
+
+    .pain-card {
+        background: #1B3A2D;
+        border-left: 4px solid #E05252;
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
+
+    .pain-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .pain-card-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .pain-card-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #FFFFFF;
+    }
+
+    .pain-card-body {
+        font-size: 15px;
+        color: #B8C9BF;
+        line-height: 1.6;
+    }
+
+    .pain-statement {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 32px;
+        border-top: 1px solid #2D4F3C;
+    }
+
+    .pain-statement-text {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #FFFFFF;
+    }
+
+    .pain-statement-author {
+        font-size: 16px;
+        color: #C9A84C;
+        margin-top: 12px;
+    }
+
+    /* ====================================================================
+       NUMBERS SECTION (Section 3)
+       ====================================================================
+       WHY: Darker background (#111F17) creates visual separation.
+       Gold 96px numbers for impact. Vertical dividers between stats.
+       ==================================================================== */
+    .numbers-section {
+        padding: 120px 0;
+        background: #111F17;
+    }
+
+    .numbers-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+        text-align: center;
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto 48px;
+    }
+
+    /* Vertical gold dividers between stats */
+    .numbers-grid > .stat-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 10%;
+        height: 80%;
+        width: 1px;
+        background: rgba(201, 168, 76, 0.3);
+    }
+
+    .stat-item {
+        position: relative;
+        padding: 24px;
+    }
+
+    .stat-number {
+        font-size: 96px;
+        font-weight: 900;
+        color: #C9A84C;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .stat-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+
+    .stat-desc {
+        font-size: 14px;
+        color: #7A9E8A;
+    }
+
+    .numbers-cta-wrapper {
+        text-align: center;
+    }
+
+    .numbers-tribe-text {
+        font-size: 18px;
+        color: #B8C9BF;
+        font-style: italic;
+        margin-bottom: 24px;
+    }
+
+    /* ====================================================================
+       PROOF STORIES SECTION (Section 4)
+       ==================================================================== */
+    .proof-section {
+        padding: 120px 0;
+        background: #0D2B1F;
+    }
+
+    .proof-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        max-width: 900px;
+        margin: 0 auto 48px;
+    }
+
+    .proof-card {
+        background: #1B3A2D;
+        border-top: 4px solid #C9A84C;
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
+
+    .proof-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .proof-badge {
+        display: inline-block;
+        background: rgba(201, 168, 76, 0.15);
+        color: #C9A84C;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    .proof-startup-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .proof-amount {
+        font-size: 48px;
+        font-weight: 900;
+        color: #C9A84C;
+        line-height: 1.1;
+        margin-bottom: 4px;
+    }
+
+    .proof-amount-usd {
+        font-size: 16px;
+        color: #7A9E8A;
+        margin-bottom: 16px;
+    }
+
+    .proof-founder {
+        font-size: 16px;
+        color: #B8C9BF;
+        margin-bottom: 16px;
+    }
+
+    .proof-quote {
+        font-size: 15px;
+        color: #B8C9BF;
+        font-style: italic;
+        border-top: 1px solid #2D4F3C;
+        padding-top: 16px;
+        line-height: 1.6;
+    }
+
+    .proof-closing {
+        text-align: center;
+        font-size: 18px;
+        color: #B8C9BF;
+        font-style: italic;
+    }
+
+    /* ====================================================================
+       BSCVI 3.0 SYSTEM SECTION (Section 5)
+       ====================================================================
+       WHY: The journey map is horizontal on desktop with a gold dashed
+       connecting line. Each stop is a numbered circle.
+       ==================================================================== */
+    .bscvi-section {
+        padding: 120px 0;
+        background: #111F17;
+    }
+
+    .bscvi-subheadline {
+        font-size: 20px;
+        color: #C9A84C;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .journey-map {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        position: relative;
+        max-width: 1100px;
+        margin: 0 auto 40px;
+        padding: 0 20px;
+    }
+
+    /* Gold dashed connecting line */
+    .journey-line {
+        position: absolute;
+        top: 30px;
+        left: 50px;
+        right: 50px;
+        height: 2px;
+        background: repeating-linear-gradient(
+            90deg,
+            #C9A84C,
+            #C9A84C 8px,
+            transparent 8px,
+            transparent 16px
+        );
+        z-index: 0;
+    }
+
+    .journey-stop {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        padding: 0 8px;
+    }
+
+    .journey-stop-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 900;
+        margin: 0 auto 16px;
+        background: #1B3A2D;
+        border: 3px solid #C9A84C;
+        color: #FFFFFF;
+        transition: all 0.3s ease;
+    }
+
+    .journey-stop-free {
+        background: #C9A84C;
+        color: #0D2B1F;
+        box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+    }
+
+    .journey-stop-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .journey-stop-sub {
+        font-size: 13px;
+        color: #B8C9BF;
+        margin-bottom: 8px;
+    }
+
+    .journey-badge {
+        display: inline-block;
+        background: rgba(45, 79, 60, 0.5);
+        color: #7A9E8A;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-bottom: 12px;
+    }
+
+    .journey-badge-free {
+        background: rgba(201, 168, 76, 0.2);
+        color: #C9A84C;
+    }
+
+    .journey-stop-desc {
+        font-size: 13px;
+        color: #7A9E8A;
+        line-height: 1.5;
+        max-width: 150px;
+        margin: 0 auto;
+    }
+
+    .bscvi-note {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .bscvi-note p {
+        font-size: 16px;
+        color: #B8C9BF;
+        margin-bottom: 4px;
+    }
+
+    .bscvi-cta-wrapper {
+        text-align: center;
+    }
+
+    /* ====================================================================
+       RAJAT SIR SECTION (Section 6)
+       ==================================================================== */
+    .rajat-section {
+        padding: 120px 0;
+        background: #0D2B1F;
+    }
+
+    .rajat-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 48px;
+        align-items: start;
+    }
+
+    .rajat-photo-wrapper {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .rajat-photo {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 16px;
+    }
+
+    .rajat-photo-glow {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 16px;
+        border: 2px solid rgba(201, 168, 76, 0.3);
+        box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
+        pointer-events: none;
+    }
+
+    .rajat-photo-credential-strip {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(13, 43, 31, 0.9);
+        padding: 12px 20px;
+        font-size: 13px;
+        color: #B8C9BF;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .rajat-content {
+        padding-top: 16px;
+    }
+
+    .rajat-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #C9A84C;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+    }
+
+    .rajat-headline {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+    }
+
+    .rajat-paragraph p {
+        font-size: 16px;
+        color: #B8C9BF;
+        margin-bottom: 12px;
+        line-height: 1.7;
+    }
+
+    .confidentiality-box {
+        background: rgba(201, 168, 76, 0.05);
+        border: 2px solid #C9A84C;
+        border-radius: 12px;
+        padding: 24px;
+        margin: 32px 0;
+        text-align: center;
+    }
+
+    .confidentiality-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .confidentiality-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #FFFFFF;
+    }
+
+    .confidentiality-author {
+        font-size: 14px;
+        color: #C9A84C;
+        margin-top: 8px;
+    }
+
+    .rajat-badges-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .rajat-badge {
+        background: #1B3A2D;
+        border: 1px solid #2D4F3C;
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .badge-icon {
+        font-size: 24px;
+    }
+
+    .badge-text {
+        font-size: 13px;
+        color: #B8C9BF;
+        font-weight: 500;
+    }
+
+    .rajat-cta-subtext {
+        font-size: 14px;
+        color: #7A9E8A;
+        margin-top: 12px;
+    }
+
+    /* ====================================================================
+       AUDIENCE SECTION (Section 7)
+       ==================================================================== */
+    .audience-section {
+        padding: 120px 0;
+        background: #111F17;
+    }
+
+    .audience-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .audience-card {
+        background: #1B3A2D;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
+
+    .audience-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .audience-card-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .audience-card-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .audience-card-sub {
+        font-size: 15px;
+        color: #7A9E8A;
+        margin-bottom: 24px;
+    }
+
+    .audience-pain-list {
+        margin-bottom: 16px;
+    }
+
+    .audience-pain-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        font-size: 15px;
+        color: #B8C9BF;
+    }
+
+    .pain-x { font-size: 16px; flex-shrink: 0; }
+
+    .audience-divider {
+        height: 1px;
+        background: #C9A84C;
+        margin: 20px 0;
+        opacity: 0.5;
+    }
+
+    .audience-solution-list {
+        margin-bottom: 20px;
+    }
+
+    .audience-solution-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        font-size: 15px;
+        color: #FFFFFF;
+    }
+
+    .solution-check { color: #C9A84C; font-size: 16px; flex-shrink: 0; }
+
+    .audience-headline-italic {
+        font-size: 16px;
+        color: #C9A84C;
+        font-style: italic;
+        border-top: 1px solid #2D4F3C;
+        padding-top: 16px;
+        line-height: 1.5;
+    }
+
+    /* ====================================================================
+       FILTER SECTION (Section 8)
+       ====================================================================
+       WHY: Even darker background (#0A1A10), centered, max-width 700px.
+       Creates intimate, serious, exclusive tone.
+       ==================================================================== */
+    .filter-section {
+        padding: 120px 0;
+        background: #0A1A10;
+    }
+
+    .filter-content {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .filter-quote-mark {
+        font-size: 120px;
+        color: #C9A84C;
+        line-height: 0.6;
+        opacity: 0.3;
+        margin-bottom: 16px;
+    }
+
+    .filter-headline {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 24px;
+    }
+
+    .filter-body {
+        font-size: 18px;
+        color: #B8C9BF;
+        margin-bottom: 8px;
+    }
+
+    .filter-body-emphasis {
+        font-size: 20px;
+        color: #B8C9BF;
+        margin-bottom: 40px;
+    }
+
+    .filter-checklist, .filter-antilist {
+        text-align: left;
+        margin-bottom: 32px;
+    }
+
+    .filter-list-title {
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    .filter-check-item, .filter-anti-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        font-size: 16px;
+        color: #B8C9BF;
+    }
+
+    .filter-check-icon { font-size: 18px; font-weight: 700; flex-shrink: 0; }
+    .filter-anti-icon { font-size: 16px; flex-shrink: 0; }
+
+    .filter-cta-subtext {
+        font-size: 14px;
+        color: #7A9E8A;
+        margin-top: 16px;
+    }
+
+    /* ====================================================================
+       STAGE 0 PREVIEW SECTION (Section 9)
+       ==================================================================== */
+    .stage0-section {
+        padding: 120px 0;
+        background: #0D2B1F;
+    }
+
+    .stage0-form-card {
+        max-width: 600px;
+        margin: 0 auto 32px;
+        background: #1B3A2D;
+        border: 1px solid #2D4F3C;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    .stage0-progress {
+        position: relative;
+        height: 6px;
+        background: #2D4F3C;
+        border-radius: 3px;
+        margin-bottom: 32px;
+        overflow: hidden;
+    }
+
+    .stage0-progress-bar {
+        height: 100%;
+        background: #C9A84C;
+        border-radius: 3px;
+        transition: width 0.3s;
+    }
+
+    .stage0-progress-text {
+        position: absolute;
+        right: 0;
+        top: -24px;
+        font-size: 13px;
+        color: #7A9E8A;
+    }
+
+    .stage0-questions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .stage0-question {
+        background: #0D2B1F;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #2D4F3C;
+    }
+
+    .stage0-question-active {
+        border-color: #C9A84C;
+    }
+
+    .stage0-question-number {
+        font-size: 12px;
+        font-weight: 700;
+        color: #C9A84C;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .stage0-question-text {
+        font-size: 16px;
+        color: #FFFFFF;
+        margin-bottom: 12px;
+        font-weight: 500;
+    }
+
+    .stage0-input {
+        width: 100%;
+        background: #1B3A2D;
+        border: 1px solid #2D4F3C;
+        border-radius: 6px;
+        padding: 12px 16px;
+        color: #FFFFFF;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .stage0-input:focus {
+        border-color: #C9A84C;
+    }
+
+    .stage0-question-locked {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .stage0-question-blur {
+        font-size: 18px;
+        color: #7A9E8A;
+        letter-spacing: 4px;
+    }
+
+    .stage0-locked-label {
+        font-size: 12px;
+        color: #7A9E8A;
+        margin-top: 4px;
+    }
+
+    .stage0-teaser-text {
+        text-align: center;
+        font-size: 16px;
+        color: #B8C9BF;
+        margin-bottom: 32px;
+    }
+
+    .stage0-process-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+    }
+
+    .process-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .process-step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #C9A84C;
+        color: #0D2B1F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .process-step-text {
+        font-size: 14px;
+        color: #B8C9BF;
+        font-weight: 500;
+    }
+
+    .process-step-arrow {
+        color: #C9A84C;
+        font-size: 20px;
+    }
+
+    /* ====================================================================
+       GLOBAL REACH SECTION (Section 10)
+       ==================================================================== */
+    .global-section {
+        padding: 120px 0;
+        background: #111F17;
+    }
+
+    .global-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto 32px;
+    }
+
+    .global-card {
+        background: #1B3A2D;
+        border: 1px solid #2D4F3C;
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .global-card:hover {
+        transform: translateY(-4px);
+        border-color: #C9A84C;
+    }
+
+    .global-flag {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    .global-region {
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+    }
+
+    .global-status {
+        font-size: 13px;
+        color: #7A9E8A;
+    }
+
+    .global-language-note {
+        text-align: center;
+        font-size: 15px;
+        color: #7A9E8A;
+    }
+
+    /* ====================================================================
+       WHATSAPP CTA SECTION (Section 11)
+       ==================================================================== */
+    .whatsapp-section {
+        padding: 80px 0;
+        background: #0D2B1F;
+    }
+
+    .whatsapp-card {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #1B3A2D;
+        border: 2px solid #C9A84C;
+        border-radius: 16px;
+        padding: 48px 40px;
+        text-align: center;
+    }
+
+    .whatsapp-icon-large {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    .whatsapp-headline {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .whatsapp-body {
+        font-size: 16px;
+        color: #B8C9BF;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+
+    .whatsapp-button {
+        display: inline-block;
+        background: #25D366;
+        color: white;
+        padding: 16px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-button:hover {
+        background: #20BA5A;
+        transform: translateY(-2px);
+    }
+
+    /* ====================================================================
+       FOOTER (Section 12)
+       ====================================================================
+       WHY: Darkest background (#080F0A — near black). 3 columns.
+       Bottom bar reinforces positioning one last time.
+       ==================================================================== */
+    .footer {
+        padding: 80px 0 0;
+        background: #080F0A;
+        border-top: 1px solid #2D4F3C;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr;
+        gap: 48px;
+        padding-bottom: 48px;
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+        margin-bottom: 12px;
+    }
+
+    .footer-logo-fallback {
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    .footer-tagline {
+        font-size: 15px;
+        color: #B8C9BF;
+        font-style: italic;
+        margin-bottom: 8px;
+    }
+
+    .footer-copyright {
+        font-size: 13px;
+        color: #7A9E8A;
+    }
+
+    .footer-col-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #FFFFFF;
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        font-size: 14px;
+        color: #B8C9BF;
+        transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+        color: #C9A84C;
+    }
+
+    .footer-contact-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #B8C9BF;
+    }
+
+    .footer-contact-item a {
+        color: #C9A84C;
+        font-weight: 500;
+    }
+
+    .footer-contact-item a:hover {
+        color: #E8C96A;
+    }
+
+    .footer-bottom-bar {
+        border-top: 1px solid #2D4F3C;
+        padding: 24px 0;
+        text-align: center;
+    }
+
+    .footer-bottom-bar p {
+        font-size: 14px;
+        color: #7A9E8A;
+        font-style: italic;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* ====================================================================
+       FLOATING WHATSAPP BUTTON
+       ====================================================================
+       WHY: Always accessible regardless of scroll position.
+       Bottom-right corner. Round green button with SVG icon.
+       Tooltip on hover.
+       ==================================================================== */
+    .floating-whatsapp {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        background: #25D366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .floating-whatsapp:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+    }
+
+    .floating-whatsapp-tooltip {
+        position: absolute;
+        right: 68px;
+        background: #0D2B1F;
+        color: #FFFFFF;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        border: 1px solid #2D4F3C;
+    }
+
+    .floating-whatsapp:hover .floating-whatsapp-tooltip {
+        opacity: 1;
+    }
+
+    .whatsapp-svg {
+        flex-shrink: 0;
+    }
+
+    /* ====================================================================
+       FADE-IN ON SCROLL ANIMATION
+       ====================================================================
+       WHY: Elements fade in as the user scrolls to them.
+       Uses Intersection Observer (JS below). Elements start invisible
+       and become visible when they enter the viewport.
+       ==================================================================== */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ====================================================================
+       MOBILE RESPONSIVE STYLES (< 768px)
+       ====================================================================
+       WHY: "Mobile first — global audience scrolls on phone."
+       All grids become single column. Font sizes reduce.
+       Navigation becomes hamburger. CTA buttons full width.
+       ==================================================================== */
+    @media (max-width: 768px) {
+        .hide-mobile { display: none; }
+
+        .section-headline { font-size: 32px; }
+        .section-subheadline { font-size: 16px; margin-bottom: 32px; }
+
+        /* NAV MOBILE */
+        .nav-cta { display: none; }
+        .nav-hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+        .hamburger-line {
+            width: 24px;
+            height: 2px;
+            background: #FFFFFF;
+            transition: all 0.3s ease;
+            border-radius: 1px;
+        }
+        .nav-hamburger-check:checked ~ .nav-mobile-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px;
+        }
+        .nav-mobile-menu {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            background: rgba(13, 43, 31, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 0 24px;
+            border-bottom: 1px solid #2D4F3C;
+            z-index: 999;
+        }
+        .nav-mobile-cta { 
+            display: block; 
+            text-align: center; 
+            width: 100%;
+            animation: none;
+        }
+        .nav-mobile-whatsapp {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            color: #25D366;
+            font-size: 15px;
+            border: 1px solid #25D366;
+            border-radius: 8px;
+        }
+
+        /* HERO MOBILE */
+        .hero-container {
+            grid-template-columns: 1fr;
+            gap: 32px;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+        .hero-headline { font-size: 40px; }
+        .hero-image { max-width: 320px; height: 400px; }
+        .hero-credential-badge {
+            position: relative;
+            bottom: auto; left: auto; right: auto;
+            margin-top: 16px;
+        }
+
+        /* PAIN MOBILE */
+        .pain-section { padding: 60px 0; }
+        .pain-grid { grid-template-columns: 1fr; }
+
+        /* NUMBERS MOBILE */
+        .numbers-section { padding: 60px 0; }
+        .numbers-grid {
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        .numbers-grid > .stat-item:not(:last-child)::after {
+            display: none;
+        }
+        .stat-number { font-size: 56px; }
+
+        /* PROOF MOBILE */
+        .proof-section { padding: 60px 0; }
+        .proof-grid { grid-template-columns: 1fr; }
+        .proof-amount { font-size: 36px; }
+
+        /* BSCVI MOBILE — vertical stack */
+        .bscvi-section { padding: 60px 0; }
+        .journey-map {
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .journey-line {
+            top: 30px;
+            bottom: 30px;
+            left: 50%;
+            right: auto;
+            width: 2px;
+            height: auto;
+            background: repeating-linear-gradient(
+                180deg,
+                #C9A84C,
+                #C9A84C 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+
+        /* RAJAT SIR MOBILE */
+        .rajat-section { padding: 60px 0; }
+        .rajat-grid { grid-template-columns: 1fr; }
+        .rajat-photo { height: 350px; }
+        .rajat-headline { font-size: 32px; }
+
+        /* AUDIENCE MOBILE */
+        .audience-section { padding: 60px 0; }
+        .audience-grid { grid-template-columns: 1fr; }
+
+        /* FILTER MOBILE */
+        .filter-section { padding: 60px 0; }
+        .filter-headline { font-size: 32px; }
+
+        /* STAGE 0 MOBILE */
+        .stage0-section { padding: 60px 0; }
+        .stage0-process-steps { flex-direction: column; gap: 12px; }
+        .process-step-arrow { transform: rotate(90deg); }
+
+        /* GLOBAL MOBILE */
+        .global-section { padding: 60px 0; }
+        .global-grid { grid-template-columns: 1fr 1fr; }
+
+        /* FOOTER MOBILE */
+        .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+        .cta-primary { 
+            display: block; 
+            text-align: center; 
+            width: 100%;
+            animation: none;
+        }
+    }
+
+    /* Extra small screens (< 400px) */
+    @media (max-width: 400px) {
+        .hero-headline { font-size: 34px; }
+        .global-grid { grid-template-columns: 1fr; }
+        .rajat-badges-grid { grid-template-columns: 1fr; }
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- ====================================================================
+         ALL SECTIONS — Merged from 12 module fragments
+         ====================================================================
+         Each section below was generated by a separate Python module:
+         module_01_nav.py → fragment_01_nav.html (Section 0: Nav)
+         module_02_hero.py → fragment_02_hero.html (Section 1: Hero)
+         module_03_pain.py → fragment_03_pain.html (Section 2: Pain)
+         module_04_numbers.py → fragment_04_numbers.html (Section 3: Numbers)
+         module_05_proof.py → fragment_05_proof.html (Section 4: Proof)
+         module_06_bscvi.py → fragment_06_bscvi.html (Section 5: BSCVI)
+         module_07_rajat.py → fragment_07_rajat.html (Section 6: Rajat Sir)
+         module_08_audience.py → fragment_08_audience.html (Section 7: Audience)
+         module_09_filter.py → fragment_09_filter.html (Section 8: Filter)
+         module_10_stage0.py → fragment_10_stage0.html (Section 9: Stage 0)
+         module_11_global.py → fragment_11_global.html (Section 10: Global)
+         module_12_cta_footer.py → fragment_12_cta_footer.html (Section 11+12)
+         ==================================================================== -->
+
+    <!-- NAV: Outside <main> — navigation is a landmark, not page content -->
+    
+    <!-- ====================================================================
+         SECTION 0: NAVIGATION BAR
+         ====================================================================
+         WHY: The navbar is the first thing users see. It must be minimal,
+         premium, and have exactly ONE call-to-action. No clutter, no links
+         to nowhere. Just the brand and the action.
+
+         DESIGN: Fixed position with backdrop blur for a glass-morphism
+         effect. Gold CTA stands out against dark green background.
+         On mobile, a hamburger menu reveals the CTA.
+
+         IMAGES USED:
+         - Desktop: Full logo (MAIN - Full Logo Veda full logo with Slate Teak BG.png)
+         - Mobile: Short logo (MAIN - Short Logo Veda logo Slate Teak BG.png)
+         ==================================================================== -->
+    <nav id="main-nav" class="navbar">
+        <!-- Container: max-width 1200px, centered with auto margins, padding for mobile -->
+        <div class="nav-container">
+            
+            <!-- LEFT SIDE: Veda Advisors Logo -->
+            <!-- WHY: Brand identity must be immediately visible. The logo 
+                 appears on every screen the user visits. -->
+            <!-- Using full logo on desktop, short logo on mobile (hidden via CSS) -->
+            <a href="#" class="nav-logo" onclick="event.preventDefault();">
+                <!-- Desktop logo: full version with background -->
+                <img 
+                    src="images/MAIN - Full Logo Veda full logo with Slate Teak BG.png" 
+                    alt="Veda Advisors — Startup Fundraising Advisor" 
+                    class="nav-logo-img nav-logo-desktop"
+                    onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='block';"
+                >
+                <!-- Mobile logo: shorter version for small screens -->
+                <img 
+                    src="images/MAIN - Short Logo Veda logo Slate Teak BG.png" 
+                    alt="Veda Advisors" 
+                    class="nav-logo-img nav-logo-mobile"
+                    onerror="this.style.display='none';"
+                >
+                <!-- Fallback text logo if images fail to load -->
+                <span id="nav-logo-text" class="nav-logo-fallback" style="display:none;">
+                    VEDA<span class="gold-text">ADVISORS</span>
+                </span>
+            </a>
+
+            <!-- RIGHT SIDE: Single CTA Button -->
+            <!-- WHY: One action only. Conversion-focused design principle.
+                 "Start Free Assessment" is the primary CTA used across the site.
+                 Gold button on dark background creates maximum contrast. -->
+            <a 
+                href="#stage0" 
+                class="nav-cta cta-primary"
+                onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+            >
+                Start Free Assessment
+            </a>
+
+            <!-- MOBILE HAMBURGER TOGGLE -->
+            <!-- WHY: On mobile (<768px), the CTA button is hidden and
+                 replaced by a hamburger menu that slides out a panel.
+                 Uses checkbox hack for pure CSS toggle (no JS needed). -->
+            <!-- Hidden checkbox that tracks hamburger state -->
+            <input type="checkbox" id="nav-hamburger-check" class="nav-hamburger-check" aria-label="Toggle navigation menu">
+            
+            <!-- Hamburger icon (3 lines, becomes X when active via CSS) -->
+            <label for="nav-hamburger-check" class="nav-hamburger" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </label>
+
+            <!-- MOBILE SLIDE-OUT MENU -->
+            <!-- WHY: When hamburger is clicked, this panel slides in from right.
+                 Contains the CTA button for mobile users. -->
+            <div class="nav-mobile-menu">
+                <!-- Mobile CTA: same as desktop but full-width on mobile -->
+                <a 
+                    href="#stage0" 
+                    class="nav-mobile-cta cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Start Free Assessment
+                </a>
+                <!-- WhatsApp link in mobile menu for quick access -->
+                <a 
+                    href="https://wa.me/919650397480" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="nav-mobile-whatsapp"
+                >
+                    &#128241; WhatsApp Rajat Sir
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- END OF SECTION 0: NAVIGATION BAR -->
+
+
+    <!-- ====================================================================
+         <main> — Wraps all primary content sections (1-11)
+         ====================================================================
+         WHY: Semantic HTML. <main> tells screen readers this is the
+         dominant content. Nav and Footer are outside <main>.
+         ==================================================================== -->
+    <main id="main-content">
+    
+    <!-- ====================================================================
+         SECTION 1: HERO
+         ====================================================================
+         WHY THIS IS THE MOST IMPORTANT SECTION:
+         The hero has ONE job — stop the scroll. Every element is designed
+         to create an emotional reaction: recognition of pain, curiosity
+         about the system, and trust in Rajat Sir.
+
+         LAYOUT STRATEGY:
+         - Desktop: Two columns (60/40 split) — text left, photo right
+         - Mobile: Single column — text first, photo below
+         - Full viewport height (100vh) so it dominates the screen
+
+         VISUAL ELEMENTS:
+         - CSS-only diagonal grid pattern (no external images)
+         - Gold accent line under label for visual hierarchy
+         - Massive headline (72px desktop, 40px mobile) for impact
+         - Rajat Sir photo with gold glow border (editorial feel)
+         - Floating credential badge overlapping the photo
+         - Animated scroll indicator at bottom
+
+         CONTENT NOTES:
+         - "STOP CHASING INVESTORS. MAKE THEM CHASE YOU." is the master 
+           headline from the strategy document. Must appear exactly as-is.
+         - The provocative claim about raising without MVP is from Section 2
+           of the strategy doc. It challenges the founder's assumptions.
+         - WhatsApp number (9650397480) is Rajat Sir's ONLY number.
+         ==================================================================== -->
+    <section id="hero" class="hero-section">
+        
+        <!-- CSS-ONLY DIAGONAL GRID PATTERN OVERLAY -->
+        <!-- WHY: Creates visual texture without needing an external image.
+             Repeating linear gradients at 45deg create a subtle grid
+             that adds depth to the dark background. -->
+        <div class="hero-pattern-overlay" aria-hidden="true"></div>
+
+        <!-- HERO CONTAINER: Flex layout, 1200px max-width -->
+        <div class="hero-container">
+            
+            <!-- ============================================================
+                 LEFT SIDE: All text content
+                 ============================================================
+                 WHY LEFT: Western reading pattern (left-to-right) means
+                 the eye lands on text first. The CTA is the goal, so
+                 text gets the primary position.
+                 ============================================================ -->
+            <div class="hero-content">
+                
+                <!-- LABEL: Small caps, gold, letter-spacing -->
+                <!-- WHY: Establishes the category immediately. "Startup
+                     Fundraising Advisor" — NOT "Mentor" or "Coach".
+                     This title is critical per the strategy document. -->
+                <div class="hero-label">STARTUP FUNDRAISING ADVISOR</div>
+
+                <!-- DECORATIVE GOLD LINE under label -->
+                <!-- WHY: Creates visual separation between the label
+                     and the headline. Adds a touch of premium branding. -->
+                <div class="hero-label-line" aria-hidden="true"></div>
+
+                <!-- MAIN HEADLINE: Massive, bold, white -->
+                <!-- WHY: This is the #1 most important text on the entire
+                     website. "STOP CHASING INVESTORS. MAKE THEM CHASE YOU."
+                     It must be impossible to miss. 72px on desktop, 40px
+                     on mobile. Weight 900 (black). Uppercase. -->
+                <h1 class="hero-headline">
+                    STOP CHASING<br>
+                    <span class="hero-headline-accent">INVESTORS.</span><br>
+                    MAKE THEM<br>
+                    <span class="hero-headline-accent">CHASE YOU.</span>
+                </h1>
+
+                <!-- SUBLINE: Supporting text, muted color -->
+                <!-- WHY: After the bold headline, the subline provides
+                     context — mentions the system, 400+ founders, and
+                     that this is built by someone who has done it. -->
+                <p class="hero-subline">
+                    A proven 5-stage system — built by someone<br class="hide-mobile">
+                    who has done it and helped 400+ founders do it too.
+                </p>
+
+                <!-- PROVOCATIVE CLAIM: Gold colored, italic -->
+                <!-- WHY: This challenges the founder's assumption that they
+                     need a product/MVP/customers before raising. It's the
+                     proprietary insight from Rajat Sir that nobody else says.
+                     Creates cognitive dissonance → curiosity → engagement. -->
+                <p class="hero-claim">
+                    "You can raise funds without an MVP, without a product,
+                    without customers — if you know the right investor."
+                </p>
+
+                <!-- PRIMARY CTA BUTTON -->
+                <!-- WHY: The single most important interactive element on
+                     the page. Must be gold (#C9A84C), large, with arrow.
+                     Text: "Find Out Why You're Not Getting Funded →"
+                     This wording creates urgency and personal relevance. -->
+                <a 
+                    href="#stage0" 
+                    class="cta-primary hero-cta"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Find Out Why You're Not Getting Funded &rarr;
+                </a>
+
+                <!-- TRUST TEXT below CTA -->
+                <!-- WHY: Reduces friction. Founders hesitate when they
+                     think there's a catch. "Free. No credit card. No
+                     commitment." removes all objections. -->
+                <p class="hero-trust-text">Free. No credit card. No commitment.</p>
+
+                <!-- WHATSAPP DIRECT LINE -->
+                <!-- WHY: Some founders prefer WhatsApp over forms.
+                     Giving the direct number builds trust — Rajat Sir
+                     is accessible, not hidden behind a team. -->
+                <div class="hero-whatsapp">
+                    <a href="https://wa.me/919650397480" target="_blank" rel="noopener noreferrer">
+                        &#128241; WhatsApp Rajat Sir directly: +91 9650397480
+                    </a>
+                </div>
+            </div>
+
+            <!-- ============================================================
+                 RIGHT SIDE: Rajat Sir's Photo + Credential Badge
+                 ============================================================
+                 WHY: Rajat Sir IS the product. His face builds trust.
+                 The photo must be large, commanding, and editorial.
+                 - Gold glow border for premium feel
+                 - Credential badge overlaps bottom of photo
+                 - Photo slightly overlaps bottom of hero section
+                 ============================================================ -->
+            <div class="hero-image-wrapper">
+                
+                <!-- RAJAT SIR PHOTO -->
+                <!-- IMAGE: RAJAT Sir Image College.jpeg (primary)
+                     FALLBACK: IMG_6215 (1).JPG
+                     WHY: College photo is more formal/commanding.
+                     onerror switches to fallback if primary fails. -->
+                <div class="hero-image-container">
+                    <img 
+                        src="images/RAJAT Sir Image College.jpeg"
+                        alt="Rajat Sir — Startup Fundraising Advisor, TEDx Speaker, 28 Years Experience"
+                        class="hero-image"
+                        onerror="this.src='images/IMG_6215 (1).JPG';"
+                    >
+                    <!-- Gold glow border effect (pure CSS) -->
+                    <!-- WHY: Creates a premium, editorial feel around the
+                         photo. The gold color matches the brand palette. -->
+                    <div class="hero-image-glow" aria-hidden="true"></div>
+                </div>
+
+                <!-- FLOATING CREDENTIAL BADGE -->
+                <!-- WHY: Reinforces credibility without requiring the user
+                     to scroll down to the numbers section. Positioned to
+                     overlap the bottom of the photo for a layered effect. -->
+                <div class="hero-credential-badge">
+                    <div class="badge-item">&#127908; TEDx Speaker</div>
+                    <div class="badge-item">28 Years Experience</div>
+                    <div class="badge-item">400+ Startups Funded</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCROLL INDICATOR at bottom of hero -->
+        <!-- WHY: Tells users there's more content below. Animated
+             bouncing arrow draws the eye downward. -->
+        <div class="hero-scroll-indicator" aria-hidden="true">
+            <div class="scroll-text">Scroll to discover</div>
+            <div class="scroll-arrow">&#8595;</div>
+        </div>
+    </section>
+    <!-- END OF SECTION 1: HERO -->
+
+
+    <!-- ====================================================================
+         SECTION 2: THE PAIN — Why Most Startups Never Raise Funds
+         ====================================================================
+         WHY THIS SECTION EXISTS:
+         Recognition is the most powerful conversion tool. When a founder
+         reads these 4 cards and thinks "that's me" — they're hooked.
+         This section is based on Rajat Sir's diagnosis of 600+ founders.
+
+         DESIGN STRATEGY:
+         - 2x2 grid on desktop → easy to scan
+         - Single column on mobile → each card gets full attention
+         - Red (#E05252) left borders → "this is wrong" signal
+         - Maximum 1 sentence per card → no paragraphs, just impact
+         - Rajat Sir quote at bottom → authoritative summary
+
+         PSYCHOLOGY:
+         The section starts with "And it has nothing to do with your idea."
+         This is provocative — founders believe their idea is the problem.
+         Reframing the problem creates an opening for the solution.
+         ==================================================================== -->
+    <section id="pain" class="pain-section">
+        <div class="container">
+            
+            <!-- SECTION HEADLINE -->
+            <!-- WHY: "WHY MOST STARTUPS NEVER RAISE FUNDS" — directly 
+                 addresses the founder's biggest fear. The word "NEVER"
+                 creates urgency. Two-line layout for visual impact. -->
+            <h2 class="section-headline">
+                WHY MOST STARTUPS<br>
+                <span class="gold-text">NEVER RAISE FUNDS</span>
+            </h2>
+            
+            <!-- SUB-HEADLINE (gold, italic) -->
+            <!-- WHY: "And it has nothing to do with your idea." — this is
+                 the hook. Every founder thinks their idea is the problem.
+                 This reframes: it's the SYSTEM, not the idea. -->
+            <p class="pain-subheadline">
+                "And it has nothing to do with your idea."
+            </p>
+
+            <!-- 2x2 GRID OF PAIN CARDS -->
+            <!-- WHY: Grid layout makes it scannable. Each card is 
+                 self-contained — icon + title + one sentence. -->
+            <div class="pain-grid">
+
+                <!-- PAIN CARD 1: WRONG INVESTOR -->
+                <!-- WHY: Each card addresses one of the 4 real reasons
+                     startups fail to raise funds (from Rajat Sir's 
+                     diagnosis of 600+ founders). Red left border signals
+                     "this is what's wrong". -->
+                <div class="pain-card">
+                    <!-- Red left border: 4px solid #E05252 — danger color -->
+                    <!-- WHY: Red universally signals "wrong/danger". Each
+                         card is a mistake the founder is making. -->
+                    <div class="pain-card-icon">&#127919;</div>
+                    <h3 class="pain-card-title">WRONG INVESTOR</h3>
+                    <p class="pain-card-body">You're pitching everyone. Not every investor is your investor.</p>
+                </div>
+
+                <!-- PAIN CARD 2: WRONG APPROACH -->
+                <!-- WHY: Each card addresses one of the 4 real reasons
+                     startups fail to raise funds (from Rajat Sir's 
+                     diagnosis of 600+ founders). Red left border signals
+                     "this is what's wrong". -->
+                <div class="pain-card">
+                    <!-- Red left border: 4px solid #E05252 — danger color -->
+                    <!-- WHY: Red universally signals "wrong/danger". Each
+                         card is a mistake the founder is making. -->
+                    <div class="pain-card-icon">&#128226;</div>
+                    <h3 class="pain-card-title">WRONG APPROACH</h3>
+                    <p class="pain-card-body">Cold emails. LinkedIn spam. 3-year plans. Investors stop listening.</p>
+                </div>
+
+                <!-- PAIN CARD 3: NO CLOSING STRATEGY -->
+                <!-- WHY: Each card addresses one of the 4 real reasons
+                     startups fail to raise funds (from Rajat Sir's 
+                     diagnosis of 600+ founders). Red left border signals
+                     "this is what's wrong". -->
+                <div class="pain-card">
+                    <!-- Red left border: 4px solid #E05252 — danger color -->
+                    <!-- WHY: Red universally signals "wrong/danger". Each
+                         card is a mistake the founder is making. -->
+                    <div class="pain-card-icon">&#129309;</div>
+                    <h3 class="pain-card-title">NO CLOSING STRATEGY</h3>
+                    <p class="pain-card-body">Interest shown. Founder panics. Deal disappears. No Godfather Offer.</p>
+                </div>
+
+                <!-- PAIN CARD 4: BLIND SPOT IN DOCUMENTATION -->
+                <!-- WHY: Each card addresses one of the 4 real reasons
+                     startups fail to raise funds (from Rajat Sir's 
+                     diagnosis of 600+ founders). Red left border signals
+                     "this is what's wrong". -->
+                <div class="pain-card">
+                    <!-- Red left border: 4px solid #E05252 — danger color -->
+                    <!-- WHY: Red universally signals "wrong/danger". Each
+                         card is a mistake the founder is making. -->
+                    <div class="pain-card-icon">&#128196;</div>
+                    <h3 class="pain-card-title">BLIND SPOT IN DOCUMENTATION</h3>
+                    <p class="pain-card-body">The deal dies after investor says yes. Wrong papers. Wrong terms.</p>
+                </div>
+
+            </div>
+
+            <!-- FULL-WIDTH STATEMENT BY RAJAT SIR -->
+            <!-- WHY: After showing the problems, Rajat Sir delivers the
+                 diagnosis: "The problem is not your startup. The problem
+                 is the system." This transitions from pain to solution. -->
+            <div class="pain-statement">
+                <p class="pain-statement-text">
+                    "The problem is not your startup.<br>
+                    The problem is the system you are using to raise funds."
+                </p>
+                <p class="pain-statement-author">— Rajat Sir</p>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 2: THE PAIN -->
+
+
+    <!-- ====================================================================
+         SECTION 3: THE NUMBERS — Pure Infographic
+         ====================================================================
+         WHY: Numbers build credibility faster than words. Three stats,
+         each with a giant gold number. No paragraphs. Just impact.
+         
+         DESIGN: Darker background (#111F17) creates visual separation
+         from the pain section above. Gold dividers between stats.
+         Counter animation (JS in merge script) counts up from 0.
+         ==================================================================== -->
+    <section id="numbers" class="numbers-section">
+        <div class="container">
+            <div class="numbers-grid">
+
+                <!-- STAT 1: STARTUPS FUNDED -->
+                <!-- WHY: Large gold numbers create instant credibility.
+                     These are from the strategy document Section 1.
+                     The counter animation (JS) will count up from 0. -->
+                <div class="stat-item">
+                    <div class="stat-number" data-target="400">400+</div>
+                    <div class="stat-label">STARTUPS FUNDED</div>
+                    <div class="stat-desc">Raised funds using this system</div>
+                </div>
+
+                <!-- STAT 2: FOUNDERS MENTORED -->
+                <!-- WHY: Large gold numbers create instant credibility.
+                     These are from the strategy document Section 1.
+                     The counter animation (JS) will count up from 0. -->
+                <div class="stat-item">
+                    <div class="stat-number" data-target="600">600+</div>
+                    <div class="stat-label">FOUNDERS MENTORED</div>
+                    <div class="stat-desc">From idea to investor meetings</div>
+                </div>
+
+                <!-- STAT 3: YEARS EXPERIENCE -->
+                <!-- WHY: Large gold numbers create instant credibility.
+                     These are from the strategy document Section 1.
+                     The counter animation (JS) will count up from 0. -->
+                <div class="stat-item">
+                    <div class="stat-number" data-target="28">28</div>
+                    <div class="stat-label">YEARS EXPERIENCE</div>
+                    <div class="stat-desc">In high stakes deals & negotiations</div>
+                </div>
+
+            </div>
+            
+            <!-- TRIBE LINE + CTA -->
+            <!-- WHY: "Join the tribe" creates belonging. The CTA here
+                 is the 2nd appearance of the gold button on the page. -->
+            <div class="numbers-cta-wrapper">
+                <p class="numbers-tribe-text">"Join the tribe. Your startup could be next."</p>
+                <a 
+                    href="#stage0" 
+                    class="cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Start Free Assessment &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 3: THE NUMBERS -->
+
+
+    <!-- ====================================================================
+         SECTION 4: PROOF STORIES — Founders Who Did It
+         ====================================================================
+         WHY: Social proof is the #2 conversion driver (after pain recognition).
+         Two real founders. Real money raised. Specific amounts.
+         Format: Name · Startup · Amount · One line quote.
+         Short. Specific. Real.
+         ==================================================================== -->
+    <section id="proof" class="proof-section">
+        <div class="container">
+            <h2 class="section-headline">
+                FOUNDERS WHO<br>
+                <span class="gold-text">DID IT</span>
+            </h2>
+            <p class="section-subheadline">Real founders. Real investors. Real money raised.</p>
+            
+            <div class="proof-grid">
+
+                <!-- CASE STUDY #1: UElement -->
+                <div class="proof-card">
+                    <div class="proof-badge">CASE STUDY #1</div>
+                    <h3 class="proof-startup-name">UElement</h3>
+                    <div class="proof-amount">&#8377;15 CRORE RAISED</div>
+                    <div class="proof-amount-usd">(~$1.8 Million)</div>
+                    <div class="proof-founder">&#128100; Chaitanya</div>
+                    <p class="proof-quote">"Working with Rajat Sir changed how we approached every investor conversation." — Chaitanya, Founder, UElement</p>
+                </div>
+
+                <!-- CASE STUDY #2: ARC Electric -->
+                <div class="proof-card">
+                    <div class="proof-badge">CASE STUDY #2</div>
+                    <h3 class="proof-startup-name">ARC Electric</h3>
+                    <div class="proof-amount">&#8377;3 CRORE RAISED</div>
+                    <div class="proof-amount-usd">(~$360,000)</div>
+                    <div class="proof-founder">&#128100; Abhinav</div>
+                    <p class="proof-quote">"The BSCVI 3.0 system gave us clarity we never had before. We knew exactly who to call." — Abhinav, Founder, ARC Electric</p>
+                </div>
+
+            </div>
+            
+            <!-- CLOSING LINE: These are not exceptions -->
+            <p class="proof-closing">"These are not exceptions. This is what the system does."</p>
+        </div>
+    </section>
+    <!-- END OF SECTION 4: PROOF STORIES -->
+
+
+    <!-- ====================================================================
+         SECTION 5: THE BSCVI 3.0 SYSTEM — The Journey Map
+         ====================================================================
+         WHY: This is the CORE PRODUCT. The journey map must be visually
+         stunning — it's what makes Veda Advisors unique.
+         
+         DESIGN: 
+         - Horizontal on desktop (gold dashed line connecting 6 stops)
+         - Vertical on mobile (stacked with line running down)
+         - Stop 0 is gold (FREE) — stands out as the entry point
+         - Other stops are dark with gold border — premium, locked feel
+         - Connecting arrow line creates visual progression
+         
+         CONTENT: Each stop has: number, name, subtitle, badge, description.
+         Maximum 5 words explanation per the "Less English. More Infographic"
+         principle from the strategy document.
+         ==================================================================== -->
+    <section id="bscvi" class="bscvi-section">
+        <div class="container">
+            <h2 class="section-headline">
+                THE <span class="gold-text">BSCVI 3.0</span> SYSTEM
+            </h2>
+            <p class="bscvi-subheadline">
+                "Raising funds is High Stakes Negotiation.<br>
+                And like any negotiation — it has a system."
+            </p>
+
+            <!-- JOURNEY MAP: Horizontal on desktop, vertical on mobile -->
+            <div class="journey-map">
+
+                <!-- JOURNEY STOP 0: READINESS -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="0">
+                    <div class="journey-stop-circle journey-stop-free">0</div>
+                    <div class="journey-stop-label">READINESS</div>
+                    <div class="journey-stop-sub">Free Assessment</div>
+                    <div class="journey-badge journey-badge-free">FREE</div>
+                    <div class="journey-stop-desc">Understand where your startup stands today</div>
+                </div>
+
+                <!-- JOURNEY STOP 1: IDENTIFY -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="1">
+                    <div class="journey-stop-circle">1</div>
+                    <div class="journey-stop-label">IDENTIFY</div>
+                    <div class="journey-stop-sub">Find Your Investor</div>
+                    <div class="journey-badge">Stage 1</div>
+                    <div class="journey-stop-desc">Build a list of 10 investors who will actually fund your specific business</div>
+                </div>
+
+                <!-- JOURNEY STOP 2: APPROACH -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="2">
+                    <div class="journey-stop-circle">2</div>
+                    <div class="journey-stop-label">APPROACH</div>
+                    <div class="journey-stop-sub">Reach Your Investor</div>
+                    <div class="journey-badge">Stage 2</div>
+                    <div class="journey-stop-desc">Write a personalised approach strategy for each of your 10 investors</div>
+                </div>
+
+                <!-- JOURNEY STOP 3: OFFER -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="3">
+                    <div class="journey-stop-circle">3</div>
+                    <div class="journey-stop-label">OFFER</div>
+                    <div class="journey-stop-sub">The Godfather Offer</div>
+                    <div class="journey-badge">Stage 3</div>
+                    <div class="journey-stop-desc">Structure an offer the investor cannot refuse</div>
+                </div>
+
+                <!-- JOURNEY STOP 4: CLOSE -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="4">
+                    <div class="journey-stop-circle">4</div>
+                    <div class="journey-stop-label">CLOSE</div>
+                    <div class="journey-stop-sub">Documentation & Deal</div>
+                    <div class="journey-badge">Stage 4</div>
+                    <div class="journey-stop-desc">Navigate term sheets, negotiations, and close the deal correctly</div>
+                </div>
+
+                <!-- JOURNEY STOP 5: SUSTAIN -->
+                <!-- WHY: Each stop is one complete deliverable.
+                     Stage 0 is FREE (gold circle) — the hook.
+                     Other stages are locked/dark — creates curiosity. -->
+                <div class="journey-stop" data-stage="5">
+                    <div class="journey-stop-circle">5</div>
+                    <div class="journey-stop-label">SUSTAIN</div>
+                    <div class="journey-stop-sub">Grow the Relationship</div>
+                    <div class="journey-badge">Stage 5</div>
+                    <div class="journey-stop-desc">Manage investors, plan next round, build long-term relationships</div>
+                </div>
+
+                <!-- CONNECTING LINE (visual only, drawn via CSS) -->
+                <div class="journey-line" aria-hidden="true"></div>
+            </div>
+
+            <!-- IMPORTANT NOTE below journey map -->
+            <!-- WHY: Reassures founders that Stage 0 is free, they move
+                 at their own pace, and each stage is 1-on-1 with Rajat Sir -->
+            <div class="bscvi-note">
+                <p>You start at Stage 0 — <span class="gold-text">free</span>. You move forward only when you are ready.</p>
+                <p>Each stage is one-on-one with Rajat Sir. Your pace. Your journey.</p>
+            </div>
+
+            <!-- CTA: 3rd appearance of gold button -->
+            <div class="bscvi-cta-wrapper">
+                <a 
+                    href="#stage0" 
+                    class="cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Start at Stage 0 — It's Free &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 5: BSCVI 3.0 SYSTEM -->
+
+
+    <!-- ====================================================================
+         SECTION 6: RAJAT SIR — The Human Section
+         ====================================================================
+         WHY: Rajat Sir IS the product. This section must feel warm,
+         personal, and trustworthy. Not corporate. Not a coaching bio.
+         
+         LAYOUT: Two columns — photo left, text right.
+         The personal paragraph is EXACT text from the strategy document.
+         The confidentiality promise is in a gold-bordered box.
+         Four credential badges in a 2x2 grid.
+         
+         PHOTO: IMG_6287.JPG (at event/speaking) or best quality available.
+         Credential strip overlaid at bottom of photo.
+         ==================================================================== -->
+    <section id="rajat" class="rajat-section">
+        <div class="container">
+            <div class="rajat-grid">
+                
+                <!-- LEFT: PHOTO -->
+                <div class="rajat-photo-wrapper">
+                    <!-- Primary photo: at event/speaking -->
+                    <img 
+                        src="images/IMG_6287.JPG"
+                        alt="Rajat Sir speaking at an event"
+                        class="rajat-photo"
+                        onerror="this.src='images/RAJAT Sir Image College.jpeg';"
+                    >
+                    <!-- Gold glow border (CSS) -->
+                    <div class="rajat-photo-glow" aria-hidden="true"></div>
+                    <!-- Credential strip at bottom of photo -->
+                    <div class="rajat-photo-credential-strip">
+                        50 Years Old &middot; 28 Years Experience &middot; TEDx Speaker
+                    </div>
+                </div>
+
+                <!-- RIGHT: PERSONAL CONTENT -->
+                <div class="rajat-content">
+                    <div class="rajat-label">THE PERSON BEHIND THE SYSTEM</div>
+                    <h2 class="rajat-headline">
+                        People Call Me<br>
+                        <span class="gold-text">Rajat Sir.</span>
+                    </h2>
+                    
+                    <!-- PERSONAL PARAGRAPH — EXACT text from strategy doc -->
+                    <!-- WHY: This is Rajat Sir's voice. It must feel like
+                         he's talking directly to the reader. Mentions
+                         age (50), experience (28 years), vulnerability
+                         (sat across an investor, didn't know what to say).
+                         This vulnerability builds trust. -->
+                    <div class="rajat-paragraph">
+                        <p>"I am 50 years old. I have spent 28 years in business — raising funds, closing deals, making mistakes, and learning from them.</p>
+                        <p>I know what it feels like to sit across an investor and not know what to say. I know what it feels like to have a great idea and not know who to call.</p>
+                        <p>What I offer is not just a system. I am available to you — to hear your fears, discuss your options, and tell you honestly what I see. Founders don't just need a method. They need a senior person they can trust completely.</p>
+                        <p>That is what I am here for."</p>
+                    </div>
+
+                    <!-- CONFIDENTIALITY PROMISE — Gold bordered box -->
+                    <!-- WHY: This is Rajat Sir's most powerful line.
+                         "What you share with me stays with me. Always."
+                         It addresses the #1 fear founders have: Will my
+                         ideas be stolen? This promise removes that fear. -->
+                    <div class="confidentiality-box">
+                        <div class="confidentiality-icon">&#128274;</div>
+                        <p class="confidentiality-text">
+                            "What you share with me stays with me. Always."
+                        </p>
+                        <p class="confidentiality-author">— Rajat Sir</p>
+                    </div>
+
+                    <!-- 4 CREDENTIAL BADGES in 2x2 grid -->
+                    <!-- WHY: Credibility markers. Each badge is a dark
+                         card with an icon and a fact. 2x2 grid is compact. -->
+                    <div class="rajat-badges-grid">
+                        <div class="rajat-badge">
+                            <span class="badge-icon">&#127908;</span>
+                            <span class="badge-text">TEDx Speaker</span>
+                        </div>
+                        <div class="rajat-badge">
+                            <span class="badge-icon">&#127970;</span>
+                            <span class="badge-text">Consulted Airtel, Honda, IBM, Levers</span>
+                        </div>
+                        <div class="rajat-badge">
+                            <span class="badge-icon">&#128218;</span>
+                            <span class="badge-text">150,000+ Professionals Trained</span>
+                        </div>
+                        <div class="rajat-badge">
+                            <span class="badge-icon">&#128640;</span>
+                            <span class="badge-text">1,000+ Sessions Delivered</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA: "Apply to Work with Rajat Sir" -->
+                    <!-- WHY: Never "Book a Session" — always "Apply to Work
+                         with Rajat Sir". This is a positioning decision from
+                         the strategy doc. "Apply" implies selectivity. -->
+                    <a 
+                        href="#stage0" 
+                        class="cta-primary"
+                        onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    >
+                        Apply to Work with Rajat Sir &rarr;
+                    </a>
+                    <p class="rajat-cta-subtext">Rajat Sir personally reviews every application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 6: RAJAT SIR -->
+
+
+    <!-- ====================================================================
+         SECTION 7: WHO THIS IS FOR — Two Audience Cards
+         ====================================================================
+         WHY: Two distinct audiences from the strategy doc:
+         1. Startup Founders — have a business, need capital
+         2. Student Entrepreneurs — have an idea, want funding
+         
+         Same system. Same Rajat Sir. Same price. Different emotional entry.
+         
+         DESIGN: Each card shows pain (red X) → transformation (gold check).
+         The red X items create recognition. The gold checks create hope.
+         Gold divider separates pain from solution within each card.
+         ==================================================================== -->
+    <section id="audience" class="audience-section">
+        <div class="container">
+            <h2 class="section-headline">
+                IS THIS <span class="gold-text">FOR YOU?</span>
+            </h2>
+
+            <div class="audience-grid">
+                
+                <!-- CARD 1: STARTUP FOUNDERS -->
+                <!-- WHY: Primary audience. Have tried, failed, frustrated. -->
+                <div class="audience-card">
+                    <div class="audience-card-icon">&#128640;</div>
+                    <h3 class="audience-card-title">STARTUP FOUNDERS</h3>
+                    <p class="audience-card-sub">You have a business. You need capital.</p>
+                    
+                    <!-- PAIN POINTS (red X) -->
+                    <!-- WHY: These mirror what founders are experiencing RIGHT NOW.
+                         Recognition = engagement = conversion. -->
+                    <div class="audience-pain-list">
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Pitched investors. Got no response.</span>
+                        </div>
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Had meetings. Nothing moved.</span>
+                        </div>
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Don't know what you're doing wrong.</span>
+                        </div>
+                    </div>
+                    
+                    <!-- GOLD DIVIDER: separates pain from solution -->
+                    <div class="audience-divider" aria-hidden="true"></div>
+                    
+                    <!-- WHAT CHANGES (gold check) -->
+                    <!-- WHY: Shows the transformation. After pain, hope. -->
+                    <div class="audience-solution-list">
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Know exactly which 10 investors to approach</span>
+                        </div>
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Know exactly how to approach each one</span>
+                        </div>
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Have a Godfather Offer ready to close</span>
+                        </div>
+                    </div>
+                    
+                    <!-- AUDIENCE-SPECIFIC HEADLINE -->
+                    <p class="audience-headline-italic">
+                        "You've been pitching. Nothing has moved. Let's fix that."
+                    </p>
+                </div>
+
+                <!-- CARD 2: STUDENT ENTREPRENEURS -->
+                <!-- WHY: Secondary audience. Haven't tried yet — fear-based. -->
+                <div class="audience-card">
+                    <div class="audience-card-icon">&#127891;</div>
+                    <h3 class="audience-card-title">STUDENT ENTREPRENEURS</h3>
+                    <p class="audience-card-sub">You have an idea. You want funding.</p>
+                    
+                    <div class="audience-pain-list">
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Investors don't take students seriously.</span>
+                        </div>
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Don't know where to start.</span>
+                        </div>
+                        <div class="audience-pain-item">
+                            <span class="pain-x">&#10060;</span>
+                            <span>Afraid to approach the wrong people.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="audience-divider" aria-hidden="true"></div>
+                    
+                    <div class="audience-solution-list">
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Understand how fundraising actually works</span>
+                        </div>
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Build your investor approach before you graduate</span>
+                        </div>
+                        <div class="audience-solution-item">
+                            <span class="solution-check">&#9989;</span>
+                            <span>Get a senior advisor who will listen — not dismiss</span>
+                        </div>
+                    </div>
+                    
+                    <p class="audience-headline-italic">
+                        "Your idea deserves funding. Here's how to make investors take you seriously."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 7: WHO THIS IS FOR -->
+
+
+    <!-- ====================================================================
+         SECTION 8: THE FILTER — This Is For Serious People Only
+         ====================================================================
+         WHY: This section uses the psychology of exclusivity.
+         "This is not for everyone" — makes those who ARE ready feel special.
+         
+         DESIGN: Even darker background (#0A1A10), centered single column,
+         max-width 700px. Creates an intimate, serious tone.
+         
+         STRUCTURE:
+         1. Statement: "This is not for everyone."
+         2. Body: Rajat Sir works with the decided.
+         3. Checklist: 4 gold checkmarks (you are ready if...)
+         4. Anti-checklist: 4 red X marks (NOT for you if...)
+         5. CTA button
+         
+         PSYCHOLOGY: The anti-checklist is KEY. By telling people who
+         should NOT apply, you make the ones who qualify feel special.
+         This is the " velvet rope" effect from the strategy document.
+         ==================================================================== -->
+    <section id="filter" class="filter-section">
+        <div class="container">
+            <div class="filter-content">
+                
+                <!-- DECORATIVE QUOTE MARKS -->
+                <!-- WHY: Large gold quotes create a "this is important"
+                     feeling. They frame the statement as something
+                     authoritative and noteworthy. -->
+                <div class="filter-quote-mark" aria-hidden="true">&ldquo;</div>
+                
+                <!-- MAIN STATEMENT -->
+                <h2 class="filter-headline">
+                    This is not for everyone.
+                </h2>
+                
+                <!-- BODY TEXT -->
+                <p class="filter-body">
+                    Rajat Sir works with founders who have decided they will raise funds —
+                    and are ready to do the work.
+                </p>
+                <p class="filter-body-emphasis">
+                    Not the curious. Not the doubtful.<br>
+                    <span class="gold-text">The decided.</span>
+                </p>
+
+                <!-- CHECKLIST: You are ready if... -->
+                <!-- WHY: Gold checkmarks create aspiration. Founders read
+                     these and think "yes, that's me" — self-qualifying. -->
+                <div class="filter-checklist">
+                    <h3 class="filter-list-title gold-text">You are ready if:</h3>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You have a startup or a serious idea</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You have tried (or are ready to try) approaching investors</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You understand that raising funds requires work — not just a good idea</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You are willing to follow a system, not just ask for shortcuts</span>
+                    </div>
+                </div>
+
+                <!-- ANTI-CHECKLIST: This is NOT for you if... -->
+                <!-- WHY: Red X marks push away the wrong people. This is
+                     Layer 1 of the 3-layer filter system from the strategy
+                     document. It protects Rajat Sir's time. -->
+                <div class="filter-antilist">
+                    <h3 class="filter-list-title" style="color: #E05252;">This is NOT for you if:</h3>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You want a guarantee before you pay anything</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You expect Rajat Sir to raise funds for you</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You are not willing to approach investors yourself</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You think you already know everything</span>
+                    </div>
+                </div>
+
+                <!-- CTA BUTTON -->
+                <a 
+                    href="#stage0" 
+                    class="cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Apply to Work with Rajat Sir &rarr;
+                </a>
+                <p class="filter-cta-subtext">
+                    "Stage 0 is free. Start there. No commitment required."
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 8: THE FILTER -->
+
+
+    <!-- ====================================================================
+         SECTION 9: STAGE 0 PREVIEW — The Free Assessment Teaser
+         ====================================================================
+         WHY: This section SHOWS (doesn't tell) what Stage 0 is.
+         By revealing Q1 and locking Q2-Q7, it creates massive curiosity.
+         The founder thinks: "I want to know what the other questions are."
+         
+         DESIGN: A card that looks like a multi-step form.
+         Q1 has an actual input field (non-functional in demo).
+         Q2-Q7 are blurred with lock icons.
+         
+         PSYCHOLOGY: Partial information is more compelling than full info.
+         The locked questions are the hook. "Unlocks when you start" 
+         creates a desire to begin.
+         ==================================================================== -->
+    <section id="stage0" class="stage0-section">
+        <div class="container">
+            
+            <h2 class="section-headline">
+                START HERE.<br>
+                <span class="gold-text">IT'S FREE.</span>
+            </h2>
+            <p class="section-subheadline">Stage 0 — The Startup Fundraising Readiness Assessment</p>
+
+            <!-- FORM MOCKUP CARD -->
+            <!-- WHY: Looks like a real form but is a visual preview only.
+                 In the demo, clicking the input shows an alert. -->
+            <div class="stage0-form-card">
+                <!-- Form progress indicator -->
+                <div class="stage0-progress">
+                    <div class="stage0-progress-bar" style="width: 14%;"></div>
+                    <span class="stage0-progress-text">1 of 7</span>
+                </div>
+                
+                <!-- QUESTIONS LIST -->
+                <div class="stage0-questions">
+
+                    <!-- Q1: ACTIVE — Visible to user -->
+                    <div class="stage0-question stage0-question-active">
+                        <div class="stage0-question-number">Q1</div>
+                        <div class="stage0-question-text">What is your startup called — and what problem does it solve?</div>
+                        <!-- Non-functional input field for visual only -->
+                        <input type="text" class="stage0-input" placeholder="Your answer here..." readonly onclick="alert('In the final version, this opens your personal portal. Demo mode.');">
+                    </div>
+
+                    <!-- Q2: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q2</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q3: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q3</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q4: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q4</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q5: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q5</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q6: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q6</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q7: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q7</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BELOW THE FORM PREVIEW -->
+            <p class="stage0-teaser-text">
+                7 questions. 10 minutes. Rajat Sir reviews every submission personally.
+            </p>
+
+            <!-- 3-STEP PROCESS -->
+            <!-- WHY: Shows the journey after Stage 0:
+                 1. Fill assessment → 2. Get Rajat Sir's email → 3. Book session
+                 Makes the process feel simple and human. -->
+            <div class="stage0-process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <div class="process-step-text">Fill Stage 0</div>
+                </div>
+                <div class="process-step-arrow" aria-hidden="true">&rarr;</div>
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <div class="process-step-text">Get Rajat Sir's Email</div>
+                </div>
+                <div class="process-step-arrow" aria-hidden="true">&rarr;</div>
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <div class="process-step-text">Book Your Session</div>
+                </div>
+            </div>
+
+            <!-- CTA BUTTON -->
+            <a 
+                href="#" 
+                class="cta-primary"
+                onclick="event.preventDefault(); alert('In the final version, this will open your personal portal. Demo mode — coming soon.');"
+            >
+                Begin Stage 0 — Free &rarr;
+            </a>
+        </div>
+    </section>
+    <!-- END OF SECTION 9: STAGE 0 PREVIEW -->
+
+
+    <!-- ====================================================================
+         SECTION 10: GLOBAL REACH — Global Advisory, Personal Attention
+         ====================================================================
+         WHY: The strategy document emphasizes this is NOT just an Indian
+         coaching platform. It's a global advisory. These 4 regions are
+         the priority markets (Section 14): UAE, Southeast Asia, UK, India.
+         
+         DESIGN: 4 simple cards with flags, region names, and status.
+         Clean, minimal. No clutter.
+         ==================================================================== -->
+    <section id="global" class="global-section">
+        <div class="container">
+            <h2 class="section-headline">
+                GLOBAL ADVISORY.<br>
+                <span class="gold-text">PERSONAL ATTENTION.</span>
+            </h2>
+            <p class="section-subheadline">Rajat Sir works with founders from across the world.</p>
+
+            <div class="global-grid">
+
+                <div class="global-card">
+                    <div class="global-flag">&#127470;&#127475;</div>
+                    <div class="global-region">India</div>
+                    <div class="global-status">Accepting applications</div>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-flag">&#127462;&#127466;</div>
+                    <div class="global-region">UAE & Middle East</div>
+                    <div class="global-status">Accepting applications</div>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-flag">&#127480;&#127468;</div>
+                    <div class="global-region">Southeast Asia</div>
+                    <div class="global-status">Accepting applications</div>
+                </div>
+
+                <div class="global-card">
+                    <div class="global-flag">&#127468;&#127463;</div>
+                    <div class="global-region">United Kingdom</div>
+                    <div class="global-status">Accepting applications</div>
+                </div>
+
+            </div>
+
+            <!-- LANGUAGE NOTE -->
+            <!-- WHY: Clarifies that sessions are in English and all
+                 time zones are accommodated. Removes a common objection
+                 for international founders. -->
+            <p class="global-language-note">
+                All sessions are in English. All time zones accommodated.
+            </p>
+        </div>
+    </section>
+    <!-- END OF SECTION 10: GLOBAL REACH -->
+
+    </main>
+    <!-- END OF <main> — Footer follows outside -->
+
+    <!-- FOOTER: Outside <main> — footer is a separate landmark -->
+    
+    <!-- ====================================================================
+         SECTION 11: WHATSAPP CTA — Direct Access Section
+         ====================================================================
+         WHY: Some founders prefer a quick WhatsApp chat before committing
+         to the assessment. This section gives them that option.
+         
+         DESIGN: Centered card (max-width 600px) with dark green background
+         and gold border. Green WhatsApp button inside.
+         
+         NOTE: The floating WhatsApp button is separate (see end of file).
+         ==================================================================== -->
+    <section id="whatsapp-cta" class="whatsapp-section">
+        <div class="container">
+            <div class="whatsapp-card">
+                <div class="whatsapp-icon-large">&#128241;</div>
+                <h2 class="whatsapp-headline">DIRECT ACCESS TO RAJAT SIR</h2>
+                <p class="whatsapp-body">
+                    Have a quick question before you apply?<br>
+                    WhatsApp me directly. I respond personally.
+                </p>
+                <!-- GREEN WHATSAPP BUTTON -->
+                <!-- WHY: #25D366 is WhatsApp brand green. This button
+                     is the only non-gold CTA on the page — by design.
+                     WhatsApp has its own visual identity. -->
+                <a 
+                    href="https://wa.me/919650397480" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="whatsapp-button"
+                >
+                    &#9742; WhatsApp Rajat Sir &rarr; +91 9650397480
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 11: WHATSAPP CTA -->
+
+
+    <!-- ====================================================================
+         SECTION 12: FOOTER
+         ====================================================================
+         WHY: The footer has 3 jobs:
+         1. Brand reinforcement (logo + tagline)
+         2. Navigation placeholders (links for final version)
+         3. Contact information (WhatsApp, email, location)
+         
+         BOTTOM BAR: "This is not a course. This is not coaching..."
+         — Reinforces the positioning one last time before the user leaves.
+         
+         DESIGN: Darkest background (#080F0A — near black).
+         3 columns on desktop, stacked on mobile.
+         ==================================================================== -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- COLUMN 1: Logo + Tagline -->
+                <!-- WHY: Brand reinforcement. The tagline "Stop Chasing
+                     Investors. Make Them Chase You." is the master headline.
+                     Seeing it again at the bottom reinforces the message. -->
+                <div class="footer-col">
+                    <img 
+                        src="images/MAIN - Short Logo Veda logo Slate Teak BG.png" 
+                        alt="Veda Advisors" 
+                        class="footer-logo"
+                        onerror="this.style.display='none'; document.getElementById('footer-logo-text').style.display='block';"
+                    >
+                    <span id="footer-logo-text" class="footer-logo-fallback" style="display:none;">
+                        VEDA<span class="gold-text">ADVISORS</span>
+                    </span>
+                    <p class="footer-tagline">"Stop Chasing Investors. Make Them Chase You."</p>
+                    <p class="footer-copyright">&copy; 2026 Veda Advisors. All rights reserved.</p>
+                </div>
+
+                <!-- COLUMN 2: Quick Links (placeholders) -->
+                <!-- WHY: These links will be active in the final version.
+                     In the demo, they show an alert. -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">For Startup Founders</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">For Student Entrepreneurs</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">The BSCVI 3.0 System</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">Apply to Work with Rajat Sir</a></li>
+                    </ul>
+                </div>
+
+                <!-- COLUMN 3: Contact Information -->
+                <!-- WHY: WhatsApp is the #1 contact method. Email is backup.
+                     Location (New Delhi) adds legitimacy. The graphy.com URL
+                     is the current platform (being replaced). -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contact</h4>
+                    <div class="footer-contact-item">
+                        <span>&#128241; WhatsApp:</span>
+                        <a href="https://wa.me/919650397480" target="_blank" rel="noopener noreferrer">+91 9650397480</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span>&#9993; Email:</span>
+                        <a href="mailto:rajatkamalagarwal@gmail.com">rajatkamalagarwal@gmail.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span>&#128205; Location:</span>
+                        <span>New Delhi, India</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span>&#127760; Current Platform:</span>
+                        <a href="https://vedaadvisors.graphy.com" target="_blank" rel="noopener noreferrer">vedaadvisors.graphy.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM BAR: Positioning statement -->
+            <!-- WHY: Last impression. Reinforces that this is NOT a course
+                 or coaching platform. It's a system with a senior advisor.
+                 This one line differentiates Veda Advisors from everything
+                 else in the market. -->
+            <div class="footer-bottom-bar">
+                <p>This is not a course. This is not coaching. This is a system — with a senior advisor available to you every step of the way.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- END OF SECTION 12: FOOTER -->
+
+
+    <!-- ====================================================================
+         FLOATING WHATSAPP BUTTON (Fixed, bottom-right, always visible)
+         ====================================================================
+         WHY: WhatsApp is Rajat Sir's primary contact channel.
+         A floating button ensures it's always accessible regardless
+         of where the user has scrolled to.
+         
+         DESIGN: Round green button (#25D366), bottom-right corner.
+         Tooltip on hover: "Chat with Rajat Sir".
+         Z-index 999 (below navbar at 1000).
+         ==================================================================== -->
+    <a 
+        href="https://wa.me/919650397480" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="floating-whatsapp"
+        aria-label="Chat with Rajat Sir on WhatsApp"
+        title="Chat with Rajat Sir"
+    >
+        <!-- WhatsApp icon using Unicode/SVG -->
+        <svg class="whatsapp-svg" viewBox="0 0 32 32" fill="white" width="28" height="28">
+            <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.378L1.054 31.29l6.168-1.96A15.9 15.9 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.314 22.61c-.39 1.1-1.932 2.014-3.168 2.28-.846.18-1.95.324-5.66-1.216-4.748-1.97-7.806-6.81-8.042-7.126-.226-.316-1.888-2.514-1.888-4.8s1.196-3.41 1.62-3.876c.424-.466.926-.584 1.236-.584.31 0 .62.002.89.016.286.016.67-.108 1.048.8.39.932 1.332 3.25 1.45 3.486.118.236.196.512.04.826-.158.316-.236.512-.472.788-.236.276-.498.616-.71.826-.238.236-.484.492-.208.966.276.474 1.226 2.024 2.632 3.278 1.808 1.612 3.332 2.112 3.806 2.348.474.236.75.196 1.026-.118.276-.316 1.194-1.392 1.512-1.87.316-.478.632-.396 1.066-.238.434.158 2.744 1.294 3.214 1.53.47.236.782.354.9.55.118.196.118 1.122-.272 2.222z"/>
+        </svg>
+        <!-- Tooltip: appears on hover via CSS -->
+        <span class="floating-whatsapp-tooltip">Chat with Rajat Sir</span>
+    </a>
+    <!-- END OF FLOATING WHATSAPP BUTTON -->
+
+
+    <!-- ====================================================================
+         JAVASCRIPT
+         ====================================================================
+         Three features (all vanilla JS, no external libraries):
+         1. Intersection Observer — fade-in elements on scroll
+         2. Number counter — animate stats from 0 to target
+         3. Mobile nav close on link click
+         ==================================================================== -->
+    <script>
+
+    /* ====================================================================
+       JAVASCRIPT — VEDA ADVISORS DEMO WEBSITE
+       ====================================================================
+       Three features only (all vanilla JS, no libraries):
+       1. Intersection Observer — fade-in elements on scroll
+       2. Number Counter — animate stats from 0 to target value
+       3. Smooth scroll for anchor links (backup for older browsers)
+       ==================================================================== */
+
+    // Wait for DOM to be ready
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // ==================================================================
+        // 1. FADE-IN ON SCROLL (Intersection Observer)
+        // ==================================================================
+        // WHY: Elements with class "fade-in" start invisible (opacity: 0).
+        // When they enter the viewport, the "visible" class is added,
+        // triggering a CSS transition (opacity + translateY).
+        // This creates a premium, subtle animation without any JS library.
+        // ==================================================================
+        var fadeElements = document.querySelectorAll(
+            ".pain-card, .proof-card, .journey-stop, .audience-card, " +
+            ".rajat-photo-wrapper, .rajat-content, .filter-content, " +
+            ".stage0-form-card, .global-card, .whatsapp-card, " +
+            ".stat-item, .hero-content, .hero-image-wrapper, .pain-statement"
+        );
+
+        // Add fade-in class to all target elements
+        fadeElements.forEach(function(el) {
+            el.classList.add("fade-in");
+        });
+
+        // Intersection Observer: watches elements and adds "visible" class
+        // when they enter the viewport (with 10% threshold)
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    // Once visible, stop observing (no need to re-animate)
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,    // Trigger when 10% of element is visible
+            rootMargin: "0px 0px -40px 0px"  // Slight offset for better timing
+        });
+
+        // Observe each element
+        fadeElements.forEach(function(el) {
+            observer.observe(el);
+        });
+
+
+        // ==================================================================
+        // 2. NUMBER COUNTER ANIMATION
+        // ==================================================================
+        // WHY: Stats (400+, 600+, 28) count up from 0 when the numbers
+        // section enters the viewport. Creates visual interest and
+        // draws attention to the credibility numbers.
+        // ==================================================================
+        var statNumbers = document.querySelectorAll(".stat-number[data-target]");
+        var counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    // Start counter animation
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        statNumbers.forEach(function(el) {
+            counterObserver.observe(el);
+        });
+
+        /**
+         * Animate a number from 0 to target value.
+         * @param {HTMLElement} element - The stat-number element
+         * Uses requestAnimationFrame for smooth 60fps animation.
+         * Duration: 2 seconds. Easing: ease-out.
+         */
+        function animateCounter(element) {
+            var target = parseInt(element.getAttribute("data-target"));
+            var hasPlus = element.textContent.includes("+");
+            var duration = 2000; // 2 seconds
+            var startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var progress = Math.min((timestamp - startTime) / duration, 1);
+                // Ease-out cubic: fast start, slow end
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.floor(eased * target);
+                element.textContent = current + (hasPlus ? "+" : "");
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    element.textContent = target + (hasPlus ? "+" : "");
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+
+        // ==================================================================
+        // 3. MOBILE NAVIGATION: Close menu when a link is clicked
+        // ==================================================================
+        // WHY: On mobile, after clicking a CTA in the hamburger menu,
+        // the menu should close automatically.
+        // ==================================================================
+        var mobileMenuLinks = document.querySelectorAll(".nav-mobile-menu a");
+        var hamburgerCheck = document.getElementById("nav-hamburger-check");
+        
+        mobileMenuLinks.forEach(function(link) {
+            link.addEventListener("click", function() {
+                if (hamburgerCheck) {
+                    hamburgerCheck.checked = false;
+                }
+            });
+        });
+
+    }); // END DOMContentLoaded
+
+    </script>
+
+</body>
+</html>
