@@ -1,0 +1,561 @@
+     1→     1→# VEDA ADVISORS — COMPLETE DEMO WEBSITE BUILD PROMPT
+     2→     2→### For AI / Developer Building the HTML Demo
+     3→     3→### Version 1.0 | June 2026
+     4→     4→---
+     5→     5→## WHAT YOU ARE BUILDING
+     6→     6→A single self-contained HTML file (index.html) that works on any laptop — no internet required for layout, no server needed. Just double-click and open in any browser.
+     7→     7→This is a DEMO — not the final product. The purpose is to see the look, feel, flow, and infographic structure of the website before the final version is built. All content is real. All design decisions are real. Only the backend (login, payments, portal) is non-functional in this demo — buttons can show placeholder alerts instead.
+     8→     8→---
+     9→     9→## BEFORE YOU START — READ THESE TWO DOCUMENTS FIRST
+    10→    10→These are the source of truth for all content and strategy. Do not invent anything. Everything must come from these documents.
+    11→    11→**Document 1 — Strategy Document:**
+    12→    12→https://docs.google.com/document/d/1iH6B55qOlGCPi73iI1CWYAGxe9HATnx-lvVH3pDuy7g/edit
+    13→    13→**Document 2 — This Build Prompt** (what you are reading now)
+    14→    14→Read both completely before writing a single line of code.
+    15→    15→---
+    16→    16→## IMAGE ASSETS — GOOGLE DRIVE FOLDER
+    17→    17→All images are stored here:
+    18→    18→https://drive.google.com/drive/folders/1_sZ6TTq1hS5ryvkKPPHGkgvX2dJMf7dY
+    19→    19→**Download ALL images to a folder called "images" in the same location as your index.html file.**
+    20→    20→Reference them locally as: src="images/filename.jpg"
+    21→    21→**Image inventory and usage guide:**
+    22→    22→| Filename | Use Where | Notes |
+    23→    23→|----------|-----------|-------|
+    24→    24→| MAIN - Full Logo Veda full logo with Slate Teak BG.png | Navigation bar (top left) | Use full logo here |
+    25→    25→| MAIN - Short Logo Veda logo Slate Teak BG.png | Mobile nav / favicon | Shorter version |
+    26→    26→| MAIN Logo - VED ADVISORS - HAND SHAKE WITH TRIANGLE AT 12.jpg | Footer or secondary placement | Alternative logo |
+    27→    27→| Poster 8.jpg | Hero section background reference ONLY — extract the color palette and visual language from this poster. Do not use as a full background image. | This poster defines the brand aesthetic — dark green, gold, white, bold typography |
+    28→    28→| Image for Workshop.jpg | Section showing the system / workshop visual | Use in the "Why This System" section |
+    29→    29→| RAJAT Sir Image College.jpeg | Rajat Sir personal section | Main photo of Rajat Sir — use prominently |
+    30→    30→| IMG_6215 (1).JPG | Rajat Sir in action / speaking | Use in credibility/about section |
+    31→    31→| IMG_6287.JPG | Rajat Sir at event / with people | Use in proof/social proof section |
+    32→    32→| ChatGPT Image May 28, 2026, 05_52_26 PM.png | AI-generated visual — use as supporting graphic only if it fits theme | Check before using |
+    33→    33→| high stakes logo only high stakes.png | Can be used near the BSCVI 3.0 section | Supporting brand element |
+    34→    34→| xxx.png | Check content — use only if relevant | |
+    35→    35→| WhatsApp Image 2026-06-21 at 22.11.17 (1).jpeg | Recent photo — check and use if good quality | |
+    36→    36→| WhatsApp Image 2026-04-14 at 17.22.27.jpeg | Supporting visual | Check before use |
+    37→    37→| WhatsApp Image 2026-04-14 at 17.22.25 (1).jpeg | Supporting visual | Check before use |
+    38→    38→| WhatsApp Image 2026-04-14 at 17.22.28.jpeg | Supporting visual | Check before use |
+    39→    39→| WhatsApp Image 2026-04-14 at 17.22.25.jpeg | Supporting visual | Check before use |
+    40→    40→| 354b5509-6971-4f57-8602-815412f68c8e.jpg | Supporting visual | Check before use |
+    41→    41→| WhatsApp Image 2026-04-14 at 10.43.52.jpeg | Supporting visual | Check before use |
+    42→    42→| WhatsApp Video 2026-05-07 at 11.26.22.mp4 | Optional — embed as muted autoplay video in hero if quality is good | Check before use |
+    43→    43→**IMAGE HANDLING RULES:**
+    44→    44→- Never stretch an image. Always maintain aspect ratio.
+    45→    45→- Use object-fit: cover for full-width images
+    46→    46→- Use object-fit: contain for logos
+    47→    47→- All images of Rajat Sir must be treated with high respect — framed prominently, never cropped awkwardly
+    48→    48→- The poster (Poster 8.jpg) defines the visual language — extract: dark green (#1B3A2D or similar), gold (#C9A84C or similar), white text. Use these exact brand colors throughout.
+    49→    49→- If an image doesn't fit the dark premium theme — do not use it.
+    50→    50→---
+    51→    51→## DESIGN SYSTEM — FOLLOW EXACTLY
+    52→    52→### Color Palette
+    53→    53→```
+    54→    54→Primary Background: &#160;#0D2B1F &#160;(very dark green — almost black-green)
+    55→    55→Secondary Background: #1B3A2D &#160;(dark green — for cards and sections)
+    56→    56→Accent Gold: &#160; &#160; &#160; &#160; #C9A84C &#160;(warm gold — for highlights, CTAs, numbers)
+    57→    57→Accent Gold Light: &#160; #E8C96A &#160;(lighter gold — for hover states)
+    58→    58→Text Primary: &#160; &#160; &#160; &#160;#FFFFFF &#160;(white — all main text)
+    59→    59→Text Secondary: &#160; &#160; &#160;#B8C9BF &#160;(muted green-white — for supporting text)
+    60→    60→Text Muted: &#160; &#160; &#160; &#160; &#160;#7A9E8A &#160;(for labels, captions)
+    61→    61→Border: &#160; &#160; &#160; &#160; &#160; &#160; &#160;#2D4F3C &#160;(subtle dark green border)
+    62→    62→CTA Button BG: &#160; &#160; &#160; #C9A84C &#160;(gold button)
+    63→    63→CTA Button Text: &#160; &#160; #0D2B1F &#160;(dark text on gold button)
+    64→    64→Danger/Warning: &#160; &#160; &#160;#E05252 &#160;(for "wrong" indicators in pain section)
+    65→    65→```
+    66→    66→### Typography
+    67→    67→```
+    68→    68→Font Stack: 'Inter', 'Helvetica Neue', Arial, sans-serif
+    69→    69→Import from Google Fonts: Inter (weights 400, 600, 700, 800, 900)
+    70→    70→Headline (H1): &#160; &#160;72px desktop / 40px mobile | weight 900 | uppercase | letter-spacing: -1px
+    71→    71→Headline (H2): &#160; &#160;48px desktop / 32px mobile | weight 800 |
+    72→    72→Section Title: &#160; &#160;36px desktop / 24px mobile | weight 700
+    73→    73→Card Title: &#160; &#160; &#160; 24px desktop / 20px mobile | weight 700
+    74→    74→Body: &#160; &#160; &#160; &#160; &#160; &#160; 18px desktop / 16px mobile | weight 400 | line-height: 1.7
+    75→    75→Caption/Label: &#160; &#160;14px | weight 600 | uppercase | letter-spacing: 2px
+    76→    76→Number Stat: &#160; &#160; &#160;96px desktop / 56px mobile | weight 900 | color: gold
+    77→    77→```
+    78→    78→### Spacing System
+    79→    79→```
+    80→    80→Section padding: &#160;120px top/bottom desktop | 60px mobile
+    81→    81→Container max-width: 1200px | centered | 24px side padding on mobile
+    82→    82→Card padding: &#160; &#160; 40px desktop | 24px mobile
+    83→    83→Grid gap: &#160; &#160; &#160; &#160; 32px desktop | 16px mobile
+    84→    84→```
+    85→    85→### Visual Rules
+    86→    86→```
+    87→    87→Border radius: &#160; &#160;12px for cards | 8px for buttons | 50% for circles
+    88→    88→Box shadow: &#160; &#160; &#160; 0 4px 24px rgba(0,0,0,0.3) for cards
+    89→    89→Hover transitions: all 0.3s ease
+    90→    90→Dividers: &#160; &#160; &#160; &#160; 1px solid #2D4F3C
+    91→    91→Icons: &#160; &#160; &#160; &#160; &#160; &#160;Use Unicode emoji OR inline SVG — no external icon libraries needed
+    92→    92→```
+    93→    93→### Button Styles
+    94→    94→```
+    95→    95→Primary CTA: &#160; &#160; &#160;background #C9A84C | color #0D2B1F | padding 18px 40px |
+    96→    96→&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; font-weight 700 | font-size 18px | border-radius 8px |
+    97→    97→&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; no border | cursor pointer | hover: background #E8C96A |
+    98→    98→&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; transition 0.3s
+    99→    99→Secondary: &#160; &#160; &#160; &#160;background transparent | color #C9A84C | border 2px solid #C9A84C |
+   100→   100→&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; same padding | hover: background #C9A84C | color #0D2B1F
+   101→   101→WhatsApp Button: &#160;background #25D366 | color white | with WhatsApp icon (✆)
+   102→   102→```
+   103→   103→---
+   104→   104→## WEBSITE STRUCTURE — SECTION BY SECTION
+   105→   105→Build these sections in exact order. Each section is described in full detail below.
+   106→   106→---
+   107→   107→### SECTION 0 — NAVIGATION BAR
+   108→   108→**Fixed at top. Scrolls with page becoming slightly opaque.**
+   109→   109→Left side: Veda Advisors logo (MAIN - Full Logo Veda full logo with Slate Teak BG.png)
+   110→   110→Right side: One button only → "Start Free Assessment" (gold CTA button)
+   111→   111→On mobile: Hamburger menu. Logo left. CTA button always visible.
+   112→   112→Background: rgba(13, 43, 31, 0.95) with backdrop-filter: blur(10px)
+   113→   113→Border bottom: 1px solid #2D4F3C
+   114→   114→No other nav links. Clean. Minimal. One action only.
+   115→   115→---
+   116→   116→### SECTION 1 — HERO
+   117→   117→**This is the most important section. It must stop the scroll.**
+   118→   118→**Layout:** Full viewport height (100vh). Dark background. Rajat Sir's image on the right side (desktop) or as a background layer (mobile). Text on the left.
+   119→   119→**Background:** Dark green #0D2B1F with a subtle diagonal pattern or grid overlay (CSS only — no external images needed for this)
+   120→   120→**Content — Left Side:**
+   121→   121→LABEL (small caps, gold, letter-spacing):
+   122→   122→STARTUP FUNDRAISING ADVISOR
+   123→   123→HEADLINE (massive, white, bold):
+   124→   124→STOP CHASING
+   125→   125→INVESTORS.
+   126→   126→MAKE THEM
+   127→   127→CHASE YOU.
+   128→   128→SUBLINE (18px, muted white):
+   129→   129→A proven 5-stage system — built by someone
+   130→   130→who has done it and helped 400+ founders do it too.
+   131→   131→PROVOCATIVE CLAIM (gold colored, slightly smaller):
+   132→   132→"You can raise funds without an MVP, without a product,
+   133→   133→without customers — if you know the right investor."
+   134→   134→CTA BUTTON (large, gold):
+   135→   135→[ Find Out Why You're Not Getting Funded → ]
+   136→   136→(below button, small muted text): Free. No credit card. No commitment.
+   137→   137→WHATSAPP LINE (below CTA):
+   138→   138→📱 WhatsApp Rajat Sir directly: +91 9650397480
+   139→   139→**Content — Right Side:**
+   140→   140→Large photo of Rajat Sir (use RAJAT Sir Image College.jpeg or IMG_6215 (1).JPG — whichever is higher quality and more commanding)
+   141→   141→Photo should be slightly overlapping the bottom of the hero — feeling premium and editorial.
+   142→   142→Add a gold border or gold glow effect around the photo container.
+   143→   143→Below the photo, a floating credential badge:
+   144→   144→┌─────────────────────────┐
+   145→   145→│ 🎤 TEDx Speaker &#160; &#160; &#160; &#160; │
+   146→   146→│ 28 Years Experience &#160; &#160; │
+   147→   147→│ 400+ Startups Funded &#160; &#160;│
+   148→   148→└─────────────────────────┘
+   149→   149→(dark card with gold border, positioned to overlap the photo)
+   150→   150→**Scroll indicator at bottom:** Small animated arrow or "Scroll to discover" in muted text.
+   151→   151→---
+   152→   152→### SECTION 2 — THE PAIN (Infographic — Maximum Visual, Minimum Text)
+   153→   153→**Headline:**
+   154→   154→WHY MOST STARTUPS
+   155→   155→NEVER RAISE FUNDS
+   156→   156→**Sub-headline (gold, italic):**
+   157→   157→"And it has nothing to do with your idea."
+   158→   158→**Layout:** 2x2 grid on desktop. Single column on mobile.
+   159→   159→Each card is a dark green box with a large icon, a bold title, and ONE sentence maximum.
+   160→   160→**Card 1:**
+   161→   161→Icon: 🎯 (large, 48px)
+   162→   162→Title: WRONG INVESTOR
+   163→   163→Body: You're pitching everyone. Not every investor is your investor.
+   164→   164→Card background: #1B3A2D | Left border: 4px solid #E05252
+   165→   165→**Card 2:**
+   166→   166→Icon: 📢
+   167→   167→Title: WRONG APPROACH
+   168→   168→Body: Cold emails. LinkedIn spam. 3-year plans. Investors stop listening.
+   169→   169→Card background: #1B3A2D | Left border: 4px solid #E05252
+   170→   170→**Card 3:**
+   171→   171→Icon: 🤝
+   172→   172→Title: NO CLOSING STRATEGY
+   173→   173→Body: Interest shown. Founder panics. Deal disappears. No Godfather Offer.
+   174→   174→Card background: #1B3A2D | Left border: 4px solid #E05252
+   175→   175→**Card 4:**
+   176→   176→Icon: 📄
+   177→   177→Title: BLIND SPOT IN DOCUMENTATION
+   178→   178→Body: The deal dies after investor says yes. Wrong papers. Wrong terms.
+   179→   179→Card background: #1B3A2D | Left border: 4px solid #E05252
+   180→   180→**Below the 4 cards — a full-width statement in large text:**
+   181→   181→"The problem is not your startup.
+   182→   182→The problem is the system you are using to raise funds."
+   183→   183→— Rajat Sir
+   184→   184→---
+   185→   185→### SECTION 3 — THE NUMBERS (Pure Infographic — No Sentences)
+   186→   186→**Background:** Slightly different shade — #111F17 (darker)
+   187→   187→**Layout:** 3 large stats side by side (desktop) | stacked (mobile)
+   188→   188→Each stat:
+   189→   189→- Giant number in gold (96px)
+   190→   190→- Label below in white (18px, uppercase)
+   191→   191→- Small description in muted (14px)
+   192→   192→**Stat 1:**
+   193→   193→Number: 400+
+   194→   194→Label: STARTUPS FUNDED
+   195→   195→Description: Raised funds using this system
+   196→   196→**Stat 2:**
+   197→   197→Number: 600+
+   198→   198→Label: FOUNDERS MENTORED
+   199→   199→Description: From idea to investor meetings
+   200→   200→**Stat 3:**
+   201→   201→Number: 28
+   202→   202→Label: YEARS EXPERIENCE
+   203→   203→Description: In high stakes deals &amp; negotiations
+   204→   204→**Dividers between stats:** 1px vertical line in gold, 60% height, centered.
+   205→   205→**Below stats — one line:**
+   206→   206→"Join the tribe. Your startup could be next."
+   207→   207→[Start Free Assessment →] (gold button, centered)
+   208→   208→---
+   209→   209→### SECTION 4 — THE TWO PROOF STORIES
+   210→   210→**Headline:**
+   211→   211→FOUNDERS WHO DID IT
+   212→   212→**Sub-headline:**
+   213→   213→Real founders. Real investors. Real money raised.
+   214→   214→**Layout:** 2 cards side by side (desktop) | stacked (mobile)
+   215→   215→**Card design:** Dark green (#1B3A2D) | Gold top border (4px) | Rounded corners | Drop shadow
+   216→   216→**Card 1 — Chaitanya:**
+   217→   217→Top: Gold badge → "CASE STUDY #1"
+   218→   218→Startup Name: UElement (large, bold, white)
+   219→   219→Amount: ₹15 CRORE RAISED (massive gold text, 48px)
+   220→   220→USD equivalent: (~$1.8 Million) in muted text below
+   221→   221→Founder: Chaitanya (with founder icon 👤)
+   222→   222→Quote placeholder: "Working with Rajat Sir changed how we approached every investor conversation." — Chaitanya, Founder, UElement
+   223→   223→(Note to builder: Replace with real quote when provided)
+   224→   224→**Card 2 — Abhinav:**
+   225→   225→Top: Gold badge → "CASE STUDY #2"
+   226→   226→Startup Name: ARC Electric (large, bold, white)
+   227→   227→Amount: ₹3 CRORE RAISED (massive gold text, 48px)
+   228→   228→USD equivalent: (~$360,000) in muted text below
+   229→   229→Founder: Abhinav (with founder icon 👤)
+   230→   230→Quote placeholder: "The BSCVI 3.0 system gave us clarity we never had before. We knew exactly who to call." — Abhinav, Founder, ARC Electric
+   231→   231→(Note to builder: Replace with real quote when provided)
+   232→   232→**Below both cards:**
+   233→   233→"These are not exceptions. This is what the system does."
+   234→   234→---
+   235→   235→### SECTION 5 — THE BSCVI 3.0 SYSTEM (Key Infographic — The Journey Map)
+   236→   236→**This is the most important infographic section. Must be visually stunning.**
+   237→   237→**Headline:**
+   238→   238→THE BSCVI 3.0 SYSTEM
+   239→   239→**Sub-headline (gold):**
+   240→   240→"Raising funds is High Stakes Negotiation.
+   241→   241→And like any negotiation — it has a system."
+   242→   242→**The Journey Map — Horizontal on desktop, vertical on mobile:**
+   243→   243→Draw a visual road with 6 stops. Each stop is a numbered circle connected by a line/arrow.
+   244→   244→STOP 0 → STOP 1 → STOP 2 → STOP 3 → STOP 4 → STOP 5
+   245→   245→**Stop 0:**
+   246→   246→Circle color: Gold with "0" inside
+   247→   247→Label: READINESS
+   248→   248→Sub: Free Assessment
+   249→   249→Badge: "FREE" in green
+   250→   250→Description: Understand where your startup stands today
+   251→   251→**Stop 1:**
+   252→   252→Circle color: Dark green with gold border, "1" inside
+   253→   253→Label: IDENTIFY
+   254→   254→Sub: Find Your Investor
+   255→   255→Badge: "Stage 1"
+   256→   256→Description: Build a list of 10 investors who will actually fund your specific business
+   257→   257→**Stop 2:**
+   258→   258→Circle color: same style, "2"
+   259→   259→Label: APPROACH
+   260→   260→Sub: Reach Your Investor
+   261→   261→Badge: "Stage 2"
+   262→   262→Description: Write a personalised approach strategy for each of your 10 investors
+   263→   263→**Stop 3:**
+   264→   264→Circle color: same, "3"
+   265→   265→Label: OFFER
+   266→   266→Sub: The Godfather Offer
+   267→   267→Badge: "Stage 3"
+   268→   268→Description: Structure an offer the investor cannot refuse
+   269→   269→**Stop 4:**
+   270→   270→Circle color: same, "4"
+   271→   271→Label: CLOSE
+   272→   272→Sub: Documentation &amp; Deal
+   273→   273→Badge: "Stage 4"
+   274→   274→Description: Navigate term sheets, negotiations, and close the deal correctly
+   275→   275→**Stop 5:**
+   276→   276→Circle color: same, "5"
+   277→   277→Label: SUSTAIN
+   278→   278→Sub: Grow the Relationship
+   279→   279→Badge: "Stage 5"
+   280→   280→Description: Manage investors, plan next round, build long-term relationships
+   281→   281→**The connecting line:** Gold dashed line running through all stops. Arrow direction left to right.
+   282→   282→**Important note below the journey map:**
+   283→   283→"You start at Stage 0 — free. You move forward only when you are ready.
+   284→   284→Each stage is one-on-one with Rajat Sir. Your pace. Your journey."
+   285→   285→**CTA below:**
+   286→   286→[ Start at Stage 0 — It's Free → ]
+   287→   287→---
+   288→   288→### SECTION 6 — RAJAT SIR (The Human Section — Most Personal)
+   289→   289→**This section must feel warm, personal, and trustworthy. Not corporate.**
+   290→   290→**Layout:** Two columns. Left: large photo. Right: personal content.
+   291→   291→**Left — Photo:**
+   292→   292→Use IMG_6287.JPG or the best quality photo available of Rajat Sir at an event or speaking.
+   293→   293→Style: Full height, rounded corners, slight gold glow border effect.
+   294→   294→Overlay at bottom of photo: Small credential strip
+   295→   295→"50 Years Old · 28 Years Experience · TEDx Speaker"
+   296→   296→**Right — Content:**
+   297→   297→LABEL: THE PERSON BEHIND THE SYSTEM
+   298→   298→HEADLINE:
+   299→   299→People Call Me
+   300→   300→Rajat Sir.
+   301→   301→PERSONAL PARAGRAPH (this exact text — do not change):
+   302→   302→"I am 50 years old. I have spent 28 years in business — raising funds, closing deals, making mistakes, and learning from them.
+   303→   303→I know what it feels like to sit across an investor and not know what to say. I know what it feels like to have a great idea and not know who to call.
+   304→   304→What I offer is not just a system. I am available to you — to hear your fears, discuss your options, and tell you honestly what I see. Founders don't just need a method. They need a senior person they can trust completely.
+   305→   305→That is what I am here for."
+   306→   306→CONFIDENTIALITY PROMISE (in a gold bordered box):
+   307→   307→🔒 "What you share with me stays with me. Always."
+   308→   308→— Rajat Sir
+   309→   309→CREDENTIAL BADGES (4 small dark cards in a 2x2 grid):
+   310→   310→Badge 1: 🎤 TEDx Speaker
+   311→   311→Badge 2: 🏢 Consulted Airtel, Honda, IBM, Levers
+   312→   312→Badge 3: 📚 150,000+ Professionals Trained
+   313→   313→Badge 4: 🚀 1,000+ Sessions Delivered
+   314→   314→**CTA:**
+   315→   315→[ Apply to Work with Rajat Sir → ]
+   316→   316→(below: small text) "Rajat Sir personally reviews every application."
+   317→   317→---
+   318→   318→### SECTION 7 — WHO THIS IS FOR (Two Audience Cards)
+   319→   319→**Headline:**
+   320→   320→IS THIS FOR YOU?
+   321→   321→**Layout:** 2 cards side by side (desktop) | stacked (mobile)
+   322→   322→**Card 1 — Startup Founders:**
+   323→   323→Icon: 🚀 (large)
+   324→   324→Title: STARTUP FOUNDERS
+   325→   325→Sub: You have a business. You need capital.
+   326→   326→Pain points (3 bullet lines, each with ✗ icon in red):
+   327→   327→✗ Pitched investors. Got no response.
+   328→   328→✗ Had meetings. Nothing moved.
+   329→   329→✗ Don't know what you're doing wrong.
+   330→   330→What changes (below a gold divider line, ✓ icon in gold):
+   331→   331→✓ Know exactly which 10 investors to approach
+   332→   332→✓ Know exactly how to approach each one
+   333→   333→✓ Have a Godfather Offer ready to close
+   334→   334→Headline for them (italic, gold):
+   335→   335→"You've been pitching. Nothing has moved. Let's fix that."
+   336→   336→**Card 2 — Student Entrepreneurs:**
+   337→   337→Icon: 🎓 (large)
+   338→   338→Title: STUDENT ENTREPRENEURS
+   339→   339→Sub: You have an idea. You want funding.
+   340→   340→Pain points:
+   341→   341→✗ Investors don't take students seriously.
+   342→   342→✗ Don't know where to start.
+   343→   343→✗ Afraid to approach the wrong people.
+   344→   344→What changes:
+   345→   345→✓ Understand how fundraising actually works
+   346→   346→✓ Build your investor approach before you graduate
+   347→   347→✓ Get a senior advisor who will listen — not dismiss
+   348→   348→Headline for them (italic, gold):
+   349→   349→"Your idea deserves funding. Here's how to make investors take you seriously."
+   350→   350→---
+   351→   351→### SECTION 8 — THE FILTER (This Is For Serious People Only)
+   352→   352→**Background:** #0A1A10 (even darker — creates contrast)
+   353→   353→**This section must feel exclusive and selective.**
+   354→   354→**Layout:** Centered. Single column. Max-width 700px.
+   355→   355→**Content:**
+   356→   356→Large quote marks (decorative, gold):
+   357→   357→STATEMENT (large, white, centered):
+   358→   358→This is not for everyone.
+   359→   359→BODY TEXT (centered, muted):
+   360→   360→Rajat Sir works with founders who have decided they will raise funds —
+   361→   361→and are ready to do the work.
+   362→   362→Not the curious. Not the doubtful.
+   363→   363→The decided.
+   364→   364→CHECKLIST — "You are ready if:" (gold checkmarks)
+   365→   365→✓ You have a startup or a serious idea
+   366→   366→✓ You have tried (or are ready to try) approaching investors
+   367→   367→✓ You understand that raising funds requires work — not just a good idea
+   368→   368→✓ You are willing to follow a system, not just ask for shortcuts
+   369→   369→ANTI-CHECKLIST — "This is NOT for you if:" (red X marks)
+   370→   370→✗ You want a guarantee before you pay anything
+   371→   371→✗ You expect Rajat Sir to raise funds for you
+   372→   372→✗ You are not willing to approach investors yourself
+   373→   373→✗ You think you already know everything
+   374→   374→CTA (large, gold button, centered):
+   375→   375→[ Apply to Work with Rajat Sir → ]
+   376→   376→Below button (small muted text):
+   377→   377→"Stage 0 is free. Start there. No commitment required."
+   378→   378→---
+   379→   379→### SECTION 9 — STAGE 0 PREVIEW (The Free Assessment Teaser)
+   380→   380→**This section shows what Stage 0 looks like — a preview to build curiosity.**
+   381→   381→**Headline:**
+   382→   382→START HERE.
+   383→   383→IT'S FREE.
+   384→   384→**Sub-headline:**
+   385→   385→Stage 0 — The Startup Fundraising Readiness Assessment
+   386→   386→**Show a visual mockup of the Stage 0 form — NOT a functional form, just a visual preview:**
+   387→   387→Design a card that looks like a multi-step form. Show Question 1 as "active" and questions 2-7 as greyed out / locked below. This creates curiosity.
+   388→   388→**Question 1 visible:**
+   389→   389→"What is your startup called — and what problem does it solve?"
+   390→   390→[Text input field — styled but not functional]
+   391→   391→**Questions 2-7 (shown but blurred/locked):**
+   392→   392→Show them as: ●●●●●●● (blurred text) with a 🔒 icon
+   393→   393→Label below: "Unlocks when you start"
+   394→   394→**Below the form preview:**
+   395→   395→"7 questions. 10 minutes. Rajat Sir reviews every submission personally."
+   396→   396→PROCESS STEPS (3 horizontal steps):
+   397→   397→Step 1: Fill Stage 0 → Step 2: Get Rajat Sir's email → Step 3: Book your session
+   398→   398→**CTA:**
+   399→   399→[ Begin Stage 0 — Free → ]
+   400→   400→(clicking this shows an alert: "In the final version, this will open your personal portal. Demo only.")
+   401→   401→---
+   402→   402→### SECTION 10 — GLOBAL REACH (Simple Infographic)
+   403→   403→**Headline:**
+   404→   404→GLOBAL ADVISORY.
+   405→   405→PERSONAL ATTENTION.
+   406→   406→**Sub-headline:**
+   407→   407→Rajat Sir works with founders from across the world.
+   408→   408→**Show a simple visual map or 4 region cards:**
+   409→   409→Region 1: 🇮🇳 India
+   410→   410→Region 2: 🇦🇪 UAE &amp; Middle East
+   411→   411→Region 3: 🇸🇬 Southeast Asia
+   412→   412→Region 4: 🇬🇧 United Kingdom
+   413→   413→Each card: Flag + Region name + "Accepting applications"
+   414→   414→**Language line below:**
+   415→   415→"All sessions are in English. All time zones accommodated."
+   416→   416→---
+   417→   417→### SECTION 11 — WHATSAPP CTA (Floating + Section)
+   418→   418→**Floating WhatsApp button (fixed, bottom-right corner of screen at all times):**
+   419→   419→Round green button (#25D366) with WhatsApp logo (use ✆ or 💬 as placeholder)
+   420→   420→On hover: "Chat with Rajat Sir"
+   421→   421→Link: https://wa.me/919650397480
+   422→   422→**Section version (mid-page placement):**
+   423→   423→Background: Dark green with gold border card, centered, max-width 600px
+   424→   424→Content:
+   425→   425→📱 DIRECT ACCESS TO RAJAT SIR
+   426→   426→"Have a quick question before you apply?
+   427→   427→WhatsApp me directly. I respond personally."
+   428→   428→[ WhatsApp Rajat Sir → +91 9650397480 ]
+   429→   429→(green button)
+   430→   430→---
+   431→   431→### SECTION 12 — FOOTER
+   432→   432→**Background:** #080F0A (near black)
+   433→   433→**Layout:** 3 columns desktop | stacked mobile
+   434→   434→**Column 1 — Logo + tagline:**
+   435→   435→Veda Advisors logo (short version)
+   436→   436→Tagline: "Stop Chasing Investors. Make Them Chase You."
+   437→   437→"© 2026 Veda Advisors. All rights reserved."
+   438→   438→**Column 2 — Quick links:**
+   439→   439→(Note: These are placeholders — all show demo alert on click)
+   440→   440→• For Startup Founders
+   441→   441→• For Student Entrepreneurs
+   442→   442→• The BSCVI 3.0 System
+   443→   443→• Apply to Work with Rajat Sir
+   444→   444→**Column 3 — Contact:**
+   445→   445→📱 WhatsApp: +91 9650397480
+   446→   446→📧 rajatkamalagarwal@gmail.com
+   447→   447→📍 New Delhi, India
+   448→   448→🌐 vedaadvisors.graphy.com (current — being replaced)
+   449→   449→**Bottom bar:**
+   450→   450→"This is not a course. This is not coaching. This is a system — with a senior advisor available to you every step of the way."
+   451→   451→---
+   452→   452→## NAVIGATION BETWEEN SECTIONS (Smooth Scroll)
+   453→   453→All anchor links must smooth-scroll.
+   454→   454→Add this to your CSS: html { scroll-behavior: smooth; }
+   455→   455→---
+   456→   456→## MOBILE RESPONSIVENESS — MANDATORY
+   457→   457→Every section must work on a 375px wide screen (iPhone).
+   458→   458→Test every section at mobile width before finalising.
+   459→   459→Mobile rules:
+   460→   460→- All grids become single column
+   461→   461→- Font sizes reduce (see typography section)
+   462→   462→- Hero becomes stacked (text first, photo below)
+   463→   463→- Navigation becomes hamburger
+   464→   464→- Floating WhatsApp button always visible
+   465→   465→- CTA buttons become full width
+   466→   466→- Cards stack vertically with full width
+   467→   467→---
+   468→   468→## ANIMATIONS — SUBTLE ONLY
+   469→   469→Add these CSS animations only — no JavaScript animation libraries:
+   470→   470→1. Fade-in on scroll: Elements fade in as user scrolls to them
+   471→   471→&#160; &#160;(Use Intersection Observer API — small vanilla JS snippet)
+   472→   472→2. Number counter animation: Stats in Section 3 count up from 0 to their value
+   473→   473→&#160; &#160;(Simple vanilla JS — triggers when section enters viewport)
+   474→   474→3. CTA button pulse: The primary CTA button has a subtle gold pulse animation
+   475→   475→&#160; &#160;@keyframes pulse { 0% {box-shadow: 0 0 0 0 rgba(201,168,76,0.4)} 70% {box-shadow: 0 0 0 15px rgba(201,168,76,0)} 100% {box-shadow: 0 0 0 0 rgba(201,168,76,0)} }
+   476→   476→4. Hover states: All cards lift slightly on hover (transform: translateY(-4px))
+   477→   477→NO: Parallax. NO: Auto-playing sliders. NO: Excessive motion. Keep it premium, not playful.
+   478→   478→---
+   479→   479→## DEMO BEHAVIOR — WHAT BUTTONS DO
+   480→   480→Since this is a demo with no backend:
+   481→   481→All CTA buttons that say "Apply" or "Start Assessment" → Show this alert:
+   482→   482→"In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon."
+   483→   483→WhatsApp button → Opens: https://wa.me/919650397480 (this works in demo)
+   484→   484→Email link → Opens: mailto:rajatkamalagarwal@gmail.com (this works in demo)
+   485→   485→All other links → Show alert: "Navigation active in final version."
+   486→   486→---
+   487→   487→## FILE STRUCTURE
+   488→   488→Your folder should look like this:
+   489→   489→/VedaAdvisors_Demo/
+   490→   490→├── index.html &#160; &#160; &#160; &#160; &#160;← The entire website in one file
+   491→   491→└── images/
+   492→   492→&#160; &#160; ├── MAIN - Full Logo Veda full logo with Slate Teak BG.png
+   493→   493→&#160; &#160; ├── MAIN - Short Logo Veda logo Slate Teak BG.png
+   494→   494→&#160; &#160; ├── MAIN Logo - VED ADVISORS - HAND SHAKE WITH TRIANGLE AT 12.jpg
+   495→   495→&#160; &#160; ├── Poster 8.jpg
+   496→   496→&#160; &#160; ├── Image for Workshop.jpg
+   497→   497→&#160; &#160; ├── RAJAT Sir Image College.jpeg
+   498→   498→&#160; &#160; ├── IMG_6215 (1).JPG
+   499→   499→&#160; &#160; ├── IMG_6287.JPG
+   500→   500→&#160; &#160; ├── high stakes logo only high stakes.png
+   501→   501→&#160; &#160; ├── ChatGPT Image May 28, 2026, 05_52_26 PM.png
+   502→   502→&#160; &#160; └── [all other images from Drive folder]
+   503→   503→---
+   504→   504→## QUALITY CHECKLIST — BEFORE YOU FINISH
+   505→   505→Run through every item before declaring done:
+   506→   506→**Content:**
+   507→   507→[ ] All text matches exactly what is in the strategy document
+   508→   508→[ ] No placeholder "Lorem ipsum" text anywhere
+   509→   509→[ ] All numbers are correct (400+, 600+, 28 years, etc.)
+   510→   510→[ ] Rajat Sir's WhatsApp number is correct: 9650397480
+   511→   511→[ ] Email is correct: rajatkamalagarwal@gmail.com
+   512→   512→[ ] The word "Mentor" or "Coach" does not appear anywhere — title is "Advisor"
+   513→   513→[ ] The phrase "Book a Session" does not appear — it must say "Apply to Work with Rajat Sir"
+   514→   514→**Design:**
+   515→   515→[ ] Color palette is consistent throughout — dark green, gold, white only
+   516→   516→[ ] No white backgrounds anywhere on the page
+   517→   517→[ ] No stock photos of strangers — only real photos of Rajat Sir
+   518→   518→[ ] All images are properly sized and not distorted
+   519→   519→[ ] Gold is used only for: headlines, CTAs, numbers, borders — not for body text
+   520→   520→[ ] Logo appears in navigation and footer
+   521→   521→**Technical:**
+   522→   522→[ ] File opens with double-click in any browser — no server needed
+   523→   523→[ ] All images load correctly from local /images/ folder
+   524→   524→[ ] Mobile view works at 375px width
+   525→   525→[ ] Smooth scroll works
+   526→   526→[ ] Floating WhatsApp button is visible at all times
+   527→   527→[ ] Number counter animation works on scroll
+   528→   528→[ ] All demo alerts show correct placeholder text
+   529→   529→**Feel:**
+   530→   530→[ ] The page feels PREMIUM — like a McKinsey meets startup advisor
+   531→   531→[ ] The page feels HUMAN — Rajat Sir feels like a real person you want to call
+   532→   532→[ ] The page feels GLOBAL — not just an Indian coaching platform
+   533→   533→[ ] The page makes you feel the PAIN in Section 2 — you recognize yourself
+   534→   534→[ ] The page makes you CURIOUS about Stage 0 — you want to fill it out
+   535→   535→[ ] The page does NOT feel like a course platform or a coaching app
+   536→   536→---
+   537→   537→## IMPORTANT NOTES FOR THE BUILDER
+   538→   538→1. This is a single HTML file. All CSS goes in a &lt;style&gt; tag in the &lt;head&gt;. All JS goes in a &lt;script&gt; tag before &lt;/body&gt;. No external files except the images.
+   539→   539→2. Use Google Fonts import at the top of your CSS:
+   540→   540→@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap');
+   541→   541→(Note: This requires internet to load the font. Fallback to Arial if offline.)
+   542→   542→3. The entire page should feel like the Poster 8.jpg — study that poster. The dark green, the gold, the bold typography, the confident layout — that is the spirit of everything you build.
+   543→   543→4. Rajat Sir's photos must be the hero of the page. Do not bury them. Do not crop them badly. Do not use small thumbnails. He is the product. His face builds trust.
+   544→   544→5. Less text. More visual. If you find yourself writing a paragraph — stop. Turn it into an icon + 5 words.
+   545→   545→6. The single most important element on the page is the CTA button. It must be visible, gold, and appear at least 4 times throughout the page: hero, after proof stories, after the system section, and before the footer.
+   546→   546→7. When in doubt about any content decision — go back to the strategy document. The answer is there.
+   547→   547→---
+   548→   548→## FINAL OUTPUT EXPECTATION
+   549→   549→When complete, the builder should have:
+   550→   550→- One file: index.html
+   551→   551→- One folder: images/ (with all downloaded images)
+   552→   552→- The website should open in any browser by double-clicking index.html
+   553→   553→- No internet required (except Google Fonts for typography)
+   554→   554→- Full navigation through all 12 sections by scrolling
+   555→   555→- Professional, premium, infographic-first presentation
+   556→   556→This demo will be reviewed by Rajat Sir and used to brief the final development team.
+   557→   557→---
+   558→   558→*Prompt created: June 2026*
+   559→   559→*Created by: Claude (Anthropic) as part of Veda Advisors strategy build*
+   560→   560→*For questions on strategy: Refer to the Strategy Document link above*
+   561→   561→*For questions on images: All images are in the Google Drive folder linked above*

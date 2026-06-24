@@ -1,0 +1,96 @@
+
+    <!-- ====================================================================
+         SECTION 0: NAVIGATION BAR
+         ====================================================================
+         WHY: The navbar is the first thing users see. It must be minimal,
+         premium, and have exactly ONE call-to-action. No clutter, no links
+         to nowhere. Just the brand and the action.
+
+         DESIGN: Fixed position with backdrop blur for a glass-morphism
+         effect. Gold CTA stands out against dark green background.
+         On mobile, a hamburger menu reveals the CTA.
+
+         IMAGES USED:
+         - Desktop: Full logo (MAIN - Full Logo Veda full logo with Slate Teak BG.png)
+         - Mobile: Short logo (MAIN - Short Logo Veda logo Slate Teak BG.png)
+         ==================================================================== -->
+    <nav id="main-nav" class="navbar">
+        <!-- Container: max-width 1200px, centered with auto margins, padding for mobile -->
+        <div class="nav-container">
+            
+            <!-- LEFT SIDE: Veda Advisors Logo -->
+            <!-- WHY: Brand identity must be immediately visible. The logo 
+                 appears on every screen the user visits. -->
+            <!-- Using full logo on desktop, short logo on mobile (hidden via CSS) -->
+            <a href="#" class="nav-logo" onclick="event.preventDefault();">
+                <!-- Desktop logo: full version with background -->
+                <img 
+                    src="images/MAIN - Full Logo Veda full logo with Slate Teak BG.png" 
+                    alt="Veda Advisors — Startup Fundraising Advisor" 
+                    class="nav-logo-img nav-logo-desktop"
+                    onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='block';"
+                >
+                <!-- Mobile logo: shorter version for small screens -->
+                <img 
+                    src="images/MAIN - Short Logo Veda logo Slate Teak BG.png" 
+                    alt="Veda Advisors" 
+                    class="nav-logo-img nav-logo-mobile"
+                    onerror="this.style.display='none';"
+                >
+                <!-- Fallback text logo if images fail to load -->
+                <span id="nav-logo-text" class="nav-logo-fallback" style="display:none;">
+                    VEDA<span class="gold-text">ADVISORS</span>
+                </span>
+            </a>
+
+            <!-- RIGHT SIDE: Single CTA Button -->
+            <!-- WHY: One action only. Conversion-focused design principle.
+                 "Start Free Assessment" is the primary CTA used across the site.
+                 Gold button on dark background creates maximum contrast. -->
+            <a 
+                href="#stage0" 
+                class="nav-cta cta-primary"
+                onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+            >
+                Start Free Assessment
+            </a>
+
+            <!-- MOBILE HAMBURGER TOGGLE -->
+            <!-- WHY: On mobile (<768px), the CTA button is hidden and
+                 replaced by a hamburger menu that slides out a panel.
+                 Uses checkbox hack for pure CSS toggle (no JS needed). -->
+            <!-- Hidden checkbox that tracks hamburger state -->
+            <input type="checkbox" id="nav-hamburger-check" class="nav-hamburger-check" aria-label="Toggle navigation menu">
+            
+            <!-- Hamburger icon (3 lines, becomes X when active via CSS) -->
+            <label for="nav-hamburger-check" class="nav-hamburger" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </label>
+
+            <!-- MOBILE SLIDE-OUT MENU -->
+            <!-- WHY: When hamburger is clicked, this panel slides in from right.
+                 Contains the CTA button for mobile users. -->
+            <div class="nav-mobile-menu">
+                <!-- Mobile CTA: same as desktop but full-width on mobile -->
+                <a 
+                    href="#stage0" 
+                    class="nav-mobile-cta cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Start Free Assessment
+                </a>
+                <!-- WhatsApp link in mobile menu for quick access -->
+                <a 
+                    href="https://wa.me/919650397480" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="nav-mobile-whatsapp"
+                >
+                    &#128241; WhatsApp Rajat Sir
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- END OF SECTION 0: NAVIGATION BAR -->

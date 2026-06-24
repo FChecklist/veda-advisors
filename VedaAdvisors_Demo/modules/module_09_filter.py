@@ -1,0 +1,136 @@
+"""
+=============================================================================
+MODULE 9: THE FILTER SECTION (Section 8) — For Serious People Only
+=============================================================================
+GENERATES: fragments/fragment_09_filter.html
+
+PURPOSE: Exclusive, selective section. Centered, max-width 700px.
+  Checklist (gold checkmarks) + Anti-checklist (red X marks).
+  Creates FOMO and self-selection.
+=============================================================================
+"""
+
+def generate_filter_html():
+    """Generate the filter/exclusivity section."""
+    
+    html = '''
+    <!-- ====================================================================
+         SECTION 8: THE FILTER — This Is For Serious People Only
+         ====================================================================
+         WHY: This section uses the psychology of exclusivity.
+         "This is not for everyone" — makes those who ARE ready feel special.
+         
+         DESIGN: Even darker background (#0A1A10), centered single column,
+         max-width 700px. Creates an intimate, serious tone.
+         
+         STRUCTURE:
+         1. Statement: "This is not for everyone."
+         2. Body: Rajat Sir works with the decided.
+         3. Checklist: 4 gold checkmarks (you are ready if...)
+         4. Anti-checklist: 4 red X marks (NOT for you if...)
+         5. CTA button
+         
+         PSYCHOLOGY: The anti-checklist is KEY. By telling people who
+         should NOT apply, you make the ones who qualify feel special.
+         This is the " velvet rope" effect from the strategy document.
+         ==================================================================== -->
+    <section id="filter" class="filter-section">
+        <div class="container">
+            <div class="filter-content">
+                
+                <!-- DECORATIVE QUOTE MARKS -->
+                <!-- WHY: Large gold quotes create a "this is important"
+                     feeling. They frame the statement as something
+                     authoritative and noteworthy. -->
+                <div class="filter-quote-mark" aria-hidden="true">&ldquo;</div>
+                
+                <!-- MAIN STATEMENT -->
+                <h2 class="filter-headline">
+                    This is not for everyone.
+                </h2>
+                
+                <!-- BODY TEXT -->
+                <p class="filter-body">
+                    Rajat Sir works with founders who have decided they will raise funds —
+                    and are ready to do the work.
+                </p>
+                <p class="filter-body-emphasis">
+                    Not the curious. Not the doubtful.<br>
+                    <span class="gold-text">The decided.</span>
+                </p>
+
+                <!-- CHECKLIST: You are ready if... -->
+                <!-- WHY: Gold checkmarks create aspiration. Founders read
+                     these and think "yes, that's me" — self-qualifying. -->
+                <div class="filter-checklist">
+                    <h3 class="filter-list-title gold-text">You are ready if:</h3>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You have a startup or a serious idea</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You have tried (or are ready to try) approaching investors</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You understand that raising funds requires work — not just a good idea</span>
+                    </div>
+                    <div class="filter-check-item">
+                        <span class="filter-check-icon gold-text">&#10003;</span>
+                        <span>You are willing to follow a system, not just ask for shortcuts</span>
+                    </div>
+                </div>
+
+                <!-- ANTI-CHECKLIST: This is NOT for you if... -->
+                <!-- WHY: Red X marks push away the wrong people. This is
+                     Layer 1 of the 3-layer filter system from the strategy
+                     document. It protects Rajat Sir's time. -->
+                <div class="filter-antilist">
+                    <h3 class="filter-list-title" style="color: #E05252;">This is NOT for you if:</h3>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You want a guarantee before you pay anything</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You expect Rajat Sir to raise funds for you</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You are not willing to approach investors yourself</span>
+                    </div>
+                    <div class="filter-anti-item">
+                        <span class="filter-anti-icon">&#10060;</span>
+                        <span>You think you already know everything</span>
+                    </div>
+                </div>
+
+                <!-- CTA BUTTON -->
+                <a 
+                    href="#stage0" 
+                    class="cta-primary"
+                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                >
+                    Apply to Work with Rajat Sir &rarr;
+                </a>
+                <p class="filter-cta-subtext">
+                    "Stage 0 is free. Start there. No commitment required."
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- END OF SECTION 8: THE FILTER -->
+'''
+    return html
+
+
+if __name__ == "__main__":
+    import os
+    filter_html = generate_filter_html()
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(base_dir, "..", "fragments", "fragment_09_filter.html")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(filter_html)
+    print(f"[MODULE 9] Filter section generated!")
+    print(f"[MODULE 9] Size: {len(filter_html)} characters")

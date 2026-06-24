@@ -1,0 +1,128 @@
+
+    <!-- ====================================================================
+         SECTION 9: STAGE 0 PREVIEW — The Free Assessment Teaser
+         ====================================================================
+         WHY: This section SHOWS (doesn't tell) what Stage 0 is.
+         By revealing Q1 and locking Q2-Q7, it creates massive curiosity.
+         The founder thinks: "I want to know what the other questions are."
+         
+         DESIGN: A card that looks like a multi-step form.
+         Q1 has an actual input field (non-functional in demo).
+         Q2-Q7 are blurred with lock icons.
+         
+         PSYCHOLOGY: Partial information is more compelling than full info.
+         The locked questions are the hook. "Unlocks when you start" 
+         creates a desire to begin.
+         ==================================================================== -->
+    <section id="stage0" class="stage0-section">
+        <div class="container">
+            
+            <h2 class="section-headline">
+                START HERE.<br>
+                <span class="gold-text">IT'S FREE.</span>
+            </h2>
+            <p class="section-subheadline">Stage 0 — The Startup Fundraising Readiness Assessment</p>
+
+            <!-- FORM MOCKUP CARD -->
+            <!-- WHY: Looks like a real form but is a visual preview only.
+                 In the demo, clicking the input shows an alert. -->
+            <div class="stage0-form-card">
+                <!-- Form progress indicator -->
+                <div class="stage0-progress">
+                    <div class="stage0-progress-bar" style="width: 14%;"></div>
+                    <span class="stage0-progress-text">1 of 7</span>
+                </div>
+                
+                <!-- QUESTIONS LIST -->
+                <div class="stage0-questions">
+
+                    <!-- Q1: ACTIVE — Visible to user -->
+                    <div class="stage0-question stage0-question-active">
+                        <div class="stage0-question-number">Q1</div>
+                        <div class="stage0-question-text">What is your startup called — and what problem does it solve?</div>
+                        <!-- Non-functional input field for visual only -->
+                        <input type="text" class="stage0-input" placeholder="Your answer here..." readonly onclick="alert('In the final version, this opens your personal portal. Demo mode.');">
+                    </div>
+
+                    <!-- Q2: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q2</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q3: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q3</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q4: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q4</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q5: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q5</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q6: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q6</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                    <!-- Q7: LOCKED — Blurred/locked for curiosity -->
+                    <div class="stage0-question stage0-question-locked">
+                        <div class="stage0-question-number">Q7</div>
+                        <div class="stage0-question-blur">&#128274; &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+                        <div class="stage0-locked-label">Unlocks when you start</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BELOW THE FORM PREVIEW -->
+            <p class="stage0-teaser-text">
+                7 questions. 10 minutes. Rajat Sir reviews every submission personally.
+            </p>
+
+            <!-- 3-STEP PROCESS -->
+            <!-- WHY: Shows the journey after Stage 0:
+                 1. Fill assessment → 2. Get Rajat Sir's email → 3. Book session
+                 Makes the process feel simple and human. -->
+            <div class="stage0-process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <div class="process-step-text">Fill Stage 0</div>
+                </div>
+                <div class="process-step-arrow" aria-hidden="true">&rarr;</div>
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <div class="process-step-text">Get Rajat Sir's Email</div>
+                </div>
+                <div class="process-step-arrow" aria-hidden="true">&rarr;</div>
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <div class="process-step-text">Book Your Session</div>
+                </div>
+            </div>
+
+            <!-- CTA BUTTON -->
+            <a 
+                href="#" 
+                class="cta-primary"
+                onclick="event.preventDefault(); alert('In the final version, this will open your personal portal. Demo mode — coming soon.');"
+            >
+                Begin Stage 0 — Free &rarr;
+            </a>
+        </div>
+    </section>
+    <!-- END OF SECTION 9: STAGE 0 PREVIEW -->
