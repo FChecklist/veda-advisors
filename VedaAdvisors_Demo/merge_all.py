@@ -1867,8 +1867,12 @@ def merge_all():
         fragments_content.append(content)
         print(f"  [MERGE] Read fragment {i}/12: {filename} ({len(content)} chars)")
     
-    # Combine all fragment HTML
-    all_sections_html = "\n".join(fragments_content)
+    # Split fragments for semantic HTML: nav (1), sections (2-11), footer (12)
+    # WHY: <nav> and <footer> are landmarks that go outside <main>.
+    # Sections 2-11 (hero through global) go inside <main>.
+    nav_html = fragments_content[0]                                           # Fragment 1: Nav
+    sections_html = "\n".join(fragments_content[1:11])                         # Fragments 2-11: Sections
+    footer_html = fragments_content[11]                                       # Fragment 12: WhatsApp CTA + Footer
     
     # Generate CSS and JS
     css = generate_complete_css()
@@ -1981,11 +1985,26 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
          module_08_audience.py → fragment_08_audience.html (Section 7: Audience)
          module_09_filter.py → fragment_09_filter.html (Section 8: Filter)
          module_10_stage0.py → fragment_10_stage0.html (Section 9: Stage 0)
-         module_12_global.py → fragment_11_global.html (Section 10: Global)
+         module_11_global.py → fragment_11_global.html (Section 10: Global)
          module_12_cta_footer.py → fragment_12_cta_footer.html (Section 11+12)
          ==================================================================== -->
 
-{all_sections_html}
+    <!-- NAV: Outside <main> — navigation is a landmark, not page content -->
+    {nav_html}
+
+    <!-- ====================================================================
+         <main> — Wraps all primary content sections (1-11)
+         ====================================================================
+         WHY: Semantic HTML. <main> tells screen readers this is the
+         dominant content. Nav and Footer are outside <main>.
+         ==================================================================== -->
+    <main id="main-content">
+    {sections_html}
+    </main>
+    <!-- END OF <main> — Footer follows outside -->
+
+    <!-- FOOTER: Outside <main> — footer is a separate landmark -->
+    {footer_html}
 
     <!-- ====================================================================
          JAVASCRIPT

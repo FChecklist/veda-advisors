@@ -158,11 +158,13 @@ def generate_nav_html():
 # and saves it to the fragments/ directory.
 # ==============================================================================
 if __name__ == "__main__":
+    import os
     # Generate the navigation HTML
     nav_html = generate_nav_html()
     
-    # Save to fragments directory
-    output_path = "fragments/fragment_01_nav.html"
+    # Save to fragments directory (absolute path for reliable execution from any directory)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(base_dir, "..", "fragments", "fragment_01_nav.html")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(nav_html)
     

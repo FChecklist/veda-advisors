@@ -224,8 +224,10 @@ def generate_hero_html():
 
 
 if __name__ == "__main__":
+    import os
     hero_html = generate_hero_html()
-    output_path = "fragments/fragment_02_hero.html"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(base_dir, "..", "fragments", "fragment_02_hero.html")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(hero_html)
     print(f"[MODULE 2] Hero section generated successfully!")

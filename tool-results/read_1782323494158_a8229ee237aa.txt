@@ -1,0 +1,2002 @@
+     1→"""
+     2→=============================================================================
+     3→MERGE SCRIPT: Combines all 12 module fragments + CSS + JS into index.html
+     4→=============================================================================
+     5→OUTPUT: /home/z/my-project/VedaAdvisors_Demo/index.html
+     6→
+     7→This script:
+     8→  1. Reads all 12 HTML fragments from the fragments/ directory
+     9→  2. Generates the COMPLETE CSS (design system from build prompt)
+    10→  3. Generates the JavaScript (scroll animations, counter, intersection observer)
+    11→  4. Assembles everything into one self-contained index.html
+    12→  5. Writes extensive comments throughout for reference
+    13→
+    14→The CSS follows the EXACT design system from the build prompt:
+    15→  - Primary Background: #0D2B1F
+    16→  - Secondary Background: #1B3A2D
+    17→  - Accent Gold: #C9A84C
+    18→  - Text Primary: #FFFFFF
+    19→  - Font: Inter (400, 600, 700, 800, 900)
+    20→  - Mobile-first responsive design
+    21→  - Animations: fade-in on scroll, number counter, CTA pulse
+    22→=============================================================================
+    23→"""
+    24→
+    25→import os
+    26→
+    27→# ==============================================================================
+    28→# PATHS
+    29→# ==============================================================================
+    30→BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    31→FRAGMENTS_DIR = os.path.join(BASE_DIR, "fragments")
+    32→OUTPUT_PATH = os.path.join(BASE_DIR, "index.html")
+    33→
+    34→# Fragment files in order
+    35→FRAGMENT_FILES = [
+    36→    "fragment_01_nav.html",       # Section 0: Navigation Bar
+    37→    "fragment_02_hero.html",      # Section 1: Hero
+    38→    "fragment_03_pain.html",      # Section 2: The Pain
+    39→    "fragment_04_numbers.html",   # Section 3: The Numbers
+    40→    "fragment_05_proof.html",     # Section 4: Proof Stories
+    41→    "fragment_06_bscvi.html",     # Section 5: BSCVI 3.0
+    42→    "fragment_07_rajat.html",     # Section 6: Rajat Sir
+    43→    "fragment_08_audience.html",  # Section 7: Who This Is For
+    44→    "fragment_09_filter.html",    # Section 8: The Filter
+    45→    "fragment_10_stage0.html",    # Section 9: Stage 0 Preview
+    46→    "fragment_11_global.html",    # Section 10: Global Reach
+    47→    "fragment_12_cta_footer.html" # Section 11+12: WhatsApp CTA + Footer
+    48→]
+    49→
+    50→
+    51→def generate_complete_css():
+    52→    """
+    53→    Generate the COMPLETE CSS for the entire website.
+    54→    
+    55→    This CSS implements the EXACT design system from the build prompt:
+    56→    - Color palette: dark green + gold + white
+    57→    - Typography: Inter font with specific weights
+    58→    - Spacing: 120px sections (desktop), 60px (mobile)
+    59→    - Responsive: 768px breakpoint for mobile
+    60→    - Animations: fade-in, counter, pulse
+    61→    - All component styles for every section
+    62→    """
+    63→    return '''
+    64→    /* ====================================================================
+    65→       COMPLETE CSS — VEDA ADVISORS DEMO WEBSITE
+    66→       ====================================================================
+    67→       DESIGN SYSTEM (from Build Prompt):
+    68→       - Primary BG: #0D2B1F (very dark green)
+    69→       - Secondary BG: #1B3A2D (dark green for cards)
+    70→       - Accent Gold: #C9A84C (CTAs, highlights, numbers)
+    71→       - Gold Light: #E8C96A (hover states)
+    72→       - Text Primary: #FFFFFF
+    73→       - Text Secondary: #B8C9BF (muted green-white)
+    74→       - Text Muted: #7A9E8A (labels, captions)
+    75→       - Border: #2D4F3C (subtle dark green)
+    76→       - Danger: #E05252 (wrong indicators)
+    77→       
+    78→       TYPOGRAPHY:
+    79→       - Font: Inter, fallback to Arial
+    80→       - H1: 72px/40px mobile, weight 900
+    81→       - H2: 48px/32px mobile, weight 800
+    82→       - Body: 18px/16px mobile, weight 400, line-height 1.7
+    83→       
+    84→       SPACING:
+    85→       - Section padding: 120px/60px mobile
+    86→       - Container max-width: 1200px
+    87→       - Card padding: 40px/24px mobile
+    88→       - Grid gap: 32px/16px mobile
+    89→       ==================================================================== */
+    90→
+    91→    /* ====================================================================
+    92→       RESET & BASE STYLES
+    93→       ====================================================================
+    94→       WHY: CSS reset ensures consistent rendering across browsers.
+    95→       Box-sizing border-box makes padding behave predictably.
+    96→       Smooth scroll enables anchor link navigation.
+    97→       ==================================================================== */
+    98→    *, *::before, *::after {
+    99→        margin: 0;
+   100→        padding: 0;
+   101→        box-sizing: border-box;
+   102→    }
+   103→
+   104→    html {
+   105→        scroll-behavior: smooth; /* WHY: All anchor links smooth-scroll */
+   106→        font-size: 16px;
+   107→    }
+   108→
+   109→    body {
+   110→        /* WHY: #0D2B1F is the primary background — very dark green,
+   111→             almost black-green. No white backgrounds anywhere. */
+   112→        background-color: #0D2B1F;
+   113→        color: #FFFFFF;
+   114→        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+   115→        font-weight: 400;
+   116→        line-height: 1.7;
+   117→        overflow-x: hidden; /* Prevents horizontal scroll from animations */
+   118→        -webkit-font-smoothing: antialiased;
+   119→        -moz-osx-font-smoothing: grayscale;
+   120→    }
+   121→
+   122→    /* Hide elements on mobile */
+   123→    .hide-mobile {
+   124→        display: block;
+   125→    }
+   126→
+   127→    img {
+   128→        max-width: 100%;
+   129→        height: auto;
+   130→        display: block;
+   131→    }
+   132→
+   133→    a {
+   134→        text-decoration: none;
+   135→        color: inherit;
+   136→        transition: color 0.3s ease;
+   137→    }
+   138→
+   139→    /* ====================================================================
+   140→       UTILITY CLASSES
+   141→       ==================================================================== */
+   142→    .gold-text {
+   143→        color: #C9A84C; /* WHY: Gold is used ONLY for headlines, CTAs,
+   144→                           numbers, borders — not for body text */
+   145→    }
+   146→
+   147→    .container {
+   148→        max-width: 1200px;
+   149→        margin: 0 auto;
+   150→        padding: 0 24px; /* WHY: 24px side padding on mobile */
+   151→    }
+   152→
+   153→    .section-headline {
+   154→        font-size: 48px;
+   155→        font-weight: 800;
+   156→        line-height: 1.1;
+   157→        text-align: center;
+   158→        margin-bottom: 16px;
+   159→        letter-spacing: -0.5px;
+   160→    }
+   161→
+   162→    .section-subheadline {
+   163→        font-size: 18px;
+   164→        color: #B8C9BF;
+   165→        text-align: center;
+   166→        margin-bottom: 48px;
+   167→    }
+   168→
+   169→    /* ====================================================================
+   170→       CTA BUTTON STYLES (from Build Prompt)
+   171→       ====================================================================
+   172→       WHY: The CTA button is the #1 conversion element. It must be:
+   173→       - Gold (#C9A84C) background
+   174→       - Dark text (#0D2B1F)
+   175→       - Large padding (18px 40px)
+   176→       - Bold (700 weight)
+   177→       - Subtle pulse animation
+   178→       - Hover: lighter gold (#E8C96A)
+   179→       ==================================================================== */
+   180→    .cta-primary {
+   181→        display: inline-block;
+   182→        background: #C9A84C;
+   183→        color: #0D2B1F;
+   184→        padding: 18px 40px;
+   185→        font-size: 18px;
+   186→        font-weight: 700;
+   187→        border-radius: 8px;
+   188→        border: none;
+   189→        cursor: pointer;
+   190→        transition: all 0.3s ease;
+   191→        text-decoration: none;
+   192→        letter-spacing: 0.3px;
+   193→        /* Pulse animation — draws eye to the button */
+   194→        animation: cta-pulse 2.5s infinite;
+   195→    }
+   196→
+   197→    .cta-primary:hover {
+   198→        background: #E8C96A;
+   199→        transform: translateY(-2px);
+   200→        box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+   201→    }
+   202→
+   203→    /* CTA Pulse Animation — subtle gold glow */
+   204→    @keyframes cta-pulse {
+   205→        0% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+   206→        70% { box-shadow: 0 0 0 15px rgba(201, 168, 76, 0); }
+   207→        100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0); }
+   208→    }
+   209→
+   210→    /* ====================================================================
+   211→       NAVIGATION BAR (Section 0)
+   212→       ==================================================================== */
+   213→    .navbar {
+   214→        position: fixed;
+   215→        top: 0;
+   216→        left: 0;
+   217→        right: 0;
+   218→        z-index: 1000;
+   219→        background: rgba(13, 43, 31, 0.95);
+   220→        backdrop-filter: blur(10px);
+   221→        -webkit-backdrop-filter: blur(10px);
+   222→        border-bottom: 1px solid #2D4F3C;
+   223→        transition: all 0.3s ease;
+   224→    }
+   225→
+   226→    .nav-container {
+   227→        max-width: 1200px;
+   228→        margin: 0 auto;
+   229→        padding: 0 24px;
+   230→        height: 72px;
+   231→        display: flex;
+   232→        align-items: center;
+   233→        justify-content: space-between;
+   234→    }
+   235→
+   236→    .nav-logo {
+   237→        display: flex;
+   238→        align-items: center;
+   239→    }
+   240→
+   241→    .nav-logo-img {
+   242→        height: 48px;
+   243→        width: auto;
+   244→        object-fit: contain;
+   245→    }
+   246→
+   247→    .nav-logo-desktop { display: block; }
+   248→    .nav-logo-mobile { display: none; }
+   249→
+   250→    .nav-logo-fallback {
+   251→        font-size: 24px;
+   252→        font-weight: 800;
+   253→        letter-spacing: 1px;
+   254→    }
+   255→
+   256→    .nav-cta {
+   257→        padding: 12px 28px;
+   258→        font-size: 15px;
+   259→    }
+   260→
+   261→    /* Hamburger — hidden on desktop */
+   262→    .nav-hamburger-check { display: none; }
+   263→    .nav-hamburger {
+   264→        display: none; /* Shown on mobile */
+   265→    }
+   266→    .nav-mobile-menu { display: none; }
+   267→
+   268→    /* ====================================================================
+   269→       HERO SECTION (Section 1)
+   270→       ====================================================================
+   271→       WHY: 100vh dominates the viewport. Two-column layout on desktop.
+   272→       CSS-only diagonal pattern creates visual texture.
+   273→       ==================================================================== */
+   274→    .hero-section {
+   275→        min-height: 100vh;
+   276→        display: flex;
+   277→        align-items: center;
+   278→        position: relative;
+   279→        padding-top: 72px; /* Account for fixed navbar */
+   280→        overflow: hidden;
+   281→    }
+   282→
+   283→    /* CSS-ONLY DIAGONAL PATTERN OVERLAY */
+   284→    .hero-pattern-overlay {
+   285→        position: absolute;
+   286→        top: 0; left: 0; right: 0; bottom: 0;
+   287→        background:
+   288→            repeating-linear-gradient(
+   289→                45deg,
+   290→                transparent,
+   291→                transparent 40px,
+   292→                rgba(45, 79, 60, 0.08) 40px,
+   293→                rgba(45, 79, 60, 0.08) 41px
+   294→            ),
+   295→            repeating-linear-gradient(
+   296→                -45deg,
+   297→                transparent,
+   298→                transparent 40px,
+   299→                rgba(45, 79, 60, 0.08) 40px,
+   300→                rgba(45, 79, 60, 0.08) 41px
+   301→            );
+   302→        pointer-events: none;
+   303→        z-index: 0;
+   304→    }
+   305→
+   306→    .hero-container {
+   307→        max-width: 1200px;
+   308→        margin: 0 auto;
+   309→        padding: 0 24px;
+   310→        display: grid;
+   311→        grid-template-columns: 1fr 0.85fr;
+   312→        gap: 48px;
+   313→        align-items: center;
+   314→        position: relative;
+   315→        z-index: 1;
+   316→    }
+   317→
+   318→    .hero-content {
+   319→        padding: 40px 0;
+   320→    }
+   321→
+   322→    .hero-label {
+   323→        font-size: 14px;
+   324→        font-weight: 600;
+   325→        color: #C9A84C;
+   326→        text-transform: uppercase;
+   327→        letter-spacing: 3px;
+   328→        margin-bottom: 16px;
+   329→    }
+   330→
+   331→    .hero-label-line {
+   332→        width: 60px;
+   333→        height: 3px;
+   334→        background: #C9A84C;
+   335→        margin-bottom: 32px;
+   336→        border-radius: 2px;
+   337→    }
+   338→
+   339→    .hero-headline {
+   340→        font-size: 72px;
+   341→        font-weight: 900;
+   342→        line-height: 1.0;
+   343→        letter-spacing: -1px;
+   344→        margin-bottom: 24px;
+   345→    }
+   346→
+   347→    .hero-headline-accent {
+   348→        color: #C9A84C;
+   349→    }
+   350→
+   351→    .hero-subline {
+   352→        font-size: 18px;
+   353→        color: #B8C9BF;
+   354→        line-height: 1.7;
+   355→        margin-bottom: 24px;
+   356→    }
+   357→
+   358→    .hero-claim {
+   359→        font-size: 17px;
+   360→        color: #C9A84C;
+   361→        font-style: italic;
+   362→        margin-bottom: 32px;
+   363→        border-left: 3px solid #C9A84C;
+   364→        padding-left: 20px;
+   365→    }
+   366→
+   367→    .hero-cta {
+   368→        margin-bottom: 12px;
+   369→    }
+   370→
+   371→    .hero-trust-text {
+   372→        font-size: 14px;
+   373→        color: #7A9E8A;
+   374→        margin-bottom: 24px;
+   375→    }
+   376→
+   377→    .hero-whatsapp a {
+   378→        font-size: 15px;
+   379→        color: #B8C9BF;
+   380→        transition: color 0.3s;
+   381→    }
+   382→    .hero-whatsapp a:hover { color: #C9A84C; }
+   383→
+   384→    /* HERO IMAGE — Right side */
+   385→    .hero-image-wrapper {
+   386→        position: relative;
+   387→        display: flex;
+   388→        flex-direction: column;
+   389→        align-items: center;
+   390→    }
+   391→
+   392→    .hero-image-container {
+   393→        position: relative;
+   394→        border-radius: 16px;
+   395→        overflow: hidden;
+   396→    }
+   397→
+   398→    .hero-image {
+   399→        width: 100%;
+   400→        max-width: 440px;
+   401→        height: 560px;
+   402→        object-fit: cover;
+   403→        border-radius: 16px;
+   404→    }
+   405→
+   406→    .hero-image-glow {
+   407→        position: absolute;
+   408→        top: 0; left: 0; right: 0; bottom: 0;
+   409→        border-radius: 16px;
+   410→        box-shadow: 0 0 40px rgba(201, 168, 76, 0.15), inset 0 0 40px rgba(201, 168, 76, 0.05);
+   411→        border: 2px solid rgba(201, 168, 76, 0.3);
+   412→        pointer-events: none;
+   413→    }
+   414→
+   415→    .hero-credential-badge {
+   416→        position: absolute;
+   417→        bottom: -20px;
+   418→        left: 20px;
+   419→        right: 20px;
+   420→        background: rgba(13, 43, 31, 0.95);
+   421→        border: 1px solid #C9A84C;
+   422→        border-radius: 12px;
+   423→        padding: 16px 20px;
+   424→        backdrop-filter: blur(10px);
+   425→    }
+   426→
+   427→    .badge-item {
+   428→        font-size: 14px;
+   429→        font-weight: 600;
+   430→        color: #FFFFFF;
+   431→        padding: 4px 0;
+   432→    }
+   433→
+   434→    /* SCROLL INDICATOR */
+   435→    .hero-scroll-indicator {
+   436→        position: absolute;
+   437→        bottom: 32px;
+   438→        left: 50%;
+   439→        transform: translateX(-50%);
+   440→        text-align: center;
+   441→    }
+   442→
+   443→    .scroll-text {
+   444→        font-size: 12px;
+   445→        color: #7A9E8A;
+   446→        text-transform: uppercase;
+   447→        letter-spacing: 2px;
+   448→        margin-bottom: 8px;
+   449→    }
+   450→
+   451→    .scroll-arrow {
+   452→        font-size: 24px;
+   453→        color: #C9A84C;
+   454→        animation: scroll-bounce 2s infinite;
+   455→    }
+   456→
+   457→    @keyframes scroll-bounce {
+   458→        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+   459→        40% { transform: translateY(8px); }
+   460→        60% { transform: translateY(4px); }
+   461→    }
+   462→
+   463→    /* ====================================================================
+   464→       PAIN SECTION (Section 2)
+   465→       ==================================================================== */
+   466→    .pain-section {
+   467→        padding: 120px 0;
+   468→        background: #0D2B1F;
+   469→    }
+   470→
+   471→    .pain-subheadline {
+   472→        font-size: 20px;
+   473→        color: #C9A84C;
+   474→        font-style: italic;
+   475→        text-align: center;
+   476→        margin-bottom: 48px;
+   477→    }
+   478→
+   479→    .pain-grid {
+   480→        display: grid;
+   481→        grid-template-columns: 1fr 1fr;
+   482→        gap: 24px;
+   483→        max-width: 900px;
+   484→        margin: 0 auto 48px;
+   485→    }
+   486→
+   487→    .pain-card {
+   488→        background: #1B3A2D;
+   489→        border-left: 4px solid #E05252;
+   490→        border-radius: 12px;
+   491→        padding: 32px;
+   492→        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+   493→        transition: all 0.3s ease;
+   494→    }
+   495→
+   496→    .pain-card:hover {
+   497→        transform: translateY(-4px);
+   498→        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+   499→    }
+   500→
+   501→    .pain-card-icon {
+   502→        font-size: 48px;
+   503→        margin-bottom: 16px;
+   504→    }
+   505→
+   506→    .pain-card-title {
+   507→        font-size: 20px;
+   508→        font-weight: 700;
+   509→        margin-bottom: 8px;
+   510→        color: #FFFFFF;
+   511→    }
+   512→
+   513→    .pain-card-body {
+   514→        font-size: 15px;
+   515→        color: #B8C9BF;
+   516→        line-height: 1.6;
+   517→    }
+   518→
+   519→    .pain-statement {
+   520→        text-align: center;
+   521→        max-width: 700px;
+   522→        margin: 0 auto;
+   523→        padding: 32px;
+   524→        border-top: 1px solid #2D4F3C;
+   525→    }
+   526→
+   527→    .pain-statement-text {
+   528→        font-size: 24px;
+   529→        font-weight: 600;
+   530→        line-height: 1.4;
+   531→        color: #FFFFFF;
+   532→    }
+   533→
+   534→    .pain-statement-author {
+   535→        font-size: 16px;
+   536→        color: #C9A84C;
+   537→        margin-top: 12px;
+   538→    }
+   539→
+   540→    /* ====================================================================
+   541→       NUMBERS SECTION (Section 3)
+   542→       ====================================================================
+   543→       WHY: Darker background (#111F17) creates visual separation.
+   544→       Gold 96px numbers for impact. Vertical dividers between stats.
+   545→       ==================================================================== */
+   546→    .numbers-section {
+   547→        padding: 120px 0;
+   548→        background: #111F17;
+   549→    }
+   550→
+   551→    .numbers-grid {
+   552→        display: grid;
+   553→        grid-template-columns: 1fr 1fr 1fr;
+   554→        gap: 0;
+   555→        text-align: center;
+   556→        position: relative;
+   557→        max-width: 900px;
+   558→        margin: 0 auto 48px;
+   559→    }
+   560→
+   561→    /* Vertical gold dividers between stats */
+   562→    .numbers-grid > .stat-item:not(:last-child)::after {
+   563→        content: '';
+   564→        position: absolute;
+   565→        right: 0;
+   566→        top: 10%;
+   567→        height: 80%;
+   568→        width: 1px;
+   569→        background: rgba(201, 168, 76, 0.3);
+   570→    }
+   571→
+   572→    .stat-item {
+   573→        position: relative;
+   574→        padding: 24px;
+   575→    }
+   576→
+   577→    .stat-number {
+   578→        font-size: 96px;
+   579→        font-weight: 900;
+   580→        color: #C9A84C;
+   581→        line-height: 1;
+   582→        margin-bottom: 8px;
+   583→    }
+   584→
+   585→    .stat-label {
+   586→        font-size: 16px;
+   587→        font-weight: 600;
+   588→        color: #FFFFFF;
+   589→        text-transform: uppercase;
+   590→        letter-spacing: 2px;
+   591→        margin-bottom: 8px;
+   592→    }
+   593→
+   594→    .stat-desc {
+   595→        font-size: 14px;
+   596→        color: #7A9E8A;
+   597→    }
+   598→
+   599→    .numbers-cta-wrapper {
+   600→        text-align: center;
+   601→    }
+   602→
+   603→    .numbers-tribe-text {
+   604→        font-size: 18px;
+   605→        color: #B8C9BF;
+   606→        font-style: italic;
+   607→        margin-bottom: 24px;
+   608→    }
+   609→
+   610→    /* ====================================================================
+   611→       PROOF STORIES SECTION (Section 4)
+   612→       ==================================================================== */
+   613→    .proof-section {
+   614→        padding: 120px 0;
+   615→        background: #0D2B1F;
+   616→    }
+   617→
+   618→    .proof-grid {
+   619→        display: grid;
+   620→        grid-template-columns: 1fr 1fr;
+   621→        gap: 32px;
+   622→        max-width: 900px;
+   623→        margin: 0 auto 48px;
+   624→    }
+   625→
+   626→    .proof-card {
+   627→        background: #1B3A2D;
+   628→        border-top: 4px solid #C9A84C;
+   629→        border-radius: 12px;
+   630→        padding: 32px;
+   631→        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+   632→        transition: all 0.3s ease;
+   633→    }
+   634→
+   635→    .proof-card:hover {
+   636→        transform: translateY(-4px);
+   637→    }
+   638→
+   639→    .proof-badge {
+   640→        display: inline-block;
+   641→        background: rgba(201, 168, 76, 0.15);
+   642→        color: #C9A84C;
+   643→        font-size: 12px;
+   644→        font-weight: 600;
+   645→        padding: 4px 12px;
+   646→        border-radius: 4px;
+   647→        text-transform: uppercase;
+   648→        letter-spacing: 1px;
+   649→        margin-bottom: 16px;
+   650→    }
+   651→
+   652→    .proof-startup-name {
+   653→        font-size: 24px;
+   654→        font-weight: 700;
+   655→        margin-bottom: 12px;
+   656→    }
+   657→
+   658→    .proof-amount {
+   659→        font-size: 48px;
+   660→        font-weight: 900;
+   661→        color: #C9A84C;
+   662→        line-height: 1.1;
+   663→        margin-bottom: 4px;
+   664→    }
+   665→
+   666→    .proof-amount-usd {
+   667→        font-size: 16px;
+   668→        color: #7A9E8A;
+   669→        margin-bottom: 16px;
+   670→    }
+   671→
+   672→    .proof-founder {
+   673→        font-size: 16px;
+   674→        color: #B8C9BF;
+   675→        margin-bottom: 16px;
+   676→    }
+   677→
+   678→    .proof-quote {
+   679→        font-size: 15px;
+   680→        color: #B8C9BF;
+   681→        font-style: italic;
+   682→        border-top: 1px solid #2D4F3C;
+   683→        padding-top: 16px;
+   684→        line-height: 1.6;
+   685→    }
+   686→
+   687→    .proof-closing {
+   688→        text-align: center;
+   689→        font-size: 18px;
+   690→        color: #B8C9BF;
+   691→        font-style: italic;
+   692→    }
+   693→
+   694→    /* ====================================================================
+   695→       BSCVI 3.0 SYSTEM SECTION (Section 5)
+   696→       ====================================================================
+   697→       WHY: The journey map is horizontal on desktop with a gold dashed
+   698→       connecting line. Each stop is a numbered circle.
+   699→       ==================================================================== */
+   700→    .bscvi-section {
+   701→        padding: 120px 0;
+   702→        background: #111F17;
+   703→    }
+   704→
+   705→    .bscvi-subheadline {
+   706→        font-size: 20px;
+   707→        color: #C9A84C;
+   708→        font-style: italic;
+   709→        text-align: center;
+   710→        margin-bottom: 60px;
+   711→    }
+   712→
+   713→    .journey-map {
+   714→        display: flex;
+   715→        align-items: flex-start;
+   716→        justify-content: space-between;
+   717→        position: relative;
+   718→        max-width: 1100px;
+   719→        margin: 0 auto 40px;
+   720→        padding: 0 20px;
+   721→    }
+   722→
+   723→    /* Gold dashed connecting line */
+   724→    .journey-line {
+   725→        position: absolute;
+   726→        top: 30px;
+   727→        left: 50px;
+   728→        right: 50px;
+   729→        height: 2px;
+   730→        background: repeating-linear-gradient(
+   731→            90deg,
+   732→            #C9A84C,
+   733→            #C9A84C 8px,
+   734→            transparent 8px,
+   735→            transparent 16px
+   736→        );
+   737→        z-index: 0;
+   738→    }
+   739→
+   740→    .journey-stop {
+   741→        flex: 1;
+   742→        text-align: center;
+   743→        position: relative;
+   744→        z-index: 1;
+   745→        padding: 0 8px;
+   746→    }
+   747→
+   748→    .journey-stop-circle {
+   749→        width: 60px;
+   750→        height: 60px;
+   751→        border-radius: 50%;
+   752→        display: flex;
+   753→        align-items: center;
+   754→        justify-content: center;
+   755→        font-size: 24px;
+   756→        font-weight: 900;
+   757→        margin: 0 auto 16px;
+   758→        background: #1B3A2D;
+   759→        border: 3px solid #C9A84C;
+   760→        color: #FFFFFF;
+   761→        transition: all 0.3s ease;
+   762→    }
+   763→
+   764→    .journey-stop-free {
+   765→        background: #C9A84C;
+   766→        color: #0D2B1F;
+   767→        box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+   768→    }
+   769→
+   770→    .journey-stop-label {
+   771→        font-size: 16px;
+   772→        font-weight: 700;
+   773→        color: #FFFFFF;
+   774→        margin-bottom: 4px;
+   775→        text-transform: uppercase;
+   776→        letter-spacing: 1px;
+   777→    }
+   778→
+   779→    .journey-stop-sub {
+   780→        font-size: 13px;
+   781→        color: #B8C9BF;
+   782→        margin-bottom: 8px;
+   783→    }
+   784→
+   785→    .journey-badge {
+   786→        display: inline-block;
+   787→        background: rgba(45, 79, 60, 0.5);
+   788→        color: #7A9E8A;
+   789→        font-size: 11px;
+   790→        font-weight: 600;
+   791→        padding: 2px 10px;
+   792→        border-radius: 4px;
+   793→        margin-bottom: 12px;
+   794→    }
+   795→
+   796→    .journey-badge-free {
+   797→        background: rgba(201, 168, 76, 0.2);
+   798→        color: #C9A84C;
+   799→    }
+   800→
+   801→    .journey-stop-desc {
+   802→        font-size: 13px;
+   803→        color: #7A9E8A;
+   804→        line-height: 1.5;
+   805→        max-width: 150px;
+   806→        margin: 0 auto;
+   807→    }
+   808→
+   809→    .bscvi-note {
+   810→        text-align: center;
+   811→        margin-bottom: 32px;
+   812→    }
+   813→
+   814→    .bscvi-note p {
+   815→        font-size: 16px;
+   816→        color: #B8C9BF;
+   817→        margin-bottom: 4px;
+   818→    }
+   819→
+   820→    .bscvi-cta-wrapper {
+   821→        text-align: center;
+   822→    }
+   823→
+   824→    /* ====================================================================
+   825→       RAJAT SIR SECTION (Section 6)
+   826→       ==================================================================== */
+   827→    .rajat-section {
+   828→        padding: 120px 0;
+   829→        background: #0D2B1F;
+   830→    }
+   831→
+   832→    .rajat-grid {
+   833→        display: grid;
+   834→        grid-template-columns: 0.9fr 1.1fr;
+   835→        gap: 48px;
+   836→        align-items: start;
+   837→    }
+   838→
+   839→    .rajat-photo-wrapper {
+   840→        position: relative;
+   841→        border-radius: 16px;
+   842→        overflow: hidden;
+   843→    }
+   844→
+   845→    .rajat-photo {
+   846→        width: 100%;
+   847→        height: 500px;
+   848→        object-fit: cover;
+   849→        border-radius: 16px;
+   850→    }
+   851→
+   852→    .rajat-photo-glow {
+   853→        position: absolute;
+   854→        top: 0; left: 0; right: 0; bottom: 0;
+   855→        border-radius: 16px;
+   856→        border: 2px solid rgba(201, 168, 76, 0.3);
+   857→        box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
+   858→        pointer-events: none;
+   859→    }
+   860→
+   861→    .rajat-photo-credential-strip {
+   862→        position: absolute;
+   863→        bottom: 0;
+   864→        left: 0;
+   865→        right: 0;
+   866→        background: rgba(13, 43, 31, 0.9);
+   867→        padding: 12px 20px;
+   868→        font-size: 13px;
+   869→        color: #B8C9BF;
+   870→        text-align: center;
+   871→        letter-spacing: 1px;
+   872→    }
+   873→
+   874→    .rajat-content {
+   875→        padding-top: 16px;
+   876→    }
+   877→
+   878→    .rajat-label {
+   879→        font-size: 14px;
+   880→        font-weight: 600;
+   881→        color: #C9A84C;
+   882→        text-transform: uppercase;
+   883→        letter-spacing: 2px;
+   884→        margin-bottom: 16px;
+   885→    }
+   886→
+   887→    .rajat-headline {
+   888→        font-size: 48px;
+   889→        font-weight: 800;
+   890→        line-height: 1.1;
+   891→        margin-bottom: 24px;
+   892→    }
+   893→
+   894→    .rajat-paragraph p {
+   895→        font-size: 16px;
+   896→        color: #B8C9BF;
+   897→        margin-bottom: 12px;
+   898→        line-height: 1.7;
+   899→    }
+   900→
+   901→    .confidentiality-box {
+   902→        background: rgba(201, 168, 76, 0.05);
+   903→        border: 2px solid #C9A84C;
+   904→        border-radius: 12px;
+   905→        padding: 24px;
+   906→        margin: 32px 0;
+   907→        text-align: center;
+   908→    }
+   909→
+   910→    .confidentiality-icon {
+   911→        font-size: 32px;
+   912→        margin-bottom: 8px;
+   913→    }
+   914→
+   915→    .confidentiality-text {
+   916→        font-size: 18px;
+   917→        font-weight: 600;
+   918→        color: #FFFFFF;
+   919→    }
+   920→
+   921→    .confidentiality-author {
+   922→        font-size: 14px;
+   923→        color: #C9A84C;
+   924→        margin-top: 8px;
+   925→    }
+   926→
+   927→    .rajat-badges-grid {
+   928→        display: grid;
+   929→        grid-template-columns: 1fr 1fr;
+   930→        gap: 12px;
+   931→        margin-bottom: 32px;
+   932→    }
+   933→
+   934→    .rajat-badge {
+   935→        background: #1B3A2D;
+   936→        border: 1px solid #2D4F3C;
+   937→        border-radius: 8px;
+   938→        padding: 16px;
+   939→        display: flex;
+   940→        align-items: center;
+   941→        gap: 10px;
+   942→    }
+   943→
+   944→    .badge-icon {
+   945→        font-size: 24px;
+   946→    }
+   947→
+   948→    .badge-text {
+   949→        font-size: 13px;
+   950→        color: #B8C9BF;
+   951→        font-weight: 500;
+   952→    }
+   953→
+   954→    .rajat-cta-subtext {
+   955→        font-size: 14px;
+   956→        color: #7A9E8A;
+   957→        margin-top: 12px;
+   958→    }
+   959→
+   960→    /* ====================================================================
+   961→       AUDIENCE SECTION (Section 7)
+   962→       ==================================================================== */
+   963→    .audience-section {
+   964→        padding: 120px 0;
+   965→        background: #111F17;
+   966→    }
+   967→
+   968→    .audience-grid {
+   969→        display: grid;
+   970→        grid-template-columns: 1fr 1fr;
+   971→        gap: 32px;
+   972→        max-width: 900px;
+   973→        margin: 0 auto;
+   974→    }
+   975→
+   976→    .audience-card {
+   977→        background: #1B3A2D;
+   978→        border-radius: 12px;
+   979→        padding: 40px;
+   980→        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+   981→        transition: all 0.3s ease;
+   982→    }
+   983→
+   984→    .audience-card:hover {
+   985→        transform: translateY(-4px);
+   986→    }
+   987→
+   988→    .audience-card-icon {
+   989→        font-size: 48px;
+   990→        margin-bottom: 16px;
+   991→    }
+   992→
+   993→    .audience-card-title {
+   994→        font-size: 24px;
+   995→        font-weight: 700;
+   996→        margin-bottom: 4px;
+   997→    }
+   998→
+   999→    .audience-card-sub {
+  1000→        font-size: 15px;
+  1001→        color: #7A9E8A;
+  1002→        margin-bottom: 24px;
+  1003→    }
+  1004→
+  1005→    .audience-pain-list {
+  1006→        margin-bottom: 16px;
+  1007→    }
+  1008→
+  1009→    .audience-pain-item {
+  1010→        display: flex;
+  1011→        align-items: center;
+  1012→        gap: 12px;
+  1013→        padding: 8px 0;
+  1014→        font-size: 15px;
+  1015→        color: #B8C9BF;
+  1016→    }
+  1017→
+  1018→    .pain-x { font-size: 16px; flex-shrink: 0; }
+  1019→
+  1020→    .audience-divider {
+  1021→        height: 1px;
+  1022→        background: #C9A84C;
+  1023→        margin: 20px 0;
+  1024→        opacity: 0.5;
+  1025→    }
+  1026→
+  1027→    .audience-solution-list {
+  1028→        margin-bottom: 20px;
+  1029→    }
+  1030→
+  1031→    .audience-solution-item {
+  1032→        display: flex;
+  1033→        align-items: center;
+  1034→        gap: 12px;
+  1035→        padding: 8px 0;
+  1036→        font-size: 15px;
+  1037→        color: #FFFFFF;
+  1038→    }
+  1039→
+  1040→    .solution-check { color: #C9A84C; font-size: 16px; flex-shrink: 0; }
+  1041→
+  1042→    .audience-headline-italic {
+  1043→        font-size: 16px;
+  1044→        color: #C9A84C;
+  1045→        font-style: italic;
+  1046→        border-top: 1px solid #2D4F3C;
+  1047→        padding-top: 16px;
+  1048→        line-height: 1.5;
+  1049→    }
+  1050→
+  1051→    /* ====================================================================
+  1052→       FILTER SECTION (Section 8)
+  1053→       ====================================================================
+  1054→       WHY: Even darker background (#0A1A10), centered, max-width 700px.
+  1055→       Creates intimate, serious, exclusive tone.
+  1056→       ==================================================================== */
+  1057→    .filter-section {
+  1058→        padding: 120px 0;
+  1059→        background: #0A1A10;
+  1060→    }
+  1061→
+  1062→    .filter-content {
+  1063→        max-width: 700px;
+  1064→        margin: 0 auto;
+  1065→        text-align: center;
+  1066→    }
+  1067→
+  1068→    .filter-quote-mark {
+  1069→        font-size: 120px;
+  1070→        color: #C9A84C;
+  1071→        line-height: 0.6;
+  1072→        opacity: 0.3;
+  1073→        margin-bottom: 16px;
+  1074→    }
+  1075→
+  1076→    .filter-headline {
+  1077→        font-size: 48px;
+  1078→        font-weight: 800;
+  1079→        margin-bottom: 24px;
+  1080→    }
+  1081→
+  1082→    .filter-body {
+  1083→        font-size: 18px;
+  1084→        color: #B8C9BF;
+  1085→        margin-bottom: 8px;
+  1086→    }
+  1087→
+  1088→    .filter-body-emphasis {
+  1089→        font-size: 20px;
+  1090→        color: #B8C9BF;
+  1091→        margin-bottom: 40px;
+  1092→    }
+  1093→
+  1094→    .filter-checklist, .filter-antilist {
+  1095→        text-align: left;
+  1096→        margin-bottom: 32px;
+  1097→    }
+  1098→
+  1099→    .filter-list-title {
+  1100→        font-size: 16px;
+  1101→        font-weight: 700;
+  1102→        text-transform: uppercase;
+  1103→        letter-spacing: 1px;
+  1104→        margin-bottom: 16px;
+  1105→    }
+  1106→
+  1107→    .filter-check-item, .filter-anti-item {
+  1108→        display: flex;
+  1109→        align-items: center;
+  1110→        gap: 12px;
+  1111→        padding: 8px 0;
+  1112→        font-size: 16px;
+  1113→        color: #B8C9BF;
+  1114→    }
+  1115→
+  1116→    .filter-check-icon { font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  1117→    .filter-anti-icon { font-size: 16px; flex-shrink: 0; }
+  1118→
+  1119→    .filter-cta-subtext {
+  1120→        font-size: 14px;
+  1121→        color: #7A9E8A;
+  1122→        margin-top: 16px;
+  1123→    }
+  1124→
+  1125→    /* ====================================================================
+  1126→       STAGE 0 PREVIEW SECTION (Section 9)
+  1127→       ==================================================================== */
+  1128→    .stage0-section {
+  1129→        padding: 120px 0;
+  1130→        background: #0D2B1F;
+  1131→    }
+  1132→
+  1133→    .stage0-form-card {
+  1134→        max-width: 600px;
+  1135→        margin: 0 auto 32px;
+  1136→        background: #1B3A2D;
+  1137→        border: 1px solid #2D4F3C;
+  1138→        border-radius: 16px;
+  1139→        padding: 32px;
+  1140→        box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  1141→    }
+  1142→
+  1143→    .stage0-progress {
+  1144→        position: relative;
+  1145→        height: 6px;
+  1146→        background: #2D4F3C;
+  1147→        border-radius: 3px;
+  1148→        margin-bottom: 32px;
+  1149→        overflow: hidden;
+  1150→    }
+  1151→
+  1152→    .stage0-progress-bar {
+  1153→        height: 100%;
+  1154→        background: #C9A84C;
+  1155→        border-radius: 3px;
+  1156→        transition: width 0.3s;
+  1157→    }
+  1158→
+  1159→    .stage0-progress-text {
+  1160→        position: absolute;
+  1161→        right: 0;
+  1162→        top: -24px;
+  1163→        font-size: 13px;
+  1164→        color: #7A9E8A;
+  1165→    }
+  1166→
+  1167→    .stage0-questions {
+  1168→        display: flex;
+  1169→        flex-direction: column;
+  1170→        gap: 12px;
+  1171→    }
+  1172→
+  1173→    .stage0-question {
+  1174→        background: #0D2B1F;
+  1175→        border-radius: 8px;
+  1176→        padding: 20px;
+  1177→        border: 1px solid #2D4F3C;
+  1178→    }
+  1179→
+  1180→    .stage0-question-active {
+  1181→        border-color: #C9A84C;
+  1182→    }
+  1183→
+  1184→    .stage0-question-number {
+  1185→        font-size: 12px;
+  1186→        font-weight: 700;
+  1187→        color: #C9A84C;
+  1188→        text-transform: uppercase;
+  1189→        letter-spacing: 1px;
+  1190→        margin-bottom: 8px;
+  1191→    }
+  1192→
+  1193→    .stage0-question-text {
+  1194→        font-size: 16px;
+  1195→        color: #FFFFFF;
+  1196→        margin-bottom: 12px;
+  1197→        font-weight: 500;
+  1198→    }
+  1199→
+  1200→    .stage0-input {
+  1201→        width: 100%;
+  1202→        background: #1B3A2D;
+  1203→        border: 1px solid #2D4F3C;
+  1204→        border-radius: 6px;
+  1205→        padding: 12px 16px;
+  1206→        color: #FFFFFF;
+  1207→        font-size: 15px;
+  1208→        font-family: inherit;
+  1209→        outline: none;
+  1210→        transition: border-color 0.3s;
+  1211→    }
+  1212→
+  1213→    .stage0-input:focus {
+  1214→        border-color: #C9A84C;
+  1215→    }
+  1216→
+  1217→    .stage0-question-locked {
+  1218→        opacity: 0.4;
+  1219→        cursor: not-allowed;
+  1220→    }
+  1221→
+  1222→    .stage0-question-blur {
+  1223→        font-size: 18px;
+  1224→        color: #7A9E8A;
+  1225→        letter-spacing: 4px;
+  1226→    }
+  1227→
+  1228→    .stage0-locked-label {
+  1229→        font-size: 12px;
+  1230→        color: #7A9E8A;
+  1231→        margin-top: 4px;
+  1232→    }
+  1233→
+  1234→    .stage0-teaser-text {
+  1235→        text-align: center;
+  1236→        font-size: 16px;
+  1237→        color: #B8C9BF;
+  1238→        margin-bottom: 32px;
+  1239→    }
+  1240→
+  1241→    .stage0-process-steps {
+  1242→        display: flex;
+  1243→        align-items: center;
+  1244→        justify-content: center;
+  1245→        gap: 16px;
+  1246→        margin-bottom: 32px;
+  1247→        flex-wrap: wrap;
+  1248→    }
+  1249→
+  1250→    .process-step {
+  1251→        display: flex;
+  1252→        align-items: center;
+  1253→        gap: 8px;
+  1254→    }
+  1255→
+  1256→    .process-step-number {
+  1257→        width: 32px;
+  1258→        height: 32px;
+  1259→        border-radius: 50%;
+  1260→        background: #C9A84C;
+  1261→        color: #0D2B1F;
+  1262→        display: flex;
+  1263→        align-items: center;
+  1264→        justify-content: center;
+  1265→        font-weight: 700;
+  1266→        font-size: 14px;
+  1267→        flex-shrink: 0;
+  1268→    }
+  1269→
+  1270→    .process-step-text {
+  1271→        font-size: 14px;
+  1272→        color: #B8C9BF;
+  1273→        font-weight: 500;
+  1274→    }
+  1275→
+  1276→    .process-step-arrow {
+  1277→        color: #C9A84C;
+  1278→        font-size: 20px;
+  1279→    }
+  1280→
+  1281→    /* ====================================================================
+  1282→       GLOBAL REACH SECTION (Section 10)
+  1283→       ==================================================================== */
+  1284→    .global-section {
+  1285→        padding: 120px 0;
+  1286→        background: #111F17;
+  1287→    }
+  1288→
+  1289→    .global-grid {
+  1290→        display: grid;
+  1291→        grid-template-columns: repeat(4, 1fr);
+  1292→        gap: 24px;
+  1293→        max-width: 800px;
+  1294→        margin: 0 auto 32px;
+  1295→    }
+  1296→
+  1297→    .global-card {
+  1298→        background: #1B3A2D;
+  1299→        border: 1px solid #2D4F3C;
+  1300→        border-radius: 12px;
+  1301→        padding: 24px;
+  1302→        text-align: center;
+  1303→        transition: all 0.3s ease;
+  1304→    }
+  1305→
+  1306→    .global-card:hover {
+  1307→        transform: translateY(-4px);
+  1308→        border-color: #C9A84C;
+  1309→    }
+  1310→
+  1311→    .global-flag {
+  1312→        font-size: 40px;
+  1313→        margin-bottom: 12px;
+  1314→    }
+  1315→
+  1316→    .global-region {
+  1317→        font-size: 15px;
+  1318→        font-weight: 700;
+  1319→        color: #FFFFFF;
+  1320→        margin-bottom: 4px;
+  1321→    }
+  1322→
+  1323→    .global-status {
+  1324→        font-size: 13px;
+  1325→        color: #7A9E8A;
+  1326→    }
+  1327→
+  1328→    .global-language-note {
+  1329→        text-align: center;
+  1330→        font-size: 15px;
+  1331→        color: #7A9E8A;
+  1332→    }
+  1333→
+  1334→    /* ====================================================================
+  1335→       WHATSAPP CTA SECTION (Section 11)
+  1336→       ==================================================================== */
+  1337→    .whatsapp-section {
+  1338→        padding: 80px 0;
+  1339→        background: #0D2B1F;
+  1340→    }
+  1341→
+  1342→    .whatsapp-card {
+  1343→        max-width: 600px;
+  1344→        margin: 0 auto;
+  1345→        background: #1B3A2D;
+  1346→        border: 2px solid #C9A84C;
+  1347→        border-radius: 16px;
+  1348→        padding: 48px 40px;
+  1349→        text-align: center;
+  1350→    }
+  1351→
+  1352→    .whatsapp-icon-large {
+  1353→        font-size: 48px;
+  1354→        margin-bottom: 16px;
+  1355→    }
+  1356→
+  1357→    .whatsapp-headline {
+  1358→        font-size: 24px;
+  1359→        font-weight: 700;
+  1360→        margin-bottom: 12px;
+  1361→    }
+  1362→
+  1363→    .whatsapp-body {
+  1364→        font-size: 16px;
+  1365→        color: #B8C9BF;
+  1366→        margin-bottom: 24px;
+  1367→        line-height: 1.6;
+  1368→    }
+  1369→
+  1370→    .whatsapp-button {
+  1371→        display: inline-block;
+  1372→        background: #25D366;
+  1373→        color: white;
+  1374→        padding: 16px 32px;
+  1375→        border-radius: 8px;
+  1376→        font-size: 16px;
+  1377→        font-weight: 600;
+  1378→        transition: all 0.3s ease;
+  1379→    }
+  1380→
+  1381→    .whatsapp-button:hover {
+  1382→        background: #20BA5A;
+  1383→        transform: translateY(-2px);
+  1384→    }
+  1385→
+  1386→    /* ====================================================================
+  1387→       FOOTER (Section 12)
+  1388→       ====================================================================
+  1389→       WHY: Darkest background (#080F0A — near black). 3 columns.
+  1390→       Bottom bar reinforces positioning one last time.
+  1391→       ==================================================================== */
+  1392→    .footer {
+  1393→        padding: 80px 0 0;
+  1394→        background: #080F0A;
+  1395→        border-top: 1px solid #2D4F3C;
+  1396→    }
+  1397→
+  1398→    .footer-grid {
+  1399→        display: grid;
+  1400→        grid-template-columns: 1.2fr 1fr 1fr;
+  1401→        gap: 48px;
+  1402→        padding-bottom: 48px;
+  1403→    }
+  1404→
+  1405→    .footer-logo {
+  1406→        height: 40px;
+  1407→        width: auto;
+  1408→        object-fit: contain;
+  1409→        margin-bottom: 12px;
+  1410→    }
+  1411→
+  1412→    .footer-logo-fallback {
+  1413→        font-size: 20px;
+  1414→        font-weight: 800;
+  1415→    }
+  1416→
+  1417→    .footer-tagline {
+  1418→        font-size: 15px;
+  1419→        color: #B8C9BF;
+  1420→        font-style: italic;
+  1421→        margin-bottom: 8px;
+  1422→    }
+  1423→
+  1424→    .footer-copyright {
+  1425→        font-size: 13px;
+  1426→        color: #7A9E8A;
+  1427→    }
+  1428→
+  1429→    .footer-col-title {
+  1430→        font-size: 16px;
+  1431→        font-weight: 700;
+  1432→        margin-bottom: 16px;
+  1433→        color: #FFFFFF;
+  1434→    }
+  1435→
+  1436→    .footer-links {
+  1437→        list-style: none;
+  1438→    }
+  1439→
+  1440→    .footer-links li {
+  1441→        margin-bottom: 10px;
+  1442→    }
+  1443→
+  1444→    .footer-links a {
+  1445→        font-size: 14px;
+  1446→        color: #B8C9BF;
+  1447→        transition: color 0.3s;
+  1448→    }
+  1449→
+  1450→    .footer-links a:hover {
+  1451→        color: #C9A84C;
+  1452→    }
+  1453→
+  1454→    .footer-contact-item {
+  1455→        display: flex;
+  1456→        flex-direction: column;
+  1457→        margin-bottom: 12px;
+  1458→        font-size: 14px;
+  1459→        color: #B8C9BF;
+  1460→    }
+  1461→
+  1462→    .footer-contact-item a {
+  1463→        color: #C9A84C;
+  1464→        font-weight: 500;
+  1465→    }
+  1466→
+  1467→    .footer-contact-item a:hover {
+  1468→        color: #E8C96A;
+  1469→    }
+  1470→
+  1471→    .footer-bottom-bar {
+  1472→        border-top: 1px solid #2D4F3C;
+  1473→        padding: 24px 0;
+  1474→        text-align: center;
+  1475→    }
+  1476→
+  1477→    .footer-bottom-bar p {
+  1478→        font-size: 14px;
+  1479→        color: #7A9E8A;
+  1480→        font-style: italic;
+  1481→        max-width: 700px;
+  1482→        margin: 0 auto;
+  1483→    }
+  1484→
+  1485→    /* ====================================================================
+  1486→       FLOATING WHATSAPP BUTTON
+  1487→       ====================================================================
+  1488→       WHY: Always accessible regardless of scroll position.
+  1489→       Bottom-right corner. Round green button with SVG icon.
+  1490→       Tooltip on hover.
+  1491→       ==================================================================== */
+  1492→    .floating-whatsapp {
+  1493→        position: fixed;
+  1494→        bottom: 24px;
+  1495→        right: 24px;
+  1496→        width: 56px;
+  1497→        height: 56px;
+  1498→        background: #25D366;
+  1499→        border-radius: 50%;
+  1500→        display: flex;
+  1501→        align-items: center;
+  1502→        justify-content: center;
+  1503→        z-index: 999;
+  1504→        box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  1505→        transition: all 0.3s ease;
+  1506→    }
+  1507→
+  1508→    .floating-whatsapp:hover {
+  1509→        transform: scale(1.1);
+  1510→        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+  1511→    }
+  1512→
+  1513→    .floating-whatsapp-tooltip {
+  1514→        position: absolute;
+  1515→        right: 68px;
+  1516→        background: #0D2B1F;
+  1517→        color: #FFFFFF;
+  1518→        padding: 8px 16px;
+  1519→        border-radius: 6px;
+  1520→        font-size: 13px;
+  1521→        white-space: nowrap;
+  1522→        opacity: 0;
+  1523→        pointer-events: none;
+  1524→        transition: opacity 0.3s;
+  1525→        border: 1px solid #2D4F3C;
+  1526→    }
+  1527→
+  1528→    .floating-whatsapp:hover .floating-whatsapp-tooltip {
+  1529→        opacity: 1;
+  1530→    }
+  1531→
+  1532→    .whatsapp-svg {
+  1533→        flex-shrink: 0;
+  1534→    }
+  1535→
+  1536→    /* ====================================================================
+  1537→       FADE-IN ON SCROLL ANIMATION
+  1538→       ====================================================================
+  1539→       WHY: Elements fade in as the user scrolls to them.
+  1540→       Uses Intersection Observer (JS below). Elements start invisible
+  1541→       and become visible when they enter the viewport.
+  1542→       ==================================================================== */
+  1543→    .fade-in {
+  1544→        opacity: 0;
+  1545→        transform: translateY(20px);
+  1546→        transition: opacity 0.6s ease, transform 0.6s ease;
+  1547→    }
+  1548→
+  1549→    .fade-in.visible {
+  1550→        opacity: 1;
+  1551→        transform: translateY(0);
+  1552→    }
+  1553→
+  1554→    /* ====================================================================
+  1555→       MOBILE RESPONSIVE STYLES (< 768px)
+  1556→       ====================================================================
+  1557→       WHY: "Mobile first — global audience scrolls on phone."
+  1558→       All grids become single column. Font sizes reduce.
+  1559→       Navigation becomes hamburger. CTA buttons full width.
+  1560→       ==================================================================== */
+  1561→    @media (max-width: 768px) {
+  1562→        .hide-mobile { display: none; }
+  1563→
+  1564→        .section-headline { font-size: 32px; }
+  1565→        .section-subheadline { font-size: 16px; margin-bottom: 32px; }
+  1566→
+  1567→        /* NAV MOBILE */
+  1568→        .nav-cta { display: none; }
+  1569→        .nav-hamburger {
+  1570→            display: flex;
+  1571→            flex-direction: column;
+  1572→            gap: 5px;
+  1573→            cursor: pointer;
+  1574→            padding: 8px;
+  1575→            z-index: 1001;
+  1576→        }
+  1577→        .hamburger-line {
+  1578→            width: 24px;
+  1579→            height: 2px;
+  1580→            background: #FFFFFF;
+  1581→            transition: all 0.3s ease;
+  1582→            border-radius: 1px;
+  1583→        }
+  1584→        .nav-hamburger-check:checked ~ .nav-mobile-menu {
+  1585→            display: flex;
+  1586→            flex-direction: column;
+  1587→            gap: 16px;
+  1588→            padding: 24px;
+  1589→        }
+  1590→        .nav-mobile-menu {
+  1591→            position: fixed;
+  1592→            top: 72px;
+  1593→            left: 0;
+  1594→            right: 0;
+  1595→            background: rgba(13, 43, 31, 0.98);
+  1596→            backdrop-filter: blur(10px);
+  1597→            padding: 0 24px;
+  1598→            border-bottom: 1px solid #2D4F3C;
+  1599→            z-index: 999;
+  1600→        }
+  1601→        .nav-mobile-cta { 
+  1602→            display: block; 
+  1603→            text-align: center; 
+  1604→            width: 100%;
+  1605→            animation: none;
+  1606→        }
+  1607→        .nav-mobile-whatsapp {
+  1608→            display: block;
+  1609→            text-align: center;
+  1610→            padding: 12px;
+  1611→            color: #25D366;
+  1612→            font-size: 15px;
+  1613→            border: 1px solid #25D366;
+  1614→            border-radius: 8px;
+  1615→        }
+  1616→
+  1617→        /* HERO MOBILE */
+  1618→        .hero-container {
+  1619→            grid-template-columns: 1fr;
+  1620→            gap: 32px;
+  1621→            padding-top: 24px;
+  1622→            padding-bottom: 24px;
+  1623→        }
+  1624→        .hero-headline { font-size: 40px; }
+  1625→        .hero-image { max-width: 320px; height: 400px; }
+  1626→        .hero-credential-badge {
+  1627→            position: relative;
+  1628→            bottom: auto; left: auto; right: auto;
+  1629→            margin-top: 16px;
+  1630→        }
+  1631→
+  1632→        /* PAIN MOBILE */
+  1633→        .pain-section { padding: 60px 0; }
+  1634→        .pain-grid { grid-template-columns: 1fr; }
+  1635→
+  1636→        /* NUMBERS MOBILE */
+  1637→        .numbers-section { padding: 60px 0; }
+  1638→        .numbers-grid {
+  1639→            grid-template-columns: 1fr;
+  1640→            gap: 32px;
+  1641→        }
+  1642→        .numbers-grid > .stat-item:not(:last-child)::after {
+  1643→            display: none;
+  1644→        }
+  1645→        .stat-number { font-size: 56px; }
+  1646→
+  1647→        /* PROOF MOBILE */
+  1648→        .proof-section { padding: 60px 0; }
+  1649→        .proof-grid { grid-template-columns: 1fr; }
+  1650→        .proof-amount { font-size: 36px; }
+  1651→
+  1652→        /* BSCVI MOBILE — vertical stack */
+  1653→        .bscvi-section { padding: 60px 0; }
+  1654→        .journey-map {
+  1655→            flex-direction: column;
+  1656→            align-items: center;
+  1657→            gap: 24px;
+  1658→        }
+  1659→        .journey-line {
+  1660→            top: 30px;
+  1661→            bottom: 30px;
+  1662→            left: 50%;
+  1663→            right: auto;
+  1664→            width: 2px;
+  1665→            height: auto;
+  1666→            background: repeating-linear-gradient(
+  1667→                180deg,
+  1668→                #C9A84C,
+  1669→                #C9A84C 8px,
+  1670→                transparent 8px,
+  1671→                transparent 16px
+  1672→            );
+  1673→        }
+  1674→
+  1675→        /* RAJAT SIR MOBILE */
+  1676→        .rajat-section { padding: 60px 0; }
+  1677→        .rajat-grid { grid-template-columns: 1fr; }
+  1678→        .rajat-photo { height: 350px; }
+  1679→        .rajat-headline { font-size: 32px; }
+  1680→
+  1681→        /* AUDIENCE MOBILE */
+  1682→        .audience-section { padding: 60px 0; }
+  1683→        .audience-grid { grid-template-columns: 1fr; }
+  1684→
+  1685→        /* FILTER MOBILE */
+  1686→        .filter-section { padding: 60px 0; }
+  1687→        .filter-headline { font-size: 32px; }
+  1688→
+  1689→        /* STAGE 0 MOBILE */
+  1690→        .stage0-section { padding: 60px 0; }
+  1691→        .stage0-process-steps { flex-direction: column; gap: 12px; }
+  1692→        .process-step-arrow { transform: rotate(90deg); }
+  1693→
+  1694→        /* GLOBAL MOBILE */
+  1695→        .global-section { padding: 60px 0; }
+  1696→        .global-grid { grid-template-columns: 1fr 1fr; }
+  1697→
+  1698→        /* FOOTER MOBILE */
+  1699→        .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  1700→        .cta-primary { 
+  1701→            display: block; 
+  1702→            text-align: center; 
+  1703→            width: 100%;
+  1704→            animation: none;
+  1705→        }
+  1706→    }
+  1707→
+  1708→    /* Extra small screens (< 400px) */
+  1709→    @media (max-width: 400px) {
+  1710→        .hero-headline { font-size: 34px; }
+  1711→        .global-grid { grid-template-columns: 1fr; }
+  1712→        .rajat-badges-grid { grid-template-columns: 1fr; }
+  1713→    }
+  1714→'''
+  1715→
+  1716→
+  1717→def generate_javascript():
+  1718→    """
+  1719→    Generate the JavaScript for the website.
+  1720→    
+  1721→    Three JS features (all vanilla, no libraries):
+  1722→    1. Intersection Observer — fade-in on scroll
+  1723→    2. Number counter animation — stats count up from 0
+  1724→    3. Navbar scroll effect (optional enhancement)
+  1725→    """
+  1726→    return '''
+  1727→    /* ====================================================================
+  1728→       JAVASCRIPT — VEDA ADVISORS DEMO WEBSITE
+  1729→       ====================================================================
+  1730→       Three features only (all vanilla JS, no libraries):
+  1731→       1. Intersection Observer — fade-in elements on scroll
+  1732→       2. Number Counter — animate stats from 0 to target value
+  1733→       3. Smooth scroll for anchor links (backup for older browsers)
+  1734→       ==================================================================== */
+  1735→
+  1736→    // Wait for DOM to be ready
+  1737→    document.addEventListener("DOMContentLoaded", function() {
+  1738→
+  1739→        // ==================================================================
+  1740→        // 1. FADE-IN ON SCROLL (Intersection Observer)
+  1741→        // ==================================================================
+  1742→        // WHY: Elements with class "fade-in" start invisible (opacity: 0).
+  1743→        // When they enter the viewport, the "visible" class is added,
+  1744→        // triggering a CSS transition (opacity + translateY).
+  1745→        // This creates a premium, subtle animation without any JS library.
+  1746→        // ==================================================================
+  1747→        var fadeElements = document.querySelectorAll(
+  1748→            ".pain-card, .proof-card, .journey-stop, .audience-card, " +
+  1749→            ".rajat-photo-wrapper, .rajat-content, .filter-content, " +
+  1750→            ".stage0-form-card, .global-card, .whatsapp-card, " +
+  1751→            ".stat-item, .hero-content, .hero-image-wrapper, .pain-statement"
+  1752→        );
+  1753→
+  1754→        // Add fade-in class to all target elements
+  1755→        fadeElements.forEach(function(el) {
+  1756→            el.classList.add("fade-in");
+  1757→        });
+  1758→
+  1759→        // Intersection Observer: watches elements and adds "visible" class
+  1760→        // when they enter the viewport (with 10% threshold)
+  1761→        var observer = new IntersectionObserver(function(entries) {
+  1762→            entries.forEach(function(entry) {
+  1763→                if (entry.isIntersecting) {
+  1764→                    entry.target.classList.add("visible");
+  1765→                    // Once visible, stop observing (no need to re-animate)
+  1766→                    observer.unobserve(entry.target);
+  1767→                }
+  1768→            });
+  1769→        }, {
+  1770→            threshold: 0.1,    // Trigger when 10% of element is visible
+  1771→            rootMargin: "0px 0px -40px 0px"  // Slight offset for better timing
+  1772→        });
+  1773→
+  1774→        // Observe each element
+  1775→        fadeElements.forEach(function(el) {
+  1776→            observer.observe(el);
+  1777→        });
+  1778→
+  1779→
+  1780→        // ==================================================================
+  1781→        // 2. NUMBER COUNTER ANIMATION
+  1782→        // ==================================================================
+  1783→        // WHY: Stats (400+, 600+, 28) count up from 0 when the numbers
+  1784→        // section enters the viewport. Creates visual interest and
+  1785→        // draws attention to the credibility numbers.
+  1786→        // ==================================================================
+  1787→        var statNumbers = document.querySelectorAll(".stat-number[data-target]");
+  1788→        var counterObserver = new IntersectionObserver(function(entries) {
+  1789→            entries.forEach(function(entry) {
+  1790→                if (entry.isIntersecting) {
+  1791→                    // Start counter animation
+  1792→                    animateCounter(entry.target);
+  1793→                    counterObserver.unobserve(entry.target);
+  1794→                }
+  1795→            });
+  1796→        }, { threshold: 0.3 });
+  1797→
+  1798→        statNumbers.forEach(function(el) {
+  1799→            counterObserver.observe(el);
+  1800→        });
+  1801→
+  1802→        /**
+  1803→         * Animate a number from 0 to target value.
+  1804→         * @param {HTMLElement} element - The stat-number element
+  1805→         * Uses requestAnimationFrame for smooth 60fps animation.
+  1806→         * Duration: 2 seconds. Easing: ease-out.
+  1807→         */
+  1808→        function animateCounter(element) {
+  1809→            var target = parseInt(element.getAttribute("data-target"));
+  1810→            var hasPlus = element.textContent.includes("+");
+  1811→            var duration = 2000; // 2 seconds
+  1812→            var startTime = null;
+  1813→
+  1814→            function step(timestamp) {
+  1815→                if (!startTime) startTime = timestamp;
+  1816→                var progress = Math.min((timestamp - startTime) / duration, 1);
+  1817→                // Ease-out cubic: fast start, slow end
+  1818→                var eased = 1 - Math.pow(1 - progress, 3);
+  1819→                var current = Math.floor(eased * target);
+  1820→                element.textContent = current + (hasPlus ? "+" : "");
+  1821→                if (progress < 1) {
+  1822→                    requestAnimationFrame(step);
+  1823→                } else {
+  1824→                    element.textContent = target + (hasPlus ? "+" : "");
+  1825→                }
+  1826→            }
+  1827→
+  1828→            requestAnimationFrame(step);
+  1829→        }
+  1830→
+  1831→
+  1832→        // ==================================================================
+  1833→        // 3. MOBILE NAVIGATION: Close menu when a link is clicked
+  1834→        // ==================================================================
+  1835→        // WHY: On mobile, after clicking a CTA in the hamburger menu,
+  1836→        // the menu should close automatically.
+  1837→        // ==================================================================
+  1838→        var mobileMenuLinks = document.querySelectorAll(".nav-mobile-menu a");
+  1839→        var hamburgerCheck = document.getElementById("nav-hamburger-check");
+  1840→        
+  1841→        mobileMenuLinks.forEach(function(link) {
+  1842→            link.addEventListener("click", function() {
+  1843→                if (hamburgerCheck) {
+  1844→                    hamburgerCheck.checked = false;
+  1845→                }
+  1846→            });
+  1847→        });
+  1848→
+  1849→    }); // END DOMContentLoaded
+  1850→'''
+  1851→
+  1852→
+  1853→def merge_all():
+  1854→    """
+  1855→    Main merge function:
+  1856→    1. Reads all 12 HTML fragments
+  1857→    2. Wraps them in complete HTML structure with CSS and JS
+  1858→    3. Writes the final index.html
+  1859→    """
+  1860→    
+  1861→    # Read all fragments
+  1862→    fragments_content = []
+  1863→    for i, filename in enumerate(FRAGMENT_FILES, 1):
+  1864→        filepath = os.path.join(FRAGMENTS_DIR, filename)
+  1865→        with open(filepath, "r", encoding="utf-8") as f:
+  1866→            content = f.read()
+  1867→        fragments_content.append(content)
+  1868→        print(f"  [MERGE] Read fragment {i}/12: {filename} ({len(content)} chars)")
+  1869→    
+  1870→    # Combine all fragment HTML
+  1871→    all_sections_html = "\n".join(fragments_content)
+  1872→    
+  1873→    # Generate CSS and JS
+  1874→    css = generate_complete_css()
+  1875→    js = generate_javascript()
+  1876→    
+  1877→    # Assemble the complete HTML document
+  1878→    complete_html = f'''<!DOCTYPE html>
+  1879→<!--
+  1880→============================================================================
+  1881→VEDA ADVISORS — COMPLETE DEMO WEBSITE
+  1882→============================================================================
+  1883→FILE: index.html
+  1884→VERSION: 1.0 | June 2026
+  1885→CREATED BY: Python module-based generation system (12 modules)
+  1886→
+  1887→WHAT THIS IS:
+  1888→  A single self-contained HTML file that works on any laptop.
+  1889→  No internet required for layout. No server needed.
+  1890→  Just double-click and open in any browser.
+  1891→
+  1892→HOW IT WAS BUILT:
+  1893→  - 12 Python modules (modules/module_01_nav.py through module_12_cta_footer.py)
+  1894→  - Each module generates an HTML fragment saved to fragments/
+  1895→  - This merge script (merge_all.py) combines all fragments with CSS + JS
+  1896→  - Every section has extensive comments explaining WHY decisions were made
+  1897→
+  1898→DESIGN SYSTEM:
+  1899→  - Primary Background: #0D2B1F (very dark green)
+  1900→  - Secondary Background: #1B3A2D (dark green cards)
+  1901→  - Accent Gold: #C9A84C (CTAs, highlights, numbers)
+  1902→  - Text: #FFFFFF (primary), #B8C9BF (secondary), #7A9E8A (muted)
+  1903→  - Font: Inter (400, 600, 700, 800, 900)
+  1904→  - Mobile-first responsive at 768px breakpoint
+  1905→
+  1906→SECTIONS (in order):
+  1907→  Section 0:  Navigation Bar (fixed, glass-morphism)
+  1908→  Section 1:  Hero (100vh, Rajat Sir photo, master headline)
+  1909→  Section 2:  The Pain (4 reason cards, red borders)
+  1910→  Section 3:  The Numbers (400+, 600+, 28 years — gold stats)
+  1911→  Section 4:  Proof Stories (UElement ₹15Cr, ARC Electric ₹3Cr)
+  1912→  Section 5:  BSCVI 3.0 System (journey map, 6 stops)
+  1913→  Section 6:  Rajat Sir (personal section, confidentiality promise)
+  1914→  Section 7:  Who This Is For (founders + students)
+  1915→  Section 8:  The Filter (exclusive, checklist + anti-checklist)
+  1916→  Section 9:  Stage 0 Preview (form teaser, Q1 visible)
+  1917→  Section 10: Global Reach (India, UAE, SE Asia, UK)
+  1918→  Section 11: WhatsApp CTA (direct access section)
+  1919→  Section 12: Footer (3 columns + bottom bar)
+  1920→
+  1921→IMAGES EXPECTED (in images/ folder):
+  1922→  - MAIN - Full Logo Veda full logo with Slate Teak BG.png
+  1923→  - MAIN - Short Logo Veda logo Slate Teak BG.png
+  1924→  - RAJAT Sir Image College.jpeg
+  1925→  - IMG_6215 (1).JPG
+  1926→  - IMG_6287.JPG
+  1927→
+  1928→CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
+  1929→============================================================================
+  1930→-->
+  1931→<html lang="en">
+  1932→<head>
+  1933→    <!-- ====================================================================
+  1934→         META TAGS
+  1935→         ====================================================================
+  1936→         WHY: viewport for responsive, charset for special characters,
+  1937→         description for SEO (even in demo), title for browser tab.
+  1938→         ==================================================================== -->
+  1939→    <meta charset="UTF-8">
+  1940→    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  1941→    <meta name="description" content="Veda Advisors — Stop Chasing Investors. Make Them Chase You. Startup Fundraising Advisory by Rajat Sir with a proven 5-stage system. 400+ startups funded.">
+  1942→    <title>Veda Advisors — Startup Fundraising Advisor | Rajat Sir</title>
+  1943→    
+  1944→    <!-- FAVICON (short logo) -->
+  1945→    <link rel="icon" type="image/png" href="images/MAIN - Short Logo Veda logo Slate Teak BG.png">
+  1946→
+  1947→    <!-- ====================================================================
+  1948→         GOOGLE FONTS: Inter
+  1949→         ====================================================================
+  1950→         WHY: Inter is the specified font from the design system.
+  1951→         Weights: 400 (body), 600 (captions), 700 (titles), 800 (headlines), 900 (hero).
+  1952→         Falls back to Arial if offline (per build prompt).
+  1953→         ==================================================================== -->
+  1954→    <link rel="preconnect" href="https://fonts.googleapis.com">
+  1955→    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  1956→    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  1957→
+  1958→    <!-- ====================================================================
+  1959→         COMPLETE STYLESHEET
+  1960→         ====================================================================
+  1961→         All CSS is inline (in this <style> tag) so the file is self-contained.
+  1962→         Every CSS rule has a comment explaining its purpose.
+  1963→         ==================================================================== -->
+  1964→    <style>
+  1965→{css}
+  1966→    </style>
+  1967→</head>
+  1968→<body>
+  1969→
+  1970→    <!-- ====================================================================
+  1971→         ALL SECTIONS — Merged from 12 module fragments
+  1972→         ====================================================================
+  1973→         Each section below was generated by a separate Python module:
+  1974→         module_01_nav.py → fragment_01_nav.html (Section 0: Nav)
+  1975→         module_02_hero.py → fragment_02_hero.html (Section 1: Hero)
+  1976→         module_03_pain.py → fragment_03_pain.html (Section 2: Pain)
+  1977→         module_04_numbers.py → fragment_04_numbers.html (Section 3: Numbers)
+  1978→         module_05_proof.py → fragment_05_proof.html (Section 4: Proof)
+  1979→         module_06_bscvi.py → fragment_06_bscvi.html (Section 5: BSCVI)
+  1980→         module_07_rajat.py → fragment_07_rajat.html (Section 6: Rajat Sir)
+  1981→         module_08_audience.py → fragment_08_audience.html (Section 7: Audience)
+  1982→         module_09_filter.py → fragment_09_filter.html (Section 8: Filter)
+  1983→         module_10_stage0.py → fragment_10_stage0.html (Section 9: Stage 0)
+  1984→         module_12_global.py → fragment_11_global.html (Section 10: Global)
+  1985→         module_12_cta_footer.py → fragment_12_cta_footer.html (Section 11+12)
+  1986→         ==================================================================== -->
+  1987→
+  1988→{all_sections_html}
+  1989→
+  1990→    <!-- ====================================================================
+  1991→         JAVASCRIPT
+  1992→         ====================================================================
+  1993→         Three features (all vanilla JS, no external libraries):
+  1994→         1. Intersection Observer — fade-in elements on scroll
+  1995→         2. Number counter — animate stats from 0 to target
+  1996→         3. Mobile nav close on link click
+  1997→         ==================================================================== -->
+  1998→    <script>
+  1999→{js}
+  2000→    </script>
+
+[showing lines 1-2000 of 2021; use offset=2001 with limit to continue reading]
