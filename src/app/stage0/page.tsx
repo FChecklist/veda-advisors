@@ -209,7 +209,10 @@ export default function Stage0Page() {
             {currentQ.type === 'select' ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {currentQ.options?.map(opt => (
-                  <button key={opt} onClick={() => { handleAnswer(opt); setTimeout(next, 150) }}
+                  <button key={opt} onClick={() => {
+                    setAnswers(prev => ({ ...prev, [currentQ.id]: opt }))
+                    setTimeout(() => setStep(s => s + 1), 180)
+                  }}
                     style={{
                       padding: '16px 20px', borderRadius: '8px', textAlign: 'left', fontSize: '15px', fontWeight: 500,
                       cursor: 'pointer', transition: 'all 0.15s',
