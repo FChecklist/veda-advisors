@@ -1830,7 +1830,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
             <a 
                 href="#stage0" 
                 class="nav-cta cta-primary"
-                onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                onclick="event.preventDefault(); window.parent.location.href='/stage0';"
             >
                 Start Free Assessment
             </a>
@@ -1857,7 +1857,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <a 
                     href="#stage0" 
                     class="nav-mobile-cta cta-primary"
-                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                 >
                     Start Free Assessment
                 </a>
@@ -1982,7 +1982,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <a 
                     href="#stage0" 
                     class="cta-primary hero-cta"
-                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                 >
                     Find Out Why You're Not Getting Funded &rarr;
                 </a>
@@ -2205,7 +2205,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                      The counter animation (JS) will count up from 0. -->
                 <div class="stat-item">
                     <div class="stat-number" data-target="600">600+</div>
-                    <div class="stat-label">FOUNDERS MENTORED</div>
+                    <div class="stat-label">FOUNDERS ADVISED</div>
                     <div class="stat-desc">From idea to investor meetings</div>
                 </div>
 
@@ -2229,7 +2229,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <a 
                     href="#stage0" 
                     class="cta-primary"
-                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                 >
                     Start Free Assessment &rarr;
                 </a>
@@ -2405,7 +2405,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <a 
                     href="#stage0" 
                     class="cta-primary"
-                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                 >
                     Start at Stage 0 — It's Free &rarr;
                 </a>
@@ -2513,7 +2513,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                     <a 
                         href="#stage0" 
                         class="cta-primary"
-                        onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                        onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                     >
                         Apply to Work with Rajat Sir &rarr;
                     </a>
@@ -2742,7 +2742,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <a 
                     href="#stage0" 
                     class="cta-primary"
-                    onclick="event.preventDefault(); alert('In the final version, this opens your personal portal where you complete Stage 0. Demo mode — coming soon.');"
+                    onclick="event.preventDefault(); window.parent.location.href='/stage0';"
                 >
                     Apply to Work with Rajat Sir &rarr;
                 </a>
@@ -2867,7 +2867,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <div class="process-step-arrow" aria-hidden="true">&rarr;</div>
                 <div class="process-step">
                     <div class="process-step-number">3</div>
-                    <div class="process-step-text">Book Your Session</div>
+                    <div class="process-step-text">Begin Your Advisory</div>
                 </div>
             </div>
 
@@ -3016,7 +3016,7 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                         VEDA<span class="gold-text">ADVISORS</span>
                     </span>
                     <p class="footer-tagline">"Stop Chasing Investors. Make Them Chase You."</p>
-                    <p class="footer-copyright">&copy; 2026 Veda Advisors. All rights reserved.</p>
+                    <p class="footer-copyright">&copy; <span id="footer-year">2026</span> Veda Advisors. All rights reserved.</p>
                 </div>
 
                 <!-- COLUMN 2: Quick Links (placeholders) -->
@@ -3025,10 +3025,10 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 <div class="footer-col">
                     <h4 class="footer-col-title">Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">For Startup Founders</a></li>
-                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">For Student Entrepreneurs</a></li>
-                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">The BSCVI 3.0 System</a></li>
-                        <li><a href="#" onclick="event.preventDefault(); alert('Navigation active in final version.');">Apply to Work with Rajat Sir</a></li>
+                        <li><a href="/founders">For Startup Founders</a></li>
+                        <li><a href="/students">For Student Entrepreneurs</a></li>
+                        <li><a href="#bscvi" onclick="event.preventDefault(); window.parent.location.href='/#bscvi';">The BSCVI 3.0 System</a></li>
+                        <li><a href="/stage0">Apply to Work with Rajat Sir</a></li>
                     </ul>
                 </div>
 
@@ -3051,8 +3051,8 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                         <span>New Delhi, India</span>
                     </div>
                     <div class="footer-contact-item">
-                        <span>&#127760; Current Platform:</span>
-                        <a href="https://vedaadvisors.graphy.com" target="_blank" rel="noopener noreferrer">vedaadvisors.graphy.com</a>
+                        <span>&#127760; Website:</span>
+                        <a href="https://veda-advisors.vercel.app" target="_blank" rel="noopener noreferrer">veda-advisors.vercel.app</a>
                     </div>
                 </div>
             </div>
@@ -3230,6 +3230,10 @@ CONTACT: rajatkamalagarwal@gmail.com | WhatsApp: +91 9650397480
                 }
             });
         });
+
+        // Dynamic copyright year
+        var yearEl = document.getElementById("footer-year");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     }); // END DOMContentLoaded
 

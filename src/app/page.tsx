@@ -13,45 +13,33 @@ export default function Home() {
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', margin: 0, padding: 0 }}>
-      {/* Info banner */}
-      <div style={{
-        background: '#C9A84C',
-        color: '#0D2B1F',
-        padding: '6px 16px',
-        fontSize: '13px',
-        fontWeight: 600,
-        textAlign: 'center',
-        letterSpacing: '0.5px',
-      }}>
-        VEDA ADVISORS — Stop Chasing Investors. Make Them Chase You.
-      </div>
-      
       {/* Loading state */}
       {loading && (
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 'calc(100vh - 32px)',
+          height: '100vh',
+          background: '#0D2B1F',
           color: '#C9A84C',
           fontFamily: 'Inter, Arial, sans-serif',
         }}>
-          Loading Veda Advisors Demo...
+          Loading...
         </div>
       )}
-      
+
       {/* Iframe displaying the full HTML */}
       <iframe
         ref={iframeRef}
         src="/demo.html"
         style={{
           width: '100%',
-          height: 'calc(100vh - 32px)',
+          height: '100vh',
           border: 'none',
           display: loading ? 'none' : 'block',
         }}
         onLoad={() => setLoading(false)}
-        title="Veda Advisors Demo"
+        title="Veda Advisors"
       />
     </div>
   )
