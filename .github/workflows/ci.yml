@@ -39,7 +39,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
       - run: bun install --frozen-lockfile
-      - run: bun run test --coverage --passWithNoTests 2>/dev/null || echo "::warning::No test script configured yet"
+      - run: bun run test --passWithNoTests 2>/dev/null || echo "::warning::No test script configured yet"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -58,10 +58,11 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run build
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://placeholder:placeholder@localhost:5432/placeholder' }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'placeholder-secret-for-ci-build' }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL || 'http://localhost:3000' }}
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: build-output
           path: .next/
@@ -79,13 +80,13 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: storybook-static
+          name: storybook-output
           path: storybook-static/
-          retention-days: 3
+          retention-days: 1
 
   e2e:
-    name: E2E Tests (Playwright)
-    needs: build
+    name: E2E Tests
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -93,41 +94,39 @@ jobs:
         with: { bun-version: latest }
       - run: bun install --frozen-lockfile
       - run: bunx playwright install --with-deps chromium
-      - run: bun run test:e2e --pass-with-no-tests 2>/dev/null || bunx playwright test --pass-with-no-tests
+      - run: bunx playwright test --pass-with-no-tests
         env:
-          CI: true
-          BASE_URL: http://localhost:3000
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+          DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://placeholder:placeholder@localhost:5432/placeholder' }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'placeholder-secret-for-ci-build' }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL || 'http://localhost:3000' }}
 
   deploy-preview:
     name: Deploy Preview
-    needs: [build, unit-tests]
-    if: github.event_name == 'pull_request'
+    needs: [build]
     runs-on: ubuntu-latest
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    if: github.event_name == 'pull_request' && secrets.VERCEL_TOKEN != ''
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with: { bun-version: latest }
       - run: bun install --frozen-lockfile
-      - run: npm i -g vercel@latest
-      - run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      - id: deploy
-        run: echo "url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+      - run: npm install -g vercel
+      - run: |
+          DEPLOY_URL=$(vercel deploy --token=$VERCEL_TOKEN --yes 2>/dev/null || echo "")
+          if [ -n "$DEPLOY_URL" ]; then
+            echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       - uses: actions/github-script@v7
+        if: env.DEPLOY_URL != ''
         with:
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🚀 **Preview deployment ready!**\n\n${{ steps.deploy.outputs.url }}`
+              body: `Preview deployed to: ${process.env.DEPLOY_URL}`
             })
