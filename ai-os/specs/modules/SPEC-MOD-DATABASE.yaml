@@ -1,0 +1,59 @@
+﻿id: SPEC-MOD-DATABASE
+module: MOD-DATABASE
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Define and maintain the Prisma database schema storing leads, consultations, and student success stories"
+  stakeholders: [engineering team]
+
+requirements:
+  functional:
+    - "leads table: id, name, email, phone, target_country, program_type, timeline, source, created_at"
+    - "consultations table: id, lead_id, scheduled_at, status, notes, created_at"
+    - "testimonials table: id, student_name, university, program, quote, country, consent_given, visible"
+    - "Admin query to view all leads with filters"
+  technical:
+    - "Prisma ORM with PostgreSQL"
+    - "Migrations tracked in /prisma/migrations"
+    - "Seed data for development"
+    - "Indexes on email, created_at, country"
+  non_functional:
+    performance: "Lead insert <50ms, lead query <100ms"
+    security: "No passwords stored; PII minimized"
+
+security:
+  requirements:
+    - "Phone numbers encrypted at column level"
+    - "Testimonials: consent_given must be true before visible can be set"
+    - "DB connection string never in client-side code"
+  fraud_scenarios:
+    - "DB connection leak: DATABASE_URL server-only env var"
+
+acceptance_criteria:
+  - given: "A form submission"
+    when: "POST /api/leads is called"
+    then: "Lead is inserted in <50ms with all required fields"
+
+tests:
+  unit:
+    - "Prisma schema validates required fields"
+  integration:
+    - "Lead creation and retrieval roundtrip"
+    - "Testimonial without consent cannot be made visible"
+  e2e:
+    - "Form submission results in DB record"
+
+sentinel_validation_rules:
+  - rule: "DATABASE_URL must never appear in client-side bundles"
+    severity: critical
+  - rule: "Testimonial consent_given must be enforced at DB level"
+    severity: error
+
+success_metrics:
+  - metric: "DB query p95"
+    target: "<100ms"
+
+rollback_strategy: "Run down migration; restore from backup"
