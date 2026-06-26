@@ -1,0 +1,51 @@
+﻿id: SPEC-MOD-INDIA
+module: MOD-INDIA
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: MEDIUM
+created: "2026-06-26"
+
+business:
+  objective: "Serve Indian student market with locally relevant content, pricing, and India-specific admissions guidance"
+  stakeholders: [Indian prospective students, Indian parents]
+
+requirements:
+  functional:
+    - "India-specific landing page with localized content"
+    - "India office contact details"
+    - "India-specific programs and pathways"
+    - "INR pricing display"
+    - "India admissions calendar and deadlines"
+    - "WhatsApp contact option for India inquiries"
+  technical:
+    - "Dedicated /india route"
+    - "Content separated from main pages for easy localization"
+  non_functional:
+    performance: "Fast load from Indian CDN nodes"
+    security: "WhatsApp link does not expose phone number in HTML source"
+
+security:
+  requirements:
+    - "Phone number obfuscated from HTML scraping"
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "An Indian visitor"
+    when: "They visit /india"
+    then: "They see India-specific content and WhatsApp contact option"
+
+tests:
+  unit:
+    - "India page renders India-specific content"
+  e2e:
+    - "India page loads with localized pricing and contact"
+
+sentinel_validation_rules:
+  - rule: "India page must have WhatsApp CTA and local phone"
+    severity: warning
+
+success_metrics:
+  - metric: "India page conversion rate"
+    target: ">3%"
+
+rollback_strategy: "Revert India page content; main site unaffected"
