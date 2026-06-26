@@ -1,0 +1,62 @@
+﻿id: SPEC-MOD-SEO
+module: MOD-SEO
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Maximize organic search discovery by implementing comprehensive SEO: metadata, structured data, sitemap, and performance"
+  stakeholders: [marketing team, founders]
+
+requirements:
+  functional:
+    - "Page-level metadata: title, description, canonical URL"
+    - "Open Graph tags for social sharing (og:title, og:image, og:description)"
+    - "Twitter Card meta tags"
+    - "Schema.org structured data: Organization, LocalBusiness, Person (founders)"
+    - "XML sitemap at /sitemap.xml"
+    - "robots.txt at /robots.txt"
+    - "Favicon and Apple touch icon"
+  technical:
+    - "Next.js generateMetadata for per-page metadata"
+    - "next-sitemap for sitemap generation"
+    - "JSON-LD for structured data"
+  non_functional:
+    performance: "Lighthouse SEO score >95"
+    security: "robots.txt does not expose admin routes"
+
+security:
+  requirements:
+    - "robots.txt must disallow /api/* and any admin paths"
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "Homepage is live"
+    when: "Google Search Console is checked"
+    then: "All pages are indexed and no crawl errors"
+  - given: "A page URL shared on LinkedIn"
+    when: "LinkedIn unfurls the link"
+    then: "Correct OG image and title are shown"
+
+tests:
+  unit:
+    - "generateMetadata returns correct title and description"
+  e2e:
+    - "Homepage has correct og:title meta tag"
+    - "Sitemap.xml returns valid XML"
+    - "robots.txt disallows /api/"
+
+sentinel_validation_rules:
+  - rule: "Every page must have unique title and description meta tags"
+    severity: error
+  - rule: "robots.txt must disallow all API routes"
+    severity: error
+
+success_metrics:
+  - metric: "Lighthouse SEO score"
+    target: ">95"
+  - metric: "Organic search clicks"
+    target: "Increasing month over month"
+
+rollback_strategy: "Revert metadata; SEO changes take days to propagate"
