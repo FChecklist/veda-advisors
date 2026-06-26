@@ -1,0 +1,64 @@
+﻿id: SPEC-MOD-API
+module: MOD-API
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Provide API routes for lead capture, contact form, and consultation booking that power the website forms"
+  stakeholders: [engineering team, website visitors]
+
+requirements:
+  functional:
+    - "POST /api/contact: general contact form submission"
+    - "POST /api/consultation: free consultation booking"
+    - "POST /api/leads: lead capture from any CTA"
+    - "GET /api/health: health check endpoint"
+  technical:
+    - "All POST routes validate and sanitize input"
+    - "Prisma for DB writes"
+    - "Resend for transactional emails"
+    - "Rate limiting via middleware"
+  non_functional:
+    performance: "API responses <500ms"
+    security: "Input sanitized, rate limited, no SQL injection"
+
+security:
+  requirements:
+    - "All input sanitized before DB write"
+    - "Rate limiting: 3 submissions per IP per hour"
+    - "CORS restricted to production domain"
+  fraud_scenarios:
+    - "SQL injection: Prisma parameterized queries prevent this"
+    - "XSS via stored input: output escaped on render"
+
+acceptance_criteria:
+  - given: "A valid contact form POST"
+    when: "Request hits /api/contact"
+    then: "Lead is saved and 200 OK returned within 500ms"
+  - given: "Rate limit exceeded"
+    when: "4th submission from same IP within 1h"
+    then: "Request returns 429 Too Many Requests"
+
+tests:
+  unit:
+    - "Input validation rejects missing required fields"
+    - "Rate limiter returns 429 on excess"
+  integration:
+    - "POST /api/contact saves to DB and returns 200"
+    - "Email sent on submission"
+  e2e:
+    - "Form submits and lead appears in admin"
+
+sentinel_validation_rules:
+  - rule: "All API routes must sanitize input before DB operations"
+    severity: critical
+  - rule: "CORS must be restricted to production domain"
+    severity: error
+
+success_metrics:
+  - metric: "API error rate"
+    target: "<0.1%"
+
+rollback_strategy: "Revert API handler; existing leads unaffected"
