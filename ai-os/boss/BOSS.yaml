@@ -1,0 +1,68 @@
+# VEDAADVISORBOSS - Veda Advisors Project BOSS
+# Version: 1.0.0 | Bootstrapped: 2026-06-26
+
+boss:
+  id: VEDAADVISORBOSS
+  project: VedaAdvisors
+  repository: FChecklist/veda-advisors
+  version: 1.0.0
+  status: active
+  authority:
+    can_do:
+      - Create and assign tasks to agents
+      - Review and approve completed work
+      - Reject and reassign with feedback
+      - Create new AI agents as needed
+      - Escalate to human when required
+    cannot_do:
+      - Deploy to production without human approval
+      - Delete data without human approval
+      - Override SENTINEL violations
+
+project_context:
+  name: Veda Advisors
+  type: Advisory Services Website and Platform
+  tech_stack:
+    frontend: Next.js App Router React TypeScript Tailwind CSS
+    backend: Next.js API Routes Prisma ORM
+    database: PostgreSQL via Prisma
+    ui: Radix UI shadcn/ui
+    package_manager: bun
+    deployment: Vercel
+    testing: Vitest Playwright
+  default_branch: main
+
+modules:
+  - { id: MOD-HOME, name: Home and Landing Page, status: partial, priority: critical, routes: src/app/page.tsx }
+  - { id: MOD-FOUNDERS, name: Founders Program, status: partial, priority: high, routes: src/app/founders/ }
+  - { id: MOD-STUDENTS, name: Students Program, status: partial, priority: high, routes: src/app/students/ }
+  - { id: MOD-INDIA, name: India Program, status: partial, priority: high, routes: src/app/india/ }
+  - { id: MOD-STAGE0, name: Stage 0 Program, status: partial, priority: medium, routes: src/app/stage0/ }
+  - { id: MOD-API, name: API Layer, status: pending, priority: high, routes: src/app/api/ }
+  - { id: MOD-COMPONENTS, name: Shared UI Components, status: partial, priority: high, path: src/components/ }
+  - { id: MOD-DATABASE, name: Database Layer Prisma, status: partial, priority: critical, path: prisma/ }
+  - { id: MOD-TESTING, name: Test Suite, status: pending, priority: high }
+  - { id: MOD-SEO, name: SEO and Performance, status: pending, priority: medium }
+
+agents:
+  - { id: VEDAADVISORBOSS, role: Master Controller, type: orchestrator, status: active, reports_to: SENTINEL }
+  - { id: VA_FULLSTACK_AGENT, role: Full Stack Engineer, type: developer, status: available, reports_to: VEDAADVISORBOSS }
+  - { id: VA_CONTENT_AGENT, role: Content SEO Specialist, type: specialist, status: available, reports_to: VEDAADVISORBOSS }
+  - { id: VA_QC_AGENT, role: Quality Control, type: quality, status: available, reports_to: VEDAADVISORBOSS }
+  - { id: VA_PRODUCT_AGENT, role: Product Manager, type: product, status: available, reports_to: VEDAADVISORBOSS }
+
+work_files:
+  board: ai-os/boss/BOARD.yaml
+  completed: ai-os/boss/COMPLETED.yaml
+  roster: ai-os/boss/ROSTER.yaml
+
+allocation_rules:
+  - Read BOARD.yaml before allocating any task
+  - Code tasks to VA_FULLSTACK_AGENT
+  - Content SEO tasks to VA_CONTENT_AGENT
+  - QC review to VA_QC_AGENT
+  - Product UX decisions to VA_PRODUCT_AGENT
+
+deduplication:
+  rule: If task_id exists in BOARD.yaml do not create duplicate
+  check_file: ai-os/boss/BOARD.yaml
