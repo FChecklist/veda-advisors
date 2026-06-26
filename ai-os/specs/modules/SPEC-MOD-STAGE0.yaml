@@ -1,0 +1,68 @@
+﻿id: SPEC-MOD-STAGE0
+module: MOD-STAGE0
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Capture and qualify leads through a free consultation booking form, feeding prospects into the Veda Advisors sales pipeline"
+  stakeholders: [prospective students, Veda Advisors team]
+
+requirements:
+  functional:
+    - "Lead capture form: name, email, phone, target country, program type, timeline"
+    - "Calendar booking integration (Calendly or similar)"
+    - "Confirmation email after form submission"
+    - "Lead saved to database for CRM follow-up"
+    - "Form validation with helpful error messages"
+    - "Thank you page after successful submission"
+  technical:
+    - "POST /api/contact or /api/consultation endpoint"
+    - "Leads stored in Prisma DB"
+    - "Email via Resend on submission"
+    - "Rate limiting to prevent spam"
+  non_functional:
+    performance: "Form submission <1s"
+    security: "CAPTCHA or honeypot to prevent spam"
+
+security:
+  requirements:
+    - "Rate limit form to 3 submissions per IP per hour"
+    - "Email validation before storing lead"
+    - "CAPTCHA or honeypot field"
+  fraud_scenarios:
+    - "Spam submissions: rate limiting and honeypot field"
+    - "Fake leads: email verification"
+
+acceptance_criteria:
+  - given: "A prospective student"
+    when: "They complete and submit the consultation form"
+    then: "They see a thank you page and receive a confirmation email within 30s"
+  - given: "A valid lead submission"
+    when: "It is received"
+    then: "Lead is saved to DB and team receives notification email"
+
+tests:
+  unit:
+    - "Form validation for required fields"
+    - "Email validation"
+  integration:
+    - "Form submission creates lead in DB"
+    - "Confirmation email sent"
+  e2e:
+    - "Complete form submission flow end to end"
+
+sentinel_validation_rules:
+  - rule: "Lead form must have rate limiting and spam protection"
+    severity: critical
+  - rule: "All leads must be stored before confirmation shown"
+    severity: error
+
+success_metrics:
+  - metric: "Form submission success rate"
+    target: ">98%"
+  - metric: "Lead form conversion rate"
+    target: ">10%"
+
+rollback_strategy: "Revert form; leads stored in DB are retained"
