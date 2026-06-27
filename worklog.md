@@ -416,3 +416,85 @@ Stage Summary:
 - The smoke test confirmed saveStage0Submission + listStage0Submissions both work as designed
 - NOTE for future task: the .env at repo root is tracked (committed in initial commit) but should be untracked — it has an absolute path that won't work for other contributors. The .env.example from T8 is the proper template.
 - This task itself needs no commit — it's local verification only. But the accumulated VEDABOSS.md + worklog.md updates from T2-T15 will be committed together as a workflow bookkeeping commit.
+
+---
+Task ID: T16
+Agent: Worker (z.ai)
+Task: Push all commits to GitHub main branch
+
+Work Log:
+- Attempted `git push origin main` directly — REJECTED by GitHub
+- Branch protection error: "Protected branch update failed for refs/heads/main"
+- Branch protection rules discovered via API:
+  - required_status_checks: Lint, Type Check, Unit Tests, Build, E2E Tests (Playwright)
+  - required_pull_request_reviews: required_approving_review_count = 1
+  - enforce_admins: True (even admin tokens can't bypass)
+- Re-routed through PR workflow:
+  - Created branch `chore/vedaboss-workflow-batch-1`
+  - Pushed branch successfully
+  - Opened PR #8 via GitHub API: https://github.com/FChecklist/veda-advisors/pull/8
+- Initial CI run failed on Lint, Type Check, Unit Tests — see T16b for fix-ups
+
+Stage Summary:
+- PR #8 is open with 14 commits
+- Cannot merge directly — branch protection requires 1 approving review
+- PR author is FChecklist (only collaborator) — cannot self-review
+- T16 reclassified: "Open PR + push branch" is done; merge itself is T16c (blocked)
+
+---
+Task ID: T16b
+Agent: Worker (z.ai)
+Task: Fix CI regressions discovered after PR #8 was opened
+
+Work Log:
+- Initial CI run on PR #8 head SHA `df2679b` failed 3 required checks:
+  1. Type Check — examples/websocket/{frontend.tsx,server.ts} import socket.io-client and socket.io (not in package.json)
+  2. Lint — src/app/page.tsx:11 calls setLoading(true) in useEffect, triggering react-hooks/set-state-in-effect rule (new in Next.js 16 / React 19)
+  3. Unit Tests — `bun run test --coverage --passWithNoTests` expanded to `echo "..." && exit 0 --coverage --passWithNoTests`; bash exit doesn't accept multiple args
+- ALSO discovered: T4 had removed the e2e job, but e2e is a required status check — PR could never satisfy branch protection
+- Four atomic fix-up commits on the same branch:
+  1. `df2679b` — ci: restore e2e job (required by branch protection)
+  2. `6edf81d` — fix(tsconfig): exclude examples/ from typecheck
+  3. `c6aa27c` — fix(app): remove redundant useEffect in home page
+  4. `3f6358d` — fix(scripts): drop '&& exit 0' from test scripts
+- Pushed branch; CI re-ran on head SHA `3f6358d`
+- All 5 required status checks now PASS:
+  - Lint ✓
+  - Type Check ✓
+  - Unit Tests ✓
+  - Build ✓
+  - E2E Tests (Playwright) ✓
+- Non-required failures: Deploy Preview (missing Vercel secrets — not blocking)
+
+Stage Summary:
+- All 5 required status checks pass on PR #8
+- PR is mergeable from a CI perspective
+- Branch protection still requires 1 approving review (T16c, blocked on user)
+
+---
+Task ID: T17
+Agent: Worker (z.ai)
+Task: Update VEDABOSS.md with final summary
+
+Work Log:
+- Updated Backlog table:
+  - T1: not_needed (YAML was valid, terminal ate [m)
+  - T2-T15: done with commit hashes
+  - T16: done (PR opened, branch pushed, all required CI checks pass)
+  - T16b: done (4 fix-up commits for CI regressions)
+  - T16c: blocked (merge needs user approval — branch protection requires 1 review, author can't self-review)
+  - T17: done (this task)
+- Added Final Summary section covering:
+  - Overall status (16/17 complete, 1 blocked)
+  - PR link and branch info
+  - CI status (all 5 required checks pass)
+  - What landed in the batch (categorized: CI hygiene, API surface, app polish, docs, database)
+  - What did NOT change (intentional deferrals)
+  - Action needed from user (approve + merge PR #8)
+  - 8 suggested follow-up tasks (T18-T25) for the next VEDABOSS / Worker cycle
+- Added Progress Log with one bullet per task in reverse chronological order
+
+Stage Summary:
+- VEDABOSS.md is now a complete audit trail of the entire batch
+- Any future agent (human or AI) can pick up where this batch left off by reading VEDABOSS.md + worklog.md
+- T16c remains blocked on user action — cannot be auto-resolved
