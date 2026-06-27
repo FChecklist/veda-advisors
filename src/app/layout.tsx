@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     icon: "/images/MAIN%20-%20Short%20Logo%20Veda%20logo%20Slate%20Teak%20BG.png",
     apple: "/images/MAIN%20-%20Short%20Logo%20Veda%20logo%20Slate%20Teak%20BG.png",
   },
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
     siteName: "Veda Advisors",
@@ -62,6 +63,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BASE_URL,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0D2B1F",
+  colorScheme: "dark",
 };
 
 /**

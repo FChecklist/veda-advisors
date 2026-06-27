@@ -1,0 +1,66 @@
+{
+  "name": "Veda Advisors — Startup Fundraising Advisor",
+  "short_name": "Veda Advisors",
+  "description": "Rajat Sir (Rajat Rajkamal Agarwal) — Startup Fundraising Advisor. BSCVI 3.0 system. 400+ startups funded. Stage 0 is free.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D2B1F",
+  "theme_color": "#0D2B1F",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "finance", "education"],
+  "icons": [
+    {
+      "src": "/images/MAIN%20-%20Short%20Logo%20Veda%20logo%20Slate%20Teak%20BG.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/MAIN%20-%20Short%20Logo%20Veda%20logo%20Slate%20Teak%20BG.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/MAIN%20-%20Full%20Logo%20Veda%20full%20logo%20with%20Slate%20Teak%20BG.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Stage 0 (Free)",
+      "short_name": "Stage 0",
+      "description": "7-question free readiness assessment",
+      "url": "/stage0",
+      "icons": [
+        {
+          "src": "/images/MAIN%20-%20Short%20Logo%20Veda%20logo%20Slate%20Teak%20BG.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "For Founders",
+      "short_name": "Founders",
+      "description": "How Rajat Sir helps startup founders raise funds",
+      "url": "/founders"
+    },
+    {
+      "name": "For Students",
+      "short_name": "Students",
+      "description": "How Rajat Sir helps student entrepreneurs",
+      "url": "/students"
+    },
+    {
+      "name": "India Focus",
+      "short_name": "India",
+      "description": "India-specific fundraising guidance",
+      "url": "/india"
+    }
+  ]
+}
