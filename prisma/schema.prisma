@@ -30,3 +30,27 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+/// Mirror of the Supabase `stage0_submissions` table.
+/// The live /stage0 form continues to write to Supabase; this model exists so
+/// the same shape can be persisted via Prisma (server-side fallback / future
+/// migration target) without changing the form's payload structure.
+model Stage0Submission {
+  id                    String   @id @default(cuid())
+  name                  String
+  email                 String
+  whatsapp              String?
+  startupStage          String?  @map("startup_stage")
+  revenueStatus         String?  @map("revenue_status")
+  fundingAsked          String?  @map("funding_asked")
+  investorConversations String?  @map("investor_conversations")
+  biggestChallenge      String?  @map("biggest_challenge") // JSON blob of full answers
+  howHeard              String?  @map("how_heard")
+  status                String   @default("new") // new | reviewing | contacted | closed
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt      @map("updated_at")
+
+  @@index([status])
+  @@index([email])
+  @@map("stage0_submissions")
+}
