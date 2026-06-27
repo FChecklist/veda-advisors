@@ -1,15 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function Home() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Load the Veda Advisors HTML via the API route
-    setLoading(true)
-  }, [])
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', margin: 0, padding: 0 }}>
