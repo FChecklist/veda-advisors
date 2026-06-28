@@ -1,23 +1,187 @@
-# Master Knowledge Graph Registry
-# Machine-readable registry of ALL artifacts in this repository.
-# AI agents MUST query this before creating anything new.
-# Impact analysis: find artifact, read related_to[] for all affected artifacts.
-version: "1.0.0"
-last_updated: "2026-06-26T00:00:00Z"
-last_updated_by: "Sentinel"
+# Veda Advisors — AI-OS Knowledge Graph
+# Auto-populated 2026-06-26 from codebase analysis
+# Stack: Next.js App Router, Prisma, Bun, PostgreSQL, Vercel
 
-query_rules:
-  - "Before creating an API: check apis[] - does it already exist?"
-  - "Before creating a DB table: check database_tables[] - does it exist?"
-  - "Before creating a component: check ui_components[] - does it exist?"
-  - "Impact analysis: find artifact by id, read related_to[] for all affected artifacts"
+modules:
+  - id: MOD-HOME
+    spec: ai-os/specs/modules/SPEC-MOD-HOME.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-STAGE0, MOD-COMPONENTS, MOD-SEO]
+  - id: MOD-FOUNDERS
+    spec: ai-os/specs/modules/SPEC-MOD-FOUNDERS.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-COMPONENTS, MOD-SEO]
+  - id: MOD-STUDENTS
+    spec: ai-os/specs/modules/SPEC-MOD-STUDENTS.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-DATABASE, MOD-COMPONENTS]
+  - id: MOD-INDIA
+    spec: ai-os/specs/modules/SPEC-MOD-INDIA.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-STAGE0, MOD-COMPONENTS]
+  - id: MOD-STAGE0
+    spec: ai-os/specs/modules/SPEC-MOD-STAGE0.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-API, MOD-DATABASE]
+  - id: MOD-API
+    spec: ai-os/specs/modules/SPEC-MOD-API.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-DATABASE, MOD-STAGE0]
+  - id: MOD-COMPONENTS
+    spec: ai-os/specs/modules/SPEC-MOD-COMPONENTS.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-HOME, MOD-FOUNDERS, MOD-STUDENTS]
+  - id: MOD-DATABASE
+    spec: ai-os/specs/modules/SPEC-MOD-DATABASE.yaml
+    status: IMPLEMENTED
+    related_to: [MOD-API, MOD-STAGE0]
+  - id: MOD-TESTING
+    spec: ai-os/specs/modules/SPEC-MOD-TESTING.yaml
+    status: PLANNED
+    related_to: []
+  - id: MOD-SEO
+    spec: ai-os/specs/modules/SPEC-MOD-SEO.yaml
+    status: PLANNED
+    related_to: [MOD-HOME, MOD-FOUNDERS, MOD-STUDENTS]
 
-modules: []
-apis: []
-database_tables: []
-ui_screens: []
-ui_components: []
-agents: []
+apis:
+  - id: API-CONTACT
+    path: /api/contact
+    method: POST
+    description: "General contact form submission"
+    module: MOD-API
+    related_to: [TABLE-LEADS]
+  - id: API-CONSULTATION
+    path: /api/consultation
+    method: POST
+    description: "Free consultation booking"
+    module: MOD-API
+    related_to: [TABLE-CONSULTATIONS, TABLE-LEADS]
+  - id: API-LEADS
+    path: /api/leads
+    method: POST
+    description: "Lead capture from any CTA"
+    module: MOD-API
+    related_to: [TABLE-LEADS]
+  - id: API-HEALTH
+    path: /api/health
+    method: GET
+    description: "Health check endpoint"
+    module: MOD-API
+    related_to: []
+
+database_tables:
+  - id: TABLE-LEADS
+    name: leads
+    description: "Captured leads from all CTAs and forms"
+    module: MOD-DATABASE
+    columns: [id, name, email, phone, target_country, program_type, timeline, source, created_at]
+    related_to: [TABLE-CONSULTATIONS]
+  - id: TABLE-CONSULTATIONS
+    name: consultations
+    description: "Scheduled consultation sessions"
+    module: MOD-DATABASE
+    columns: [id, lead_id, scheduled_at, status, notes, created_at]
+    related_to: [TABLE-LEADS]
+  - id: TABLE-TESTIMONIALS
+    name: testimonials
+    description: "Student success testimonials"
+    module: MOD-DATABASE
+    columns: [id, student_name, university, program, quote, country, consent_given, visible, created_at]
+    related_to: []
+
+ui_screens:
+  - id: SCREEN-HOME
+    route: /
+    module: MOD-HOME
+    related_to: [SCREEN-STAGE0]
+  - id: SCREEN-FOUNDERS
+    route: /founders
+    module: MOD-FOUNDERS
+    related_to: [SCREEN-HOME]
+  - id: SCREEN-STUDENTS
+    route: /students
+    module: MOD-STUDENTS
+    related_to: [SCREEN-HOME]
+  - id: SCREEN-INDIA
+    route: /india
+    module: MOD-INDIA
+    related_to: [SCREEN-STAGE0]
+  - id: SCREEN-STAGE0
+    route: /consultation
+    module: MOD-STAGE0
+    related_to: [SCREEN-HOME]
+
+ui_components:
+  - id: COMP-NAVIGATION
+    description: "Site-wide navigation with mobile hamburger"
+    module: MOD-COMPONENTS
+    related_to: [SCREEN-HOME]
+  - id: COMP-FOOTER
+    description: "Site footer with links and legal"
+    module: MOD-COMPONENTS
+    related_to: [SCREEN-HOME]
+  - id: COMP-HERO
+    description: "Homepage hero section"
+    module: MOD-HOME
+    related_to: [SCREEN-HOME]
+  - id: COMP-TESTIMONIAL-CAROUSEL
+    description: "Student testimonial carousel"
+    module: MOD-STUDENTS
+    related_to: [SCREEN-STUDENTS, SCREEN-HOME]
+  - id: COMP-LEAD-FORM
+    description: "Lead capture form for Stage 0"
+    module: MOD-STAGE0
+    related_to: [SCREEN-STAGE0, API-LEADS]
+
+agents:
+  - id: AGENT-VA-FULLSTACK
+    name: VA_FULLSTACK
+    description: "Full-stack dev: pages, API routes, DB schema"
+    register_in: ai-os/boss/ROSTER.yaml
+  - id: AGENT-VA-CONTENT
+    name: VA_CONTENT
+    description: "Content: copy, testimonials, SEO text"
+    register_in: ai-os/boss/ROSTER.yaml
+  - id: AGENT-VA-QC
+    name: VA_QC
+    description: "Quality control: code review, tests, accessibility"
+    register_in: ai-os/boss/ROSTER.yaml
+  - id: AGENT-VA-PRODUCT
+    name: VA_PRODUCT
+    description: "Product: specs, user flows, conversion optimization"
+    register_in: ai-os/boss/ROSTER.yaml
+
 tests: []
-workflows: []
-business_rules: []
+
+workflows:
+  - id: WF-CI
+    path: .github/workflows/ci.yml
+    triggers: [push, pull_request]
+    related_to: []
+  - id: WF-CODEQL
+    path: .github/workflows/codeql.yml
+    triggers: [push, pull_request, schedule]
+    related_to: []
+  - id: WF-SENTINEL
+    path: .github/workflows/sentinel.yml
+    triggers: [push, pull_request]
+    related_to: []
+
+business_rules:
+  - id: BR-001
+    rule: "Lead form submissions must be rate-limited to 3 per IP per hour"
+    module: MOD-STAGE0
+    enforcement: middleware
+  - id: BR-002
+    rule: "Testimonials require consent_given=true before visible=true is allowed"
+    module: MOD-DATABASE
+    enforcement: database_constraint
+  - id: BR-003
+    rule: "DATABASE_URL must never appear in client-side bundles"
+    module: MOD-DATABASE
+    enforcement: build_check
+  - id: BR-004
+    rule: "All API inputs must be sanitized before DB writes (prevent XSS/injection)"
+    module: MOD-API
+    enforcement: application
