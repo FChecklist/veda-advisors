@@ -1,0 +1,49 @@
+﻿id: SPEC-MOD-FOUNDERS
+module: MOD-FOUNDERS
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: MEDIUM
+created: "2026-06-26"
+
+business:
+  objective: "Build trust with prospective students by showcasing the founders credentials, experience, and personal story"
+  stakeholders: [prospective students, parents]
+
+requirements:
+  functional:
+    - "Founder bios with photo, credentials, and experience"
+    - "Personal story and motivation for founding Veda Advisors"
+    - "Notable achievements and credentials (degrees, past roles)"
+    - "Social proof (press mentions, speaking engagements)"
+    - "Contact/connect CTA"
+  technical:
+    - "Static content, SSG page"
+    - "MDX or JSON for content management"
+  non_functional:
+    performance: "Page load <1.5s"
+    security: "No personal data collected"
+
+security:
+  requirements: []
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "A prospective student"
+    when: "They visit the About/Founders page"
+    then: "They see founder photos, credentials, and can click CTA"
+
+tests:
+  unit:
+    - "Founder card renders with all fields"
+  e2e:
+    - "Founders page loads and displays founder info"
+
+sentinel_validation_rules:
+  - rule: "Founder credentials must be verified before publishing"
+    severity: warning
+
+success_metrics:
+  - metric: "Page load time"
+    target: "<1.5s"
+
+rollback_strategy: "Revert content; no data loss"

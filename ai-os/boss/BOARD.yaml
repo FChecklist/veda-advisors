@@ -1,0 +1,140 @@
+# VEDAADVISORBOSS Work Board
+# Single source of truth for all tasks — agents check here before starting any work
+# Updated: 2026-06-28
+
+tasks:
+  # ══════════════════════════════════════════════
+  # AI-OS BOOTSTRAP (completed 2026-06-26 to 2026-06-28)
+  # ══════════════════════════════════════════════
+
+  - id: T-AIOS-001
+    title: "Install AI-OS directory structure"
+    module: MOD-API
+    type: governance
+    priority: CRITICAL
+    status: completed
+    lifecycle_stage: IMPROVE
+    assigned_to: SENTINEL
+    completed_date: "2026-06-26"
+    branch: sentinel/bootstrap
+    pr_url: "https://github.com/FChecklist/veda-advisors/pull/7"
+
+  - id: T-AIOS-002
+    title: "Write all 10 module specs"
+    module: MOD-API
+    type: documentation
+    priority: HIGH
+    status: completed
+    lifecycle_stage: IMPROVE
+    assigned_to: SENTINEL
+    completed_date: "2026-06-28"
+    branch: sentinel/bootstrap
+    files_created:
+      - ai-os/specs/modules/SPEC-MOD-HOME.yaml
+      - ai-os/specs/modules/SPEC-MOD-FOUNDERS.yaml
+      - ai-os/specs/modules/SPEC-MOD-STUDENTS.yaml
+      - ai-os/specs/modules/SPEC-MOD-INDIA.yaml
+      - ai-os/specs/modules/SPEC-MOD-STAGE0.yaml
+      - ai-os/specs/modules/SPEC-MOD-API.yaml
+      - ai-os/specs/modules/SPEC-MOD-COMPONENTS.yaml
+      - ai-os/specs/modules/SPEC-MOD-DATABASE.yaml
+      - ai-os/specs/modules/SPEC-MOD-TESTING.yaml
+      - ai-os/specs/modules/SPEC-MOD-SEO.yaml
+
+  - id: T-AIOS-003
+    title: "Populate ARTIFACTS knowledge graph"
+    module: MOD-API
+    type: documentation
+    priority: HIGH
+    status: completed
+    lifecycle_stage: IMPROVE
+    assigned_to: SENTINEL
+    completed_date: "2026-06-28"
+    branch: sentinel/bootstrap
+
+  - id: T-AIOS-004
+    title: "Add test infrastructure: vitest, playwright, sample tests"
+    module: MOD-TESTING
+    type: testing
+    priority: HIGH
+    status: completed
+    lifecycle_stage: IMPROVE
+    assigned_to: SENTINEL
+    completed_date: "2026-06-28"
+    branch: sentinel/bootstrap
+    files_created:
+      - vitest.config.ts
+      - playwright.config.ts
+      - src/__tests__/setup.ts
+      - src/__tests__/api/contact.test.ts
+      - src/__tests__/seo.test.ts
+      - e2e/homepage.spec.ts
+
+  # ══════════════════════════════════════════════
+  # AUDIT FIXES (from Z.AI audit 2026-06-25)
+  # ══════════════════════════════════════════════
+
+  - id: T-AUDIT-001
+    title: "Apply 10-part Z.AI audit corrections"
+    module: MOD-HOME
+    type: implementation
+    priority: HIGH
+    status: open
+    lifecycle_stage: UNDERSTAND
+    assigned_to: unassigned
+    notes: "See memory: veda_audit_fixes.md for full 10-part plan"
+    spec: ai-os/specs/modules/SPEC-MOD-SEO.yaml
+
+  # ══════════════════════════════════════════════
+  # NEXT UP
+  # ══════════════════════════════════════════════
+
+  - id: T-NEXT-001
+    title: "Merge PR #7 (sentinel/bootstrap) into main"
+    module: MOD-API
+    type: governance
+    priority: HIGH
+    status: open
+    lifecycle_stage: DEPLOY
+    assigned_to: unassigned
+    pr_url: "https://github.com/FChecklist/veda-advisors/pull/7"
+    notes: "CI must pass before merge. CI fixed 2026-06-28."
+
+  - id: T-NEXT-002
+    title: "Implement Stage 0 lead capture form"
+    module: MOD-STAGE0
+    type: implementation
+    priority: HIGH
+    status: open
+    lifecycle_stage: UNDERSTAND
+    assigned_to: unassigned
+    spec: ai-os/specs/modules/SPEC-MOD-STAGE0.yaml
+
+  - id: T-NEXT-003
+    title: "Implement full SEO: metadata, sitemap, structured data"
+    module: MOD-SEO
+    type: implementation
+    priority: HIGH
+    status: open
+    lifecycle_stage: UNDERSTAND
+    assigned_to: unassigned
+    spec: ai-os/specs/modules/SPEC-MOD-SEO.yaml
+
+  - id: T-NEXT-004
+    title: "Add Google Analytics / PostHog"
+    module: MOD-API
+    type: implementation
+    priority: MEDIUM
+    status: open
+    lifecycle_stage: UNDERSTAND
+    assigned_to: unassigned
+
+  - id: T-NEXT-005
+    title: "Student testimonials section with consent management"
+    module: MOD-STUDENTS
+    type: implementation
+    priority: MEDIUM
+    status: open
+    lifecycle_stage: UNDERSTAND
+    assigned_to: unassigned
+    spec: ai-os/specs/modules/SPEC-MOD-STUDENTS.yaml

@@ -1,0 +1,59 @@
+﻿id: SPEC-MOD-HOME
+module: MOD-HOME
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Convert visitors into leads with a compelling homepage showcasing Veda Advisors value proposition, results, and credibility"
+  stakeholders: [prospective students, parents, founders]
+
+requirements:
+  functional:
+    - "Hero section with headline, subheadline, and primary CTA (Book Free Consultation)"
+    - "Value proposition: 3-4 key benefits with icons"
+    - "Success metrics display (universities placed at, acceptance rate, students helped)"
+    - "Testimonial carousel with student photos and quotes"
+    - "Trust signals: logos of universities students were admitted to"
+    - "Navigation to all major sections"
+  technical:
+    - "Next.js App Router with SSG for performance"
+    - "Mobile-first responsive design"
+    - "Optimized images via next/image"
+  non_functional:
+    performance: "LCP <2.5s, CLS <0.1"
+    security: "No user data collected without consent"
+
+security:
+  requirements:
+    - "No analytics tracking without cookie consent"
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "A first-time visitor"
+    when: "They land on the homepage"
+    then: "They see the hero, value prop, and CTA above the fold on mobile"
+  - given: "A visitor who clicks the CTA"
+    when: "They click Book Free Consultation"
+    then: "They are taken to the Stage 0 form or calendar booking"
+
+tests:
+  unit:
+    - "Hero renders with correct headline"
+    - "Testimonial carousel cycles correctly"
+  e2e:
+    - "Homepage loads and CTA is visible"
+    - "CTA click navigates to booking"
+
+sentinel_validation_rules:
+  - rule: "Homepage CTA must link to Stage 0 module"
+    severity: error
+
+success_metrics:
+  - metric: "Core Web Vitals LCP"
+    target: "<2.5s"
+  - metric: "CTA click-through rate"
+    target: ">5%"
+
+rollback_strategy: "Revert to previous homepage version; no data loss"

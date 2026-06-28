@@ -1,0 +1,53 @@
+﻿id: SPEC-MOD-STUDENTS
+module: MOD-STUDENTS
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Showcase student success stories and admission results to build social proof and inspire prospective clients"
+  stakeholders: [prospective students, parents]
+
+requirements:
+  functional:
+    - "Student success story cards with: name, photo, school admitted to, program, quote"
+    - "Results grid: list of universities students were admitted to"
+    - "Filter by target country (US, UK, Canada, etc.)"
+    - "Testimonial video embeds where available"
+    - "Privacy option: allow anonymous testimonials"
+  technical:
+    - "Content from CMS or static JSON"
+    - "Lazy-load images and video embeds"
+  non_functional:
+    performance: "Stories section loads <1s"
+    security: "Student consent required before publishing"
+
+security:
+  requirements:
+    - "Only publish student stories with explicit written consent"
+  fraud_scenarios:
+    - "Fake testimonials: all testimonials verified internally before publishing"
+
+acceptance_criteria:
+  - given: "A visitor on the Students page"
+    when: "They view success stories"
+    then: "They see at least 5 stories with university, program, and quote"
+
+tests:
+  unit:
+    - "Student card renders all fields"
+    - "Filter by country works"
+  e2e:
+    - "Students page loads with success stories"
+    - "Country filter updates visible stories"
+
+sentinel_validation_rules:
+  - rule: "No student PII published without explicit consent flag set to true"
+    severity: critical
+
+success_metrics:
+  - metric: "Testimonial page engagement time"
+    target: ">2 minutes"
+
+rollback_strategy: "Remove story; student data deleted from DB"

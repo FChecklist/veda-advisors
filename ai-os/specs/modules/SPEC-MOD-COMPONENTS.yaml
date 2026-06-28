@@ -1,0 +1,54 @@
+﻿id: SPEC-MOD-COMPONENTS
+module: MOD-COMPONENTS
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: MEDIUM
+created: "2026-06-26"
+
+business:
+  objective: "Maintain a consistent, reusable component library for all Veda Advisors pages ensuring design consistency"
+  stakeholders: [engineering team, designers]
+
+requirements:
+  functional:
+    - "Navigation component with mobile hamburger menu"
+    - "Footer with links, socials, and legal"
+    - "Button component with variants (primary, secondary, ghost)"
+    - "Card component for testimonials, features, team"
+    - "Section layout wrapper with consistent padding"
+    - "FormInput component with label and error state"
+  technical:
+    - "Tailwind CSS for styling"
+    - "TypeScript props with JSDoc"
+    - "Components in /components directory"
+  non_functional:
+    performance: "Components render <16ms (60fps)"
+    security: "No dangerouslySetInnerHTML without sanitization"
+
+security:
+  requirements:
+    - "No dangerouslySetInnerHTML usage"
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "Any page"
+    when: "It renders"
+    then: "Navigation and footer are consistent across all pages"
+
+tests:
+  unit:
+    - "Button renders with correct variant class"
+    - "Navigation opens mobile menu on hamburger click"
+  e2e:
+    - "Navigation renders on all pages"
+    - "Mobile menu opens and closes"
+
+sentinel_validation_rules:
+  - rule: "No dangerouslySetInnerHTML without explicit sanitization"
+    severity: critical
+
+success_metrics:
+  - metric: "Component test coverage"
+    target: ">90%"
+
+rollback_strategy: "Revert component; pages using it revert with it"

@@ -1,0 +1,54 @@
+﻿id: SPEC-MOD-TESTING
+module: MOD-TESTING
+boss: VEDAADVISORBOSS
+status: DRAFT
+priority: HIGH
+created: "2026-06-26"
+
+business:
+  objective: "Ensure Veda Advisors website quality through automated testing including visual regression for key marketing pages"
+  stakeholders: [engineering team]
+
+requirements:
+  functional:
+    - "Vitest unit tests for API routes and utility functions"
+    - "Playwright E2E for homepage, Stage 0 form, and India page"
+    - "Visual regression tests for key pages"
+    - "90% coverage target for API routes"
+    - "All tests run on every PR in CI"
+  technical:
+    - "vitest.config.ts for unit tests"
+    - "playwright.config.ts for E2E"
+    - "bun run test in CI"
+  non_functional:
+    performance: "Full suite <5 minutes"
+    security: "No real DB connections in unit tests"
+
+security:
+  requirements:
+    - "Test environment uses separate DB from production"
+  fraud_scenarios: []
+
+acceptance_criteria:
+  - given: "A PR is opened"
+    when: "CI runs"
+    then: "All tests pass and coverage reported"
+
+tests:
+  unit:
+    - "API route validation logic"
+    - "Email validation utility"
+  e2e:
+    - "Homepage loads"
+    - "Stage 0 form submits"
+    - "India page loads"
+
+sentinel_validation_rules:
+  - rule: "Production DATABASE_URL must not be used in tests"
+    severity: critical
+
+success_metrics:
+  - metric: "Test coverage"
+    target: ">90% for API routes"
+
+rollback_strategy: "N/A: testing infrastructure does not affect production"
