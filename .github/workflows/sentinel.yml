@@ -1,4 +1,4 @@
-﻿name: Sentinel Governance Checks
+name: Sentinel Governance Checks
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ jobs:
     name: Secret Scanning
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Scan for secrets
@@ -24,7 +24,7 @@ jobs:
     name: Documentation Sentinel Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check SENTINEL.md exists
         run: |
           if [ ! -f SENTINEL.md ]; then
@@ -46,7 +46,7 @@ jobs:
     name: Security Pattern Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check for hardcoded credential patterns
         run: |
           echo "Scanning for hardcoded credential patterns..."
@@ -63,7 +63,7 @@ jobs:
     name: ADR Reminder
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 2
       - name: Remind about ADRs for architecture changes
