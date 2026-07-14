@@ -3,6 +3,20 @@
 > All agents listed here have been explicitly authorized by the repository owner.
 > Owner: raajat.agarwal@gmail.com | ID: 9f3b0147-85ba-4461-9e27-aa782b313285
 >
+> **Scope declaration, added 2026-07-14 (Owner directive, `compliance-tracker`
+> `ai-os/MASTER-TRACKER.yaml` OPEN-10):** this repo is now declared to be under
+> VERIDIAN AI OS's governance umbrella going forward. This is a **declaration of
+> intent/scope only** — as of this date, veda-advisors has **zero real
+> integration** with VERIDIAN AI OS (no `veridian-client`-equivalent, no calls to
+> `compliance-tracker`'s `/api/v1/*` surface, runs Prisma which
+> `compliance-tracker/CLAUDE.md` explicitly forbids). **No migration work
+> (Prisma→Drizzle, wiring to VERIDIAN's API, moving AI calls to VERIDIAN) is
+> authorized — do not start it without a separate, explicit Owner go-ahead.**
+> This note exists so a future session doesn't assume integration already
+> happened just because this declaration exists, and doesn't start the
+> migration unprompted just because the declaration exists either. Treat
+> exactly like a deliberately-deferred item, not a ratified-against one.
+>
 > This file was brought up to a governance baseline on 2026-07-11, porting the
 > operating-rules discipline established in `FChecklist/compliance-tracker`'s
 > `AGENTS.md`. Everything below was checked against this repo's actual state
